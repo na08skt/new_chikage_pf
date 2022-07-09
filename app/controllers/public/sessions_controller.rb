@@ -2,7 +2,7 @@
 
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-
+  before_action :user_state, only: [:create]
   # GET /resource/sign_in
   # def new
   #   super
@@ -18,6 +18,16 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def user_state
+  @user = User.find_by(email: params[:user][:email])
+  return if !@user
+  # PWがあっているかつ、user_statusがtrueになっている場合、退会済みの会員
+  if @user.valid_password?(params[:user][:password]) && (@user.user_status == true)
+    flash[:notice] = "退会済みです"
+    redirect_to new_user_registration_path
+  end
+  end
+  
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
