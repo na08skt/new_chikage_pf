@@ -21,3 +21,16 @@ User.create!(
     したい場合は、お手数ですがご自身でアカウントを作成し
     てください。'
   )
+
+User.create!(
+    account_name: 'chikage_test1',
+    email: 'chikage@test1.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test１”です'
+  )
+User.create!(
+    account_name: 'chikage_test2',
+    email: 'chikage@test2.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test2”です'
+  )

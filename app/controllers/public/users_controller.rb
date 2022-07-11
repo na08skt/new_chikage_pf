@@ -1,8 +1,11 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!
   def index
+    @user = User.all
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -14,6 +17,18 @@ class Public::UsersController < ApplicationController
     @user.update(user_status: true)
     reset_session
     redirect_to root_path
+  end
+
+  # 特定のユーザーがフォローしている人全員
+  def followings
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+
+  #　特定のユーザのフォロワー
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
   end
 
   def destroy

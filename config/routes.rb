@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-
-  namespace :public do
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
-    get 'users/destroy'
-  end
   devise_for :users, skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
@@ -24,7 +17,13 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+      # on: :member routingにIDを含めることができる
+    get :followings, on: :member
+    get :followers, on: :member
+    end
+
     resources :location_reports, only: [:new, :index, :show]
     get 'top' => 'location_reports#top'
     # 退会用
