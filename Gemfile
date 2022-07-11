@@ -57,3 +57,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # 以下新規追加gem
 gem 'devise'
 gem "dotenv-rails"
+gem "gon"
