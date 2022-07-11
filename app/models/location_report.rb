@@ -1,0 +1,2 @@
+class LocationReport < ApplicationRecord
+end
