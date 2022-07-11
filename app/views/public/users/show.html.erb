@@ -1,0 +1,15 @@
+<%= @user.account_name %>
+<p><%= link_to @user.followings.count, followings_public_user_path(@user) %>フォロー<%= link_to @user.followers.count, followers_public_user_path(@user) %>フォロワー</p>
+<% if current_user.id == @user.id %>
+  <%= link_to "編集ページ", edit_public_user_path(@user) %>
+<% else %>
+  <% if @user.is_followed_by?(current_user) %>
+    <%= link_to public_user_relationships_path(@user), method: :delete do %>
+    <button class="btn btn-danger">フォロー解除する</button>
+    <% end %>
+  <% else %>
+    <%= link_to public_user_relationships_path(@user), method: :post do %>
+      <button class="btn btn-primary">フォロー</button>
+    <% end %>
+  <% end %>
+<% end %>

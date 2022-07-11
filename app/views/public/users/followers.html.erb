@@ -1,0 +1,27 @@
+<!--フォロワー：ユーザーをフォローしてくれている人-->
+<table class="table">
+  <thead>
+    <tr>
+      <th>アカウントネーム</th>
+      <th>Last Name</th>
+    </tr>
+  </thead>
+  <% @users.each do |user| %>
+    <tbody>
+      <tr>
+        <td><%= user.account_name%></td>
+        <td>
+          <% if user.is_followed_by?(current_user) %>
+            <%= link_to public_user_relationships_path(user), method: :delete do %>
+            <button class="btn btn-danger">フォロー解除する</button>
+            <% end %>
+          <% else %>
+            <%= link_to public_user_relationships_path(user), method: :post do %>
+              <button class="btn btn-primary">フォロー</button>
+            <% end %>
+          <% end %>
+      </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

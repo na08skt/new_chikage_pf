@@ -1,21 +1,20 @@
 class CreateLocationReports < ActiveRecord::Migration[6.1]
   def change
     create_table :location_reports do |t|
-      user_id :integer
-      comment_id :integer
-      title :string, null: false
-      area :string, null: false
-      address :text, null: false
+      t.integer :user_id
+      t.integer :comment_id
+      t.string :title, null: false
+      t.string :area, null: false
+      t.text :address, null: false
       # 緯度
-      latitude :decimal, null: false
-      # 
-      
-      longitude :decimal, null: false
-      date :date, null: false
-      event :string
-      body :string, null: false 
+      t.decimal :latitude, null: false
+      # 経度
+      t.decimal :longitude, null: false
+      t.date :date, null: false
+      t.string :event
+      t.string :body, null: false
       # 退会ステータスと同様、trueの場合に非公開にする。
-      publication_status :boolean, null: false, default: false
+      t.boolean :publication_status, null: false, default: false
 
       t.timestamps
     end
