@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get :followers, on: :member
     end
 
-    resources :location_reports, only: [:new, :index, :show]
+    resources :location_reports, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     get 'top' => 'location_reports#top'
     # 退会用
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'

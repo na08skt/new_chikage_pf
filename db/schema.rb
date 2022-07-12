@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_09_023432) do
+ActiveRecord::Schema.define(version: 2022_07_12_153405) do
 
   create_table "Users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 2022_07_09_023432) do
     t.string "title", null: false
     t.string "area", null: false
     t.text "address", null: false
-    t.decimal "latitude", null: false
-    t.decimal "longitude", null: false
+    t.float "latitude", null: false 
+    t.float "longitude", null: false
     t.date "date", null: false
     t.string "event"
     t.string "body", null: false
