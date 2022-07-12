@@ -1,2 +1,26 @@
-<h1>Public::LocationReports#new</h1>
-<p>Find me in app/views/public/location_reports/new.html.erb</p>
+<%= form_with model: @location_reports, url: public_location_reports_path, method: :post do |f|%>
+  <div class="form-group">
+    <%= f.label :title, "投稿タイトル" %>
+    <%= f.text_field :title, placeholder: "タイトルを入力してください" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body%>
+    <%= f.text_area :body, placeholder: "本文記入欄です" %>
+  </div>
+
+  <div class="form-group">
+    <!--プルダウン式で選択させたい=>f.select :OO,[["表示する文字”, "データベースに登録する値”]]-->
+    <%= f.label :area %>
+    <%= f.select :area, [["北海道", "北海道"], ["東北", "東北"],["関東","関東"],["東海","東海"],
+    ["甲信越","甲信越"],["北陸","北陸"],["関西","関西"],["中国（山陰山陽）","中国（山陰山陽）"],
+    ["四国","四国"],["九州","九州"],["沖縄","沖縄"]], class: "form_control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :address %>
+    <%= f.text_field :address, class: "form_control", placeholder: "〇〇県△△市XXXX" %>
+  </div>
+
+    <%= f.submit "投稿する"%>
+
+<% end %>
