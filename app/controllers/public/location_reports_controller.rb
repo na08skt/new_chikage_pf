@@ -13,8 +13,8 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def index
-    @location_reports = LocationReport.all
-    
+    @location_reports = LocationReport.page(params[:page]).per(10)
+
   end
 
   def show
