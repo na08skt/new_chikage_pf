@@ -60,5 +60,7 @@ gem 'devise'
 gem "dotenv-rails"
 # コントローラで定義したインスタンスをビューの中のjavascriptで使えるようにするため
 gem "gon"
-# 住所から緯度経度を出す=>apiで動かす
+# 住所から緯度経度を出す
 gem 'geocoder'
+# ページネーション
+gem 'kaminari','~> 1.2.1'
