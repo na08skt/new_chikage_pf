@@ -1,2 +1,73 @@
-<h1>Public::LocationReports#show</h1>
-<p>Find me in app/views/public/location_reports/show.html.erb</p>
+
+<%= @location_report.title %>
+<%= @location_report.body %>
+<%= @location_report.area %>
+<%= @location_report.address %>
+<%= @location_report.date %>
+<% if @location_report.present? %>
+    <%= @location_report.event %>
+<% end %>
+
+<!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
+<% if current_user.id == @location_report.user_id %>
+  <%= link_to "編集ページへ", edit_public_location_report_path(@location_report) %>
+  <%= link_to "消去する", public_location_report_path(@location_report), method: :delete %>
+<% end %>
+
+<!--以下後日実装=>保存されたアドレスからmapを表示-->
+<!--<h2>gmap</h2>-->
+
+<!-- 地名入力用のinputを追加 -->
+<!--<input id="address" type="textbox" value="Sydney, NSW">-->
+
+<!-- buttonをクリックしたらcodeAddressを実行　-->
+<!--<input type="button" value="Encode" onclick="codeAddress()">-->
+<!--<div id='map'>-->
+<!--</div>-->
+
+<!--<style>-->
+<!--#map{-->
+<!--  height: 400px;-->
+<!--}-->
+<!--</style>-->
+
+<!--<script>-->
+<!--/*-->
+<!--mapを関数の外で定義(codeAddressでも使うため)-->
+<!--geocoderを用意-->
+<!--*/-->
+
+<!--let map-->
+<!--let geocoder-->
+
+<!--function initMap(){-->
+  <!--geocoderを初期化-->
+<!--  geocoder = new google.maps.Geocoder()-->
+
+<!--  map = new google.maps.Map(document.getElementById('map'), {-->
+<!--  center: {lat: -34.397, lng: 150.644},-->
+<!--  zoom: 8-->
+<!--  });-->
+<!--}-->
+
+<!--function codeAddress(){-->
+  <!--入力を取得-->
+<!--  let inputAddress = document.getElementById('address').value;-->
+
+  <!--geocodingしたあとmapを移動-->
+<!--  geocoder.geocode( { 'address': inputAddress}, function(results, status) {-->
+<!--    if (status == 'OK') {-->
+　　　　　　　　　　　　<!--map.setCenterで地図が移動-->
+<!--      map.setCenter(results[0].geometry.location);-->
+
+　　　　　　　　　　　　<!--google.maps.MarkerでGoogleMap上の指定位置にマーカが立つ-->
+<!--      var marker = new google.maps.Marker({-->
+<!--          map: map,-->
+<!--          position: results[0].geometry.location-->
+<!--      });-->
+<!--    } else {-->
+<!--      alert('Geocode was not successful for the following reason: ' + status);-->
+<!--    }-->
+<!--  });-->
+<!--}-->
+<!--</script>-->
