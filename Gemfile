@@ -63,3 +63,4 @@ gem "gon"
 # 住所から緯度経度を出す
 
 gem 'geocoder'
+gem 'kaminari','~> 1.2.1'
