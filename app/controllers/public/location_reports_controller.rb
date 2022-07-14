@@ -14,11 +14,12 @@ class Public::LocationReportsController < ApplicationController
 
   def index
     @location_reports = LocationReport.page(params[:page]).per(10)
-
   end
 
   def show
     @location_report = LocationReport.find(params[:id])
+    @comment = Comment.new
+    @comments = Comment.all
   end
 
   def edit

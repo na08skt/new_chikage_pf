@@ -4,8 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # コメントの関係
   has_many :location_reports,dependent: :destroy
+  has_many :comments, dependent: :destroy
 
+  # いいねの関係
+  has_many :favorites, dependent: :destroy
+
+  # フォローの関係
   has_many :relationships, foreign_key: :following_id
   # あるユーザーがフォローしているユーザー全員を探す
   has_many :followings, through: :relationships, source: :follower

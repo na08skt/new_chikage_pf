@@ -24,7 +24,9 @@ Rails.application.routes.draw do
     get :followers, on: :member
     end
 
-    resources :location_reports, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+    resources :location_reports, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+      resources :comments, only: [:create, :destroy]
+    end
 
     get 'top' => 'location_reports#top'
     # 退会用

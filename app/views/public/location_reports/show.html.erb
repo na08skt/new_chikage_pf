@@ -14,6 +14,23 @@
   <%= link_to "消去する", public_location_report_path(@location_report), method: :delete %>
 <% end %>
 
+
+<% @comments.each do |comment| %>
+  <%= link_to "#{comment.user.account_name}", public_user_path(comment.user_id) %>
+  <%= comment.body%>
+
+  <% if current_user == comment.user %>
+      <%= link_to "消去する", public_location_report_comment_path(@location_report, comment.id), method: :delete %>
+      <!--時間があればコメントの編集ページも作る-->
+      <%#= link_to "編集する" _path %>
+  <% end %>
+<% end %>
+
+<%= form_with model: [@location_report, @comment], url: public_location_report_comments_path(@location_report.id), method: :post do |f| %>
+  <%= f.label :body  %>
+  <%= f.text_area :body, placeholder: "コメントを記入してください" %>
+  <%= f.submit "コメントを投稿する"%>
+<% end %>
 <!--以下後日実装=>保存されたアドレスからmapを表示-->
 <!--<h2>gmap</h2>-->
 
