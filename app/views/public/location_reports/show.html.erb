@@ -14,6 +14,23 @@
   <%= link_to "消去する", public_location_report_path(@location_report), method: :delete %>
 <% end %>
 
+<!--いいね機能-->
+<% if @location_report.favorited_by?(current_user) %>
+  <p>
+    <%= link_to public_location_report_favorites_path(@location_report), method: :delete do %>
+      ♥<%= @location_report.favorites.count %> いいね
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to public_location_report_favorites_path(@location_report), method: :post do %>
+      ♡<%= @location_report.favorites.count %> いいね
+    <% end %>
+  </p>
+<% end %>
+
+<!--いったよ機能=>未編集-->
+
 
 <% @comments.each do |comment| %>
   <%= link_to "#{comment.user.account_name}", public_user_path(comment.user_id) %>
@@ -27,7 +44,7 @@
 <% end %>
 
 <%= form_with model: [@location_report, @comment], url: public_location_report_comments_path(@location_report.id), method: :post do |f| %>
-  <%= f.label :body  %>
+  <%= f.label :body %>
   <%= f.text_area :body, placeholder: "コメントを記入してください" %>
   <%= f.submit "コメントを投稿する"%>
 <% end %>

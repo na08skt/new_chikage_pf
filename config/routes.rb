@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
     resources :location_reports, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+      resource :experiences, only: [:create, :destroy]
     end
 
     get 'top' => 'location_reports#top'

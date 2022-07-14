@@ -11,6 +11,9 @@ class User < ApplicationRecord
   # いいねの関係
   has_many :favorites, dependent: :destroy
 
+  # いったよ機能
+  has_many :experiences, dependent: :destroy
+
   # フォローの関係
   has_many :relationships, foreign_key: :following_id
   # あるユーザーがフォローしているユーザー全員を探す
