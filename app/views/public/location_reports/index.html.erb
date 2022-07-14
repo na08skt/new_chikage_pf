@@ -7,6 +7,7 @@
       <th>date</th>
       <th>like</th>
       <th>comment</th>
+      <th>experiences</th>
     </tr>
   </thead>
   <% @location_reports.each do |location_report|%>
@@ -18,9 +19,9 @@
       <td><%= location_report.area%></td>
       <td><%= location_report.date%></td>
       <!--以下未実装項目-->
-      <td><%#= location_report.like%></td>
-      <td><%#= location_report.comment.count%></td>
-      <td><%#= location_report.experience%></td>
+      <td><%= location_report.favorites.count %></td>
+      <td><%= location_report.comments.count%></td>
+      <td><%= location_report.experiences.count %></td>
     </tr>
   </tbody>
   <% end %>

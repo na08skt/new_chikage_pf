@@ -8,6 +8,8 @@
     <%= @location_report.event %>
 <% end %>
 
+
+
 <!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
 <% if current_user.id == @location_report.user_id %>
   <%= link_to "編集ページへ", edit_public_location_report_path(@location_report) %>
@@ -28,8 +30,79 @@
     <% end %>
   </p>
 <% end %>
+<!-- いいねしてくれた人たち -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FavoriteModal">
+  いいねしてくれたユーザ
+</button>
+<div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% if @favorites.count == 0 %>
+          <p>まだ誰もみてくれてないみたい！</p>
+        <% else %>
+          <% @favorites.each do |favorite| %>
+            <%= link_to "#{favorite.user.account_name}", public_user_path(favorite.user) %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!--いったよ機能=>未編集-->
+
+
+<!--いったよ機能-->
+<% if @location_report.experienced_by?(current_user) %>
+  <p>
+    <%= link_to public_location_report_experiences_path(@location_report), method: :delete do %>
+      ♠︎<%= @location_report.experiences.count %>いったよ
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to public_location_report_experiences_path(@location_report), method: :post do %>
+      ♤︎<%= @location_report.experiences.count %> まだいってない
+    <% end %>
+  </p>
+<% end %>
+<!-- いったことのあるユーザ -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExperiencesModal">
+  いったことのあるユーザ
+</button>
+<div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% if @experiences.count == 0 %>
+          <p>まだ、そんなに混んでいないのかも</p>
+        <% else %>
+          <% @experiences.each do |experiences| %>
+            <%= link_to "#{experiences.user.account_name}", public_user_path(experiences.user) %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <% @comments.each do |comment| %>

@@ -30,6 +30,9 @@
     <%= f.label :address %>
     <%= f.text_field :address, class: "form_control", placeholder: "〇〇県△△市XXXX" %>
   </div>
+  
+    <%= f.label :publication_status, "公開非公開設定"%>
+    <%= f.select :publication_status, [["公開", "false"],["非公開", "true"]], class: "custom-select" %>
 
     <%= f.submit "投稿する"%>
 <% end %>

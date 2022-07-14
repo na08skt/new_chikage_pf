@@ -13,11 +13,15 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def index
+    @location_reports = LocationReport.published
     @location_reports = LocationReport.page(params[:page]).per(10)
   end
 
   def show
+    @location_report = LocationReport.published
     @location_report = LocationReport.find(params[:id])
+    @favorites = Favorite.where(location_report_id: @location_report.id)
+    @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
     @comments = Comment.all
   end
