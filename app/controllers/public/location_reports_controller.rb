@@ -17,6 +17,15 @@ class Public::LocationReportsController < ApplicationController
     @location_reports = LocationReport.page(params[:page]).per(10)
   end
 
+  # search （検索）
+  def search
+  @searchs = LocationReport.search(params[:keyword])
+  @keyword = params[:keyword]
+  # エラー↓レンダーすると元々あったインスタンスのデータが飛んでいる
+  # render index
+
+  end
+
   def show
     @location_report = LocationReport.published
     @location_report = LocationReport.find(params[:id])

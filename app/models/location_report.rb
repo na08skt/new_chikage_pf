@@ -15,6 +15,11 @@ class LocationReport < ApplicationRecord
   scope :unpublished, -> {where(publication_status: true)}
   scope :published, -> {where(publication_status: false)}
 
+# 検索
+def self.search(keyword)
+  where(["title like? OR body like? OR area like? OR address like? OR event like?", "%#{keyword}%", "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%"])
+end
+
 # いいねがあるかチェック
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

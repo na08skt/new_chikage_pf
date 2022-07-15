@@ -1,5 +1,7 @@
 <%= @user.account_name %>
 <p><%= link_to @user.followings.count, followings_public_user_path(@user) %>フォロー<%= link_to @user.followers.count, followers_public_user_path(@user) %>フォロワー</p>
+
+
 <% if current_user.id == @user.id %>
   <%= link_to "編集ページ", edit_public_user_path(@user) %>
 <% else %>
@@ -13,3 +15,12 @@
     <% end %>
   <% end %>
 <% end %>
+
+<!--とりあえず表示はできる-->
+<% @location_report.each do |location_report| %>
+  <%= location_report.body %>
+<% end %>
+
+<%= @user.introduction %>
+
+<!--管理者からのコメントがあれば記載する-->

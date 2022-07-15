@@ -1,4 +1,21 @@
-<%= render 'header.location' %>
+<%= link_to "新規投稿", new_public_location_report_path %>
+
+<!--検索フォーム=>保留中--> 
+<!--<div class="search-form">-->
+  <%#= form_with url: public_user_path do |f| %>
+    <%#= f.text_field :keyword, value: @keyword %>
+    <%#= f.submit "検索" %>
+  <%# end %>
+<!--</div>-->
+
+<!--<div class="search_result">-->
+<!--  <%# if @searchs.present? %>-->
+<!--    <%# @searchs.each do |search| %>-->
+<!--      <%#= search.title %>-->
+<!--    <%# end %>-->
+<!--  <%# end %>-->
+<!--</div>-->
+
 <table class="table">
   <thead>
     <tr>
@@ -10,7 +27,8 @@
       <th>experiences</th>
     </tr>
   </thead>
-  <% @location_reports.each do |location_report|%>
+
+  <% @location_reports.each do |location_report| %>
   <tbody>
     <tr>
       <th scope="row">

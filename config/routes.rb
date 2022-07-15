@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       resources :experiences, only: [:index]
       resource :experiences, only: [:create, :destroy]
     end
-
+    # get 'search' => 'location_reports#search'
     get 'top' => 'location_reports#top'
     # 退会用
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
