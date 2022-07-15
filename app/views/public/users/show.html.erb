@@ -1,7 +1,7 @@
 <%= @user.account_name %>
 <p><%= link_to @user.followings.count, followings_public_user_path(@user) %>フォロー<%= link_to @user.followers.count, followers_public_user_path(@user) %>フォロワー</p>
 
-
+<!--ログイン中ユーザと一致した場合は編集ページへ、不一致の場合、フォローボタンの表示-->
 <% if current_user.id == @user.id %>
   <%= link_to "編集ページ", edit_public_user_path(@user) %>
 <% else %>
@@ -16,11 +16,15 @@
   <% end %>
 <% end %>
 
-<!--とりあえず表示はできる-->
-<% @location_report.each do |location_report| %>
-  <%= location_report.body %>
-<% end %>
-
 <%= @user.introduction %>
+
+<!--とりあえず表示はできる-->
+
+<% @location_report.each do |location_report| %>
+  <%= link_to "#{location_report.title}", public_location_report_path(location_report) %>
+  <%= location_report.body %>
+  <p>❤︎いいね数：<%= location_report.favorites.count %></p>
+  <p>♠︎いったよ数:<%= location_report.experiences.count %></p>
+<% end %>
 
 <!--管理者からのコメントがあれば記載する-->
