@@ -1,0 +1,13 @@
+<p>ユーザー情報</p>
+
+<%= @user.account_name%>
+<%= @user.email%>
+<%= @user.introduction%>
+
+<%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+<%= f.select :user_condition, [["有効","false"], ["凍結","true"]] %>
+<%= f.select :user_rank, [["🔰初心者🔰", 1],["✈旅のセミプロ✈︎", 2],["👑旅のプロフェッショナル👑", 3]] %>
+<%= f.text_area :admin_comment, palaceholder: "管理者コメントを入力できます。" %>
+
+  <%= f.submit "提出する" %>
+<% end %>

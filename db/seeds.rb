@@ -28,9 +28,17 @@ User.create!(
     password: 'chikage',
     introduction: '現在使用中のユーザは”chikage_test１”です'
   )
+  
 User.create!(
     account_name: 'chikage_test2',
     email: 'chikage@test2.com',
     password: 'chikage',
     introduction: '現在使用中のユーザは”chikage_test2”です'
+  )
+  
+User.create!(
+    account_name: 'chikage_test3',
+    email: 'chikage@test3.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test3”です'
   )

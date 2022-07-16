@@ -8,7 +8,8 @@ gem 'rails', '~> 6.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+# gem 'puma', '~> 5.0'
+gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -58,6 +59,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 # 環境変数=>apiセキュリティのため
 gem "dotenv-rails"
+group :production do
+  gem 'mysql2'
+end
 # コントローラで定義したインスタンスをビューの中のjavascriptで使えるようにするため
 gem "gon"
 # 住所から緯度経度を出す

@@ -1,30 +1,36 @@
 <%= @user.account_name %>
-<p><%= link_to @user.followings.count, followings_public_user_path(@user) %>フォロー<%= link_to @user.followers.count, followers_public_user_path(@user) %>フォロワー</p>
+  <p><%= link_to @user.followings.count, followings_public_user_path(@user) %>フォロー<%= link_to @user.followers.count, followers_public_user_path(@user) %>フォロワー</p>
 
-<!--ログイン中ユーザと一致した場合は編集ページへ、不一致の場合、フォローボタンの表示-->
-<% if current_user.id == @user.id %>
-  <%= link_to "編集ページ", edit_public_user_path(@user) %>
-<% else %>
-  <% if @user.is_followed_by?(current_user) %>
-    <%= link_to public_user_relationships_path(@user), method: :delete do %>
-    <button class="btn btn-danger">フォロー解除する</button>
-    <% end %>
+  <!--ログイン中ユーザと一致した場合は編集ページへ、不一致の場合、フォローボタンの表示-->
+  <% if current_user.id == @user.id %>
+    <%= link_to "編集ページ", edit_public_user_path(@user) %>
   <% else %>
-    <%= link_to public_user_relationships_path(@user), method: :post do %>
-      <button class="btn btn-primary">フォロー</button>
+    <% if @user.is_followed_by?(current_user) %>
+      <%= link_to public_user_relationships_path(@user), method: :delete do %>
+      <button class="btn btn-danger">フォロー解除する</button>
+      <% end %>
+    <% else %>
+      <%= link_to public_user_relationships_path(@user), method: :post do %>
+        <button class="btn btn-primary">フォロー</button>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
 
-<%= @user.introduction %>
+  <%= @user.introduction %>
+  <% if @user.user_rank == 1 %>
+      <p>🔰初心者🔰</p>
+  <% elsif @user.user_rank == 2 %>
+      <p>✈旅のセミプロ✈</p>
+  <% else @user.user_rank == 3 %>
+      <p>👑旅のプロフェッショナル👑</p>
+  <% end %>
 
-<!--とりあえず表示はできる-->
+  <% @location_report.each do |location_report| %>
+    <%= link_to "#{location_report.title}", public_location_report_path(location_report) %>
+    <%= location_report.body %>
+    <p>❤︎いいね数：<%= location_report.favorites.count %></p>
+    <p>♠︎いったよ数:<%= location_report.experiences.count %></p>
+  <% end %>
 
-<% @location_report.each do |location_report| %>
-  <%= link_to "#{location_report.title}", public_location_report_path(location_report) %>
-  <%= location_report.body %>
-  <p>❤︎いいね数：<%= location_report.favorites.count %></p>
-  <p>♠︎いったよ数:<%= location_report.experiences.count %></p>
-<% end %>
-
-<!--管理者からのコメントがあれば記載する-->
+  <!--管理者からのコメントがあれば記載する-->
+  <%= @user.admin_comment %>

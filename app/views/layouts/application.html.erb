@@ -33,11 +33,12 @@
       </div>
     </div>
 
-    <% if user_signed_in? == true && current_user.user_status == false || user_signed_in? == false %>
-      <%= yield %>
+    <% if user_signed_in? == true && current_user.user_condition == true %>
+      <p>現在ログイン中のアカウントは凍結中です</p>
     <% else %>
-    <p>現在ログイン中のアカウントは凍結中です。</p>
+      <%= yield %>
     <% end %>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['Maps_API_Key'] %>&callback=initMap" async defer></script>
   </body>
 </html>
