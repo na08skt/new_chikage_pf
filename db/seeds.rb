@@ -9,13 +9,13 @@
 
 Admin.create!(
     email: 'chikage@admin.com',
-    password: 'chikage'
+    password: ENV['ADMIN_PASSWORD']
 )
 
 User.create!(
     account_name: 'chikage_guest',
     email: 'chikage@guest.com',
-    password: 'chikage',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
     introduction: 'このアカウントはゲストログイン専用の
     アカウントのため機能が制限されています。機能をご利用
     したい場合は、お手数ですがご自身でアカウントを作成し
@@ -28,14 +28,14 @@ User.create!(
     password: 'chikage',
     introduction: '現在使用中のユーザは”chikage_test１”です'
   )
-  
+
 User.create!(
     account_name: 'chikage_test2',
     email: 'chikage@test2.com',
     password: 'chikage',
     introduction: '現在使用中のユーザは”chikage_test2”です'
   )
-  
+
 User.create!(
     account_name: 'chikage_test3',
     email: 'chikage@test3.com',
