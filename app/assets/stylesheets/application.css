@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+ body {
+   background-color: yellow;
+ }
+
+/*.page-cover{*/
+/*  background-color: purple;*/
+/*}*/
+
+.page-top {
+  background-color: red;
+  margin: 50px;
+}
+
+.page-title {
+  line-height: 180px;
+  height: 180px;
+}

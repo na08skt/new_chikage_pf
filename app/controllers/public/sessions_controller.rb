@@ -22,12 +22,12 @@ class Public::SessionsController < Devise::SessionsController
   @user = User.find_by(email: params[:user][:email])
   return if !@user
   # PWがあっているかつ、user_statusがtrueになっている場合、退会済みの会員
-  if @user.valid_password?(params[:user][:password]) && (@user.user_status == true)
+  if @user.valid_password?(params[:user][:password]) && (@user.user_condition == true)
     flash[:notice] = "退会済みです"
     redirect_to new_user_registration_path
   end
   end
-  
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

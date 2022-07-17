@@ -1,2 +1,180 @@
-<h1>Public::LocationReports#show</h1>
-<p>Find me in app/views/public/location_reports/show.html.erb</p>
+
+<%= @location_report.title %>
+<%= @location_report.body %>
+<%= @location_report.area %>
+<%= @location_report.address %>
+<%= @location_report.date %>
+<% if @location_report.present? %>
+    <%= @location_report.event %>
+<% end %>
+
+
+
+<!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
+<% if current_user.id == @location_report.user_id %>
+  <%= link_to "編集ページへ", edit_public_location_report_path(@location_report) %>
+  <%= link_to "消去する", public_location_report_path(@location_report), method: :delete %>
+<% end %>
+
+<!--いいね機能-->
+<% if @location_report.favorited_by?(current_user) %>
+  <p>
+    <%= link_to public_location_report_favorites_path(@location_report), method: :delete do %>
+      ♥<%= @location_report.favorites.count %> いいね
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to public_location_report_favorites_path(@location_report), method: :post do %>
+      ♡<%= @location_report.favorites.count %> いいね
+    <% end %>
+  </p>
+<% end %>
+<!-- いいねしてくれた人たち -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FavoriteModal">
+  いいねしてくれたユーザ
+</button>
+<div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% if @favorites.count == 0 %>
+          <p>まだ誰もみてくれてないみたい！</p>
+        <% else %>
+          <% @favorites.each do |favorite| %>
+            <%= link_to "#{favorite.user.account_name}", public_user_path(favorite.user) %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--いったよ機能-->
+<% if @location_report.experienced_by?(current_user) %>
+  <p>
+    <%= link_to public_location_report_experiences_path(@location_report), method: :delete do %>
+      ♠︎<%= @location_report.experiences.count %>いったよ
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to public_location_report_experiences_path(@location_report), method: :post do %>
+      ♤︎<%= @location_report.experiences.count %> まだいってない
+    <% end %>
+  </p>
+<% end %>
+<!-- いったことのあるユーザ -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExperiencesModal">
+  いったことのあるユーザ
+</button>
+<div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% if @experiences.count == 0 %>
+          <p>まだ、そんなに混んでいないのかも</p>
+        <% else %>
+          <% @experiences.each do |experiences| %>
+            <%= link_to "#{experiences.user.account_name}", public_user_path(experiences.user) %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% @comments.each do |comment| %>
+  <%= link_to "#{comment.user.account_name}", public_user_path(comment.user_id) %>
+  <%= comment.body%>
+
+  <% if current_user == comment.user %>
+      <%= link_to "消去する", public_location_report_comment_path(@location_report, comment.id), method: :delete %>
+      <!--時間があればコメントの編集ページも作る-->
+      <%#= link_to "編集する" _path %>
+  <% end %>
+<% end %>
+
+<%= form_with model: [@location_report, @comment], url: public_location_report_comments_path(@location_report.id), method: :post do |f| %>
+  <%= f.label :body %>
+  <%= f.text_area :body, placeholder: "コメントを記入してください" %>
+  <%= f.submit "コメントを投稿する"%>
+<% end %>
+<!--以下後日実装=>保存されたアドレスからmapを表示-->
+<!--<h2>gmap</h2>-->
+
+<!-- 地名入力用のinputを追加 -->
+<!--<input id="address" type="textbox" value="Sydney, NSW">-->
+
+<!-- buttonをクリックしたらcodeAddressを実行　-->
+<!--<input type="button" value="Encode" onclick="codeAddress()">-->
+<!--<div id='map'>-->
+<!--</div>-->
+
+<!--<style>-->
+<!--#map{-->
+<!--  height: 400px;-->
+<!--}-->
+<!--</style>-->
+
+<!--<script>-->
+<!--/*-->
+<!--mapを関数の外で定義(codeAddressでも使うため)-->
+<!--geocoderを用意-->
+<!--*/-->
+
+<!--let map-->
+<!--let geocoder-->
+
+<!--function initMap(){-->
+  <!--geocoderを初期化-->
+<!--  geocoder = new google.maps.Geocoder()-->
+
+<!--  map = new google.maps.Map(document.getElementById('map'), {-->
+<!--  center: {lat: -34.397, lng: 150.644},-->
+<!--  zoom: 8-->
+<!--  });-->
+<!--}-->
+
+<!--function codeAddress(){-->
+  <!--入力を取得-->
+<!--  let inputAddress = document.getElementById('address').value;-->
+
+  <!--geocodingしたあとmapを移動-->
+<!--  geocoder.geocode( { 'address': inputAddress}, function(results, status) {-->
+<!--    if (status == 'OK') {-->
+　　　　　　　　　　　　<!--map.setCenterで地図が移動-->
+<!--      map.setCenter(results[0].geometry.location);-->
+
+　　　　　　　　　　　　<!--google.maps.MarkerでGoogleMap上の指定位置にマーカが立つ-->
+<!--      var marker = new google.maps.Marker({-->
+<!--          map: map,-->
+<!--          position: results[0].geometry.location-->
+<!--      });-->
+<!--    } else {-->
+<!--      alert('Geocode was not successful for the following reason: ' + status);-->
+<!--    }-->
+<!--  });-->
+<!--}-->
+<!--</script>-->

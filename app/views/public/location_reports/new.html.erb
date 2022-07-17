@@ -1,4 +1,4 @@
-<%= form_with model: @location_reports, url: public_location_reports_path, method: :post do |f|%>
+<%= form_with model: @location_report, url: public_location_reports_path, method: :post do |f|%>
   <div class="form-group">
     <%= f.label :title, "投稿タイトル" %>
     <%= f.text_field :title, placeholder: "タイトルを入力してください" %>
@@ -6,7 +6,17 @@
 
   <div class="form-group">
     <%= f.label :body%>
-    <%= f.text_area :body, placeholder: "本文記入欄です" %>
+    <%= f.text_area :body, placeholder: "本文記入欄です", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :date %>
+    <%= f.date_select :date, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :event %>
+    <%= f.text_area :event, class: 'form-control' %>
   </div>
 
   <div class="form-group">

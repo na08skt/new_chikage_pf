@@ -1,2 +1,47 @@
-<h1>Public::LocationReports#index</h1>
-<p>Find me in app/views/public/location_reports/index.html.erb</p>
+<%= link_to "新規投稿", new_public_location_report_path %>
+
+<!--検索フォーム=>保留中--> 
+<!--<div class="search-form">-->
+  <%#= form_with url: public_user_path do |f| %>
+    <%#= f.text_field :keyword, value: @keyword %>
+    <%#= f.submit "検索" %>
+  <%# end %>
+<!--</div>-->
+
+<!--<div class="search_result">-->
+<!--  <%# if @searchs.present? %>-->
+<!--    <%# @searchs.each do |search| %>-->
+<!--      <%#= search.title %>-->
+<!--    <%# end %>-->
+<!--  <%# end %>-->
+<!--</div>-->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>title</th>
+      <th>area</th>
+      <th>date</th>
+      <th>like</th>
+      <th>comment</th>
+      <th>experiences</th>
+    </tr>
+  </thead>
+
+  <% @location_reports.each do |location_report| %>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <%= link_to "#{location_report.title}", public_location_report_path(location_report) %>
+      </th>
+      <td><%= location_report.area%></td>
+      <td><%= location_report.date%></td>
+      <!--以下未実装項目-->
+      <td><%= location_report.favorites.count %></td>
+      <td><%= location_report.comments.count%></td>
+      <td><%= location_report.experiences.count %></td>
+    </tr>
+  </tbody>
+  <% end %>
+  <%= paginate @location_reports %>
+</table>
