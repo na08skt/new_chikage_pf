@@ -5,6 +5,9 @@ class Public::LocationReportsController < ApplicationController
     @location_report = LocationReport.new
   end
 
+  def top
+  end
+
   def create
     @location_report = LocationReport.new(location_report_params)
     @location_report.user_id = current_user.id
