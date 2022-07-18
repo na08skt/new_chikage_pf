@@ -57,8 +57,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # 以下新規追加gem
 gem 'devise'
-# 環境変数=>apiセキュリティのため
-gem "dotenv-rails"
+
+
 # コントローラで定義したインスタンスをビューの中のjavascriptで使えるようにするため
 gem "gon"
 # 住所から緯度経度を出す
@@ -66,6 +66,7 @@ gem "gon"
 gem 'geocoder'
 gem 'kaminari','~> 1.2.1'
 
+# 環境変数=>apiセキュリティのため
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
