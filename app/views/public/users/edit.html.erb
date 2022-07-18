@@ -59,6 +59,13 @@
               </tr>
 
               <tr>
+                <div class="form-group">
+                  <td><%= f.label :image %></td>
+                  <td><%= f.file_field :image, accept: "image/*",class: "form-control" %></td>
+                </div>
+              </tr>
+
+              <tr>
                 <td></td>
                 <td><%= f.submit "提出する" %></td>
               </tr>

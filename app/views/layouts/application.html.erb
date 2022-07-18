@@ -6,11 +6,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= include_gon %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-
 
   </head>
 
@@ -24,14 +23,15 @@
       <%= render 'layouts/public_logout'%>
     <% end %>
 
-    <!--flash メッセージ -->
-    <div class="message_space">
-      <div class="flash_message">
-        <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "#{key}") %>
-        <% end %>
+
+      <!--flash メッセージ -->
+      <div class="message_space">
+        <div class="flash_message">
+          <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key} alert alert-success") %>
+          <% end %>
+        </div>
       </div>
-    </div>
 
     <% if user_signed_in? == true && current_user.user_condition == true %>
       <p>現在ログイン中のアカウントは凍結中です</p>
