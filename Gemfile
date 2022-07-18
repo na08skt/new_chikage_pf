@@ -57,8 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # 以下新規追加gem
 gem 'devise'
-
-
 # コントローラで定義したインスタンスをビューの中のjavascriptで使えるようにするため
 gem "gon"
 # 住所から緯度経度を出す
