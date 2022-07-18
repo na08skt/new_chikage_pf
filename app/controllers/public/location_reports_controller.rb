@@ -36,6 +36,7 @@ class Public::LocationReportsController < ApplicationController
     @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
     @comments = Comment.all
+    gon.location_report = @location_report
   end
 
   def edit

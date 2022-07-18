@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one_attached :image
+
   # コメントの関係
   has_many :location_reports,dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -27,6 +29,6 @@ class User < ApplicationRecord
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
-  
-  
+
+
 end

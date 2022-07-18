@@ -6,7 +6,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @location_report = @user.location_reports.all
+    @location_reports = @user.location_reports.all
   end
 
   def edit
@@ -16,6 +16,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(user_params)
+    flash[:notice] = "上書きが完了しました。"
     redirect_to public_user_path(@user)
   end
 
@@ -46,6 +47,6 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:account_name, :email,
     :introduction, :pare_of_instagram, :pare_of_twitter, :user_state,
-    :user_rank)
+    :user_rank, :image)
   end
 end
