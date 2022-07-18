@@ -1,0 +1,12 @@
+<%= @user.account_name%>
+<%= @user.email %>
+<%= @user.account_name %>
+<%= @user.introduction %>
+
+<% if @user.user_condition == false %>
+  <p>有効なプレイヤー</p>
+<% else %>
+  <p>凍結済み</p>
+<% end %>
+<%= @user.admin_comment %>
+<%= @user.user_rank %>

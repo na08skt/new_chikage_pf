@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root to: "public/location_reports#index"
 
   namespace :admin do
-    resources :users, only: [:index, :show, :edit]
+    resources :users, only: [:index, :show, :edit, :update]
     resources :location_reports, only: [:index, :show]
     get 'top' => 'location_reports#top'
   end
@@ -24,7 +24,13 @@ Rails.application.routes.draw do
     get :followers, on: :member
     end
 
-    resources :location_reports, only: [:new, :index, :show]
+    resources :location_reports, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+      resources :experiences, only: [:index]
+      resource :experiences, only: [:create, :destroy]
+    end
+    # get 'search' => 'location_reports#search'
     get 'top' => 'location_reports#top'
     # 退会用
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'

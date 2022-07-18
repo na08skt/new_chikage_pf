@@ -11,6 +11,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 
+
   </head>
 
   <body>
@@ -31,6 +32,13 @@
         <% end %>
       </div>
     </div>
-    <%= yield %>
+
+    <% if user_signed_in? == true && current_user.user_condition == true %>
+      <p>現在ログイン中のアカウントは凍結中です</p>
+    <% else %>
+      <%= yield %>
+    <% end %>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap" async defer></script>
   </body>
 </html>
