@@ -1,1 +1,35 @@
-ユーザー
+<div class="container-fluid">
+  <div class="row mt-5 mb-5">
+    <div class="col-2"></div>
+      <div class="col10">
+        <h1>千　景　-　chikage　-　</h1>
+      </div>
+  </div>
+
+  <div class="row mt-5 mb-5">
+    <div class="col-3"></div>
+    <div class="col-3 ">
+      <%= link_to "Location_reports", public_location_reports_path %>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-3">
+      <%= link_to "Chikage_Users", public_users_path %>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-3"></div>
+    <div class="col-3">
+      <h3>会員様情報</h3>
+      <!--画像を表示させる-->
+    </div>
+    <div class="col-5">
+      <h5>会員名：<%= link_to "#{current_user.account_name}", public_user_path(current_user)%></h5>
+      <p>投稿数：<%= link_to "#{current_user.location_reports.count}", public_location_reports_path(current_user) %></p>
+      <p>フォロー数：<%= link_to "#{current_user.followings.count}", followings_public_user_path(current_user) %> </p>
+      <p>フォワー数：<%= link_to "#{current_user.followers.count}", followers_public_user_path(current_user) %> </p>
+      <%= link_to "マイページへ", public_user_path(current_user) , class: "btn btn-primary"%>
+    </div>
+  </div>
+</div>

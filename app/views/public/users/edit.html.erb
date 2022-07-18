@@ -1,15 +1,71 @@
-<%= form_with model: @user, url: public_user_path(@user), method: :patch do |f| %>
-  <div class="form-group">
-    <%= f.label :account_name %>
-    <%= f.text_field :account_name %>
+<% if current_user.id == 1%>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <div>
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <h3>現在ログイン中のユーザはゲストアカウントのため、機能を制限されています。</h3>
+        <br><br><br>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :introduction %>
-    <%= f.text_area :introduction %>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <%= link_to "新規登録はこちらから", new_user_registration_path, class: "btn btn-primary" %>
+    </div>
+
   </div>
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.text_area :email  %>
+   <div class="row mt-3">
+    <div class="col d-flex justify-content-center ">
+      <%= link_to "アカウントをお持ちの方はこちらから", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+    </div>
   </div>
-  <%= f.submit "提出する" %>
+</div>
+
+<% else %>
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col">
+        <h1>Editing_Plofile,,,</h1>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <%= form_with model: @user, url: public_user_path(@user), method: :patch do |f| %>
+          <table class="table">
+            <tbody>
+              <tr>
+                <div class="form-group">
+                  <td><%= f.label :account_name %></td>
+                  <td><%= f.text_field :account_name , class: "form-control" %></td>
+                </div>
+              </tr>
+
+              <tr>
+                <div class="form-group">
+                  <td><%= f.label :introduction %></td>
+                  <td><%= f.text_area :introduction , class: "form-control" %></td>
+                </div>
+              </tr>
+
+              <tr>
+                <div class="form-group">
+                  <td><%= f.label :email %></td>
+                  <td><%= f.text_area :email, class: "form-control" %></td>
+                </div>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td><%= f.submit "提出する" %></td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>
