@@ -13,10 +13,9 @@
  *= require_tree .
  *= require_self
  */
- body {
-   background-color: yellow;
- }
-
+.sign-form {
+  width: 100%;
+}
 /*.page-cover{*/
 /*  background-color: purple;*/
 /*}*/
@@ -34,4 +33,34 @@
 #map {
   height: 500px;
   width: 100%;
+}
+
+.public-top {
+  height: 350px;
+  width: 350px;
+}
+
+.no-image {
+  height: 100px;
+  width: 100px;
+}
+
+
+/*全体へ適用*/
+.body {
+  margin-bottom: 100px;
+}
+
+/*public/location_reports/top*/
+.top-paginate {
+  margin-top: 100px;
+}
+
+.card {
+  width: 350px;
+  height: 350px;
+}
+
+.card-group {
+  margin: 50px 50px 0px 50px;
 }

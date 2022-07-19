@@ -7,13 +7,47 @@
     <%= csp_meta_tag %>
 
     <%= include_gon %>
+    <script src="https://kit.fontawesome.com/122102e289.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
 
-  <body>
+  <body class="body">
+    <!--google map-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">
+    </script>
+
+    <script>
+      let map;
+
+      function initMap() {
+        // geocoderを初期化
+        geocoder = new google.maps.Geocoder()
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
+          center: {
+            lat: gon.location_report.latitude,
+            lng: gon.location_report.longitude
+          },
+          // マップの倍率はお好みで
+          zoom: 17,
+        });
+
+        marker = new google.maps.Marker({
+          // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
+          position: {
+            lat: gon.location_report.latitude,
+            lng: gon.location_report.longitude
+          },
+          map: map
+        });
+      }
+    </script>
+
     <!--ヘッダー=>管理者　ログイン会員　非ログイン会員の三通りのヘッダー-->
     <% if admin_signed_in? %>
       <%= render 'layouts/admin' %>
@@ -39,6 +73,6 @@
       <%= yield %>
     <% end %>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+
   </body>
 </html>

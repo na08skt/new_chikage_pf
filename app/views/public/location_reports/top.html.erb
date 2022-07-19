@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row mt-5 mb-5">
     <div class="col-2"></div>
-      <div class="col10">
+      <div class="col-10">
         <h1>千　景　-　chikage　-　</h1>
       </div>
   </div>
@@ -21,15 +21,64 @@
   <div class="row mt-5">
     <div class="col-3"></div>
     <div class="col-3">
-      <h3>会員様情報</h3>
-      <!--画像を表示させる-->
+      <h3 class="mb-3">会員様情報</h3>
+      <%= link_to edit_public_user_path(current_user) do %>
+        <% if current_user.image.present? %>
+
+          <%= image_tag current_user.image, size: "200x200", class: "rounded-circle" %>
+        <% else %>
+          <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
+        <% end %>
+      <% end %>
     </div>
-    <div class="col-5">
-      <h5>会員名：<%= link_to "#{current_user.account_name}", public_user_path(current_user)%></h5>
-      <p>投稿数：<%= link_to "#{current_user.location_reports.count}", public_location_reports_path(current_user) %></p>
+    <div class="col-1"></div>
+    <div class="col-3">
+      <h3>会員名：<%= link_to "#{current_user.account_name}", public_user_path(current_user)%></h3>
+      <p class="mt-3">投稿数：<%= link_to "#{current_user.location_reports.count}", public_location_reports_path(current_user) %></p>
       <p>フォロー数：<%= link_to "#{current_user.followings.count}", followings_public_user_path(current_user) %> </p>
       <p>フォワー数：<%= link_to "#{current_user.followers.count}", followers_public_user_path(current_user) %> </p>
       <%= link_to "マイページへ", public_user_path(current_user) , class: "btn btn-primary"%>
     </div>
   </div>
+
+  <div class="row d-flex justify-content-center">
+    <% if @location_reports.count == 0 %>
+      <div class="d-flex">
+        <p>まだ投稿したことがないようです</p>
+        <%= link_to "新規投稿へ", new_public_location_report_path %>
+      </div>
+    <% else %>
+
+      <% @location_reports.each do |report| %>
+        <div class="card-group">
+          <div class="d-flex mt-5">
+            <div class="card">
+              <%= link_to public_location_report_path(report), class: "card-img-top" do %>
+                <% if report.image.present? %>
+                  <%= image_tag report.get_image(348,350) %>
+                <% else %>
+                  <div id="map publoc-top"></div>
+                <% end %>
+              <!--↓link to do の end-->
+              <% end %>
+              <div class="card-body">
+                <p><%= link_to "#{report.title}", public_location_report_path(report)%></p><br>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!--↓each文のend-->
+      <% end %>
+  </div>
+
+      <div class="row d-flex justify-content-center top-paginate">
+        <div class="d-flex">
+          <%= paginate @location_reports %>
+        </div>
+      </div>
+
+    <!--↓投稿のあるかないかのif文-->
+    <% end %>
 </div>
+

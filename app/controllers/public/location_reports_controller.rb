@@ -6,13 +6,14 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def top
+    @location_reports = current_user.location_reports.page(params[:page]).per(3)
   end
 
   def create
     @location_report = LocationReport.new(location_report_params)
     @location_report.user_id = current_user.id
     @location_report.save
-      redirect_to public_location_report_path(@location_report)
+    redirect_to public_location_report_path(@location_report)
   end
 
   def index
@@ -22,11 +23,10 @@ class Public::LocationReportsController < ApplicationController
 
   # search （検索）
   def search
-  @searchs = LocationReport.search(params[:keyword])
-  @keyword = params[:keyword]
-  # エラー↓レンダーすると元々あったインスタンスのデータが飛んでいる
-  # render index
-
+    @searchs = LocationReport.search(params[:keyword])
+    @keyword = params[:keyword]
+    # エラー↓レンダーすると元々あったインスタンスのデータが飛んでいる
+    # render index
   end
 
   def show

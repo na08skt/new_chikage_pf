@@ -3,6 +3,8 @@ class LocationReport < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
+  has_one_attached :image
+
   # コメントの関係
   belongs_to :user
   has_many :comments, dependent: :destroy
