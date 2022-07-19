@@ -1,7 +1,15 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col">
-      <%= image_tag @user.image, size: "200x200", class: "rounded-circle" %>
+      <%= link_to edit_public_user_path(current_user) do %>
+        <% if current_user.image.present? %>
+
+          <%= image_tag current_user.image, size: "200x200", class: "rounded-circle" %>
+        <% else %>
+          <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
+        <% end %>
+      <% end %>
+
       <h4>千 景 会 員 : <%= @user.account_name %></h4>
     </div>
   </div>

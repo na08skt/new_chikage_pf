@@ -1,9 +1,17 @@
-
+<% if @location_report.report_status == true%>
+  <h1>こちらのページは管理者によって制限されてしまいました。</h1>
+  <h3>制限されたページの情報</h3>
+  <p>ページ名：<%= @location_report.title%></p>
+  <p>住所：<%= @location_report.address%></p>
+  <%= link_to "編集する", edit_public_location_report_path(@location_report) ,class: "btn btn-primary"%>
+  <%= link_to "削除する", public_location_report_path(@location_report), method: :delete, class: "btn btn-danger"%>
+<% else %>
 <%= @location_report.title %>
 <%= @location_report.body %>
 <%= @location_report.area %>
 <%= @location_report.address %>
 <%= @location_report.date %>
+
 <% if @location_report.present? %>
     <%= @location_report.event %>
 <% end %>
@@ -110,7 +118,7 @@
   <%= comment.body%>
 
   <% if current_user == comment.user %>
-      <%= link_to "消去する", public_location_report_comment_path(@location_report, comment.id), method: :delete %>
+      <%= link_to "編集する", edit_public_location_report_comment_path(@location_report, comment.id)%>
       <!--時間があればコメントの編集ページも作る-->
       <%#= link_to "編集する" _path %>
   <% end %>
@@ -124,7 +132,7 @@
 
 <div id="map"></div>
 
-
+<% end %>
 
 
 

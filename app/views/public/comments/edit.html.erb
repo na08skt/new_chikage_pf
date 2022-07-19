@@ -1,0 +1,11 @@
+<% if @comment.present?%>
+<%= form_with model: @comment, url: public_location_report_comment_path(@comment), method: :patch do |f| %>
+    <%= f.text_field :body, class: "form-control" %>
+    <%= f.submit "変更する" %>
+<% end %>
+
+<%= link_to "削除する", public_location_report_comment_path(@comment), method: :delete, class: "btn btn-danger" %>
+<% else %>
+  <p>このコメントは削除されてしましました。</p>
+  <%= link_to "投稿一覧ページに戻る方はこちらから", public_location_report_comments_path %>
+  <% end %>

@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:show, :edit, :update, :withdrawal, :followings, :followers]
   def index
     @user = User.all
   end
@@ -38,9 +38,6 @@ class Public::UsersController < ApplicationController
   def followers
     user = User.find(params[:id])
     @users = user.followers
-  end
-
-  def destroy
   end
 
   private

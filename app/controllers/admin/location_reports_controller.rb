@@ -8,12 +8,29 @@ class Admin::LocationReportsController < ApplicationController
   end
 
   def index
+    @location_reports = LocationReport.all
+    @location_reports = LocationReport.page(params[:page]).per(10)
   end
 
   def show
+    @location_report = LocationReport.find(params[:id])
+    @comments = Comment.where(location_report_id: @location_report.id)
+    session[:previous_url] = request.referer
   end
 
-  def edit
+  def update
+    @location_report = LocationReport.find(params[:id])
+    @location_report.update(location_report_params)
+    redirect_to session[:previous_url]
+  end
+
+  def destroy
+
+  end
+
+  private
+  def location_report_params
+    params.require(:location_report).permit(:report_status)
   end
 
 end

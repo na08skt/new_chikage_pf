@@ -1,5 +1,5 @@
 class Public::LocationReportsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:edit, :new, :show, :destroy, :update, :create]
 
   def new
     @location_report = LocationReport.new
@@ -17,11 +17,11 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def index
-    @location_reports = LocationReport.published
+    @location_reports = LocationReport.all
     @location_reports = LocationReport.page(params[:page]).per(10)
   end
 
-  # search （検索）
+  # search （検索機能製作中）
   def search
     @searchs = LocationReport.search(params[:keyword])
     @keyword = params[:keyword]
@@ -30,12 +30,11 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def show
-    @location_report = LocationReport.published
     @location_report = LocationReport.find(params[:id])
     @favorites = Favorite.where(location_report_id: @location_report.id)
     @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
-    @comments = Comment.all
+    @comments = Comment.where(location_report_id: @location_report.id)
     gon.location_report = @location_report
   end
 

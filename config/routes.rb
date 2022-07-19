@@ -12,8 +12,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update]
-    resources :location_reports, only: [:index, :show]
+    resources :location_reports, only: [:index, :show, :update] do
+      resources :comments, only: [:edit, :destroy]
+    end
     get 'top' => 'location_reports#top'
+
   end
 
   namespace :public do
@@ -25,7 +28,7 @@ Rails.application.routes.draw do
     end
 
     resources :location_reports, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
-      resources :comments, only: [:create, :destroy]
+      resources :comments, only: [:edit, :update, :create, :destroy]
       resource :favorites, only: [:create, :destroy]
       resources :experiences, only: [:index]
       resource :experiences, only: [:create, :destroy]

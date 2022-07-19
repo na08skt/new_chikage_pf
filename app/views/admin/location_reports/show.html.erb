@@ -1,2 +1,43 @@
-<h1>Admin::LocationReports#show</h1>
-<p>Find me in app/views/admin/location_reports/show.html.erb</p>
+<div class=""></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+
+<h4>投稿者名：<%= @location_report.user.account_name %></h4>
+
+<%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
+  <%= f.label :report_status, "管理者公開非公開設定" %>
+  <%= f.radio_button :report_status, :true %>
+  <%= f.label :checked, "非公開" %><br />
+  <%= f.radio_button :report_status, :false %>
+  <%= f.label :checked, "公開" %><br />
+  <%= f.submit "変更する" %>
+<% end %>
+
+<!--コメントの削除機能-->
+<% if @comments.present? %>
+  <% @comments.each do |comment| %>
+    <%= comment.body %>
+    <%= link_to "編集する", edit_admin_location_report_comment_path(comment), class: "btn btn-primary"%>
+  <% end %>
+<% else%>
+  <p>この記事にはまだコメントがついていないみたい。</p>
+<% end %>
+
+
+
+
+
+<%#= @location_report.title %>
+<%#= @location_report.body %>
+<%#= @location_report.area %>
+<%#= @location_report.address %>
+<%#= @location_report.date %>
+<%# if @location_report.present? %>
+    <%#= @location_report.event %>
+<%# end %>
