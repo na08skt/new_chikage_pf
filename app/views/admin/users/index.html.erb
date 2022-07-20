@@ -1,2 +1,36 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>chikage_users</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th><p>アカウントネーム</p></th>
+            <th><p>メールアドレス</p></th>
+            <th><p>コンディション</p></th>
+            <th></th>
+          </tr>
+        </thead>
+          <% @users.each do |user| %>
+            <tbody>
+              <tr>
+                <th><%= link_to "#{user.account_name}", admin_user_path(user) %></th>
+                <td><%= user.email %></td>
+                <td>
+                  <% if user.user_condition == false%>
+                    <p>有効</p>
+                  <% else %>
+                    <p>凍結</p>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+    </div>
+  </div>
+</div>

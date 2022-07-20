@@ -1,43 +1,46 @@
-<div class=""></div>
+<div class="container mt-5">
+  <div class="row ml-1">
+    <div class-"col">
+      <h2>投稿タイトル：<%= @location_report.title%></h2>
+        <% if @location_report.image.present? %>
+          <%= image_tag @location_report.image, size: "500x300" %>
+        <% else %>
+          <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
+        <% end %>
+      <h4>投稿者名：<%= @location_report.user.account_name %></h4>
 
-<div class="container-fluid">
-  <div class="row">
+      <%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
+        <%= f.label :report_status, "管理者公開非公開設定：" %>
+        <%= f.select :report_status, [["公開",false], ["非公開",true]], class: "custom-select"%>
+        <%= f.submit "変更する" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mt-3">
     <div class="col">
-
+      <!--コメントの削除機能-->
+      <% if @comments.present? %>
+        <h5>コメント</h5>
+          <table>
+            <thead class="thead-light">
+              <tr>
+                <th>アカウントネーム</th>
+                <th>コメント</th>
+                <th></th>
+              </tr>
+            </thead>
+          <% @comments.each do |comment| %>
+            <tr>
+              <td><%= comment.user.account_name %></td>
+              <td><%= comment.body%></td>
+              <td><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "btn btn-primary ml-3" %></td>
+            </tr>
+          <% end %>
+          </table>
+      <% else%>
+        <p>この記事にはまだコメントがついていないみたい。</p>
+      <% end %>
     </div>
   </div>
 </div>
 
-<h4>投稿者名：<%= @location_report.user.account_name %></h4>
-
-<%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
-  <%= f.label :report_status, "管理者公開非公開設定" %>
-  <%= f.radio_button :report_status, :true %>
-  <%= f.label :checked, "非公開" %><br />
-  <%= f.radio_button :report_status, :false %>
-  <%= f.label :checked, "公開" %><br />
-  <%= f.submit "変更する" %>
-<% end %>
-
-<!--コメントの削除機能-->
-<% if @comments.present? %>
-  <% @comments.each do |comment| %>
-    <%= comment.body %>
-    <%= link_to "編集する", edit_admin_location_report_comment_path(comment), class: "btn btn-primary"%>
-  <% end %>
-<% else%>
-  <p>この記事にはまだコメントがついていないみたい。</p>
-<% end %>
-
-
-
-
-
-<%#= @location_report.title %>
-<%#= @location_report.body %>
-<%#= @location_report.area %>
-<%#= @location_report.address %>
-<%#= @location_report.date %>
-<%# if @location_report.present? %>
-    <%#= @location_report.event %>
-<%# end %>

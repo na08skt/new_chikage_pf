@@ -1,13 +1,36 @@
-<p>ユーザー情報</p>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col">
+      <h1>管理者：会員編集画面</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>編集先ユーザー：<%= @user.account_name%></h3>
+      <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th><%= f.label :user_condition, "使用制限"%></th>
+              <td><%= f.select :user_condition, [["有効",false], ["凍結",true]]%></td>
+            </tr>
+            <tr>
+              <th><%= f.label :user_rank, "会員ランク" %></th>
+              <td><%= f.select :user_rank, [["🔰初心者🔰", 1],["✈旅のセミプロ✈︎", 2],["👑旅のプロフェッショナル👑", 3]] %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :admin_comment, "管理者コメント"%></th>
+              <td> <%= f.text_area :admin_comment, palaceholder: "管理者コメントを入力できます。" %></td>
+            </tr>
+            <tr>
+              <th></th>
+              <td><%= f.submit "提出する" %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<%= @user.account_name%>
-<%= @user.email%>
-<%= @user.introduction%>
 
-<%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
-<%= f.select :user_condition, [["有効","false"], ["凍結","true"]] %>
-<%= f.select :user_rank, [["🔰初心者🔰", 1],["✈旅のセミプロ✈︎", 2],["👑旅のプロフェッショナル👑", 3]] %>
-<%= f.text_area :admin_comment, palaceholder: "管理者コメントを入力できます。" %>
-
-  <%= f.submit "提出する" %>
-<% end %>

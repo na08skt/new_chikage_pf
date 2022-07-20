@@ -33,9 +33,12 @@ Rails.application.routes.draw do
       resources :experiences, only: [:index]
       resource :experiences, only: [:create, :destroy]
     end
-    # get 'search' => 'location_reports#search'
+    # 検索機能(検索結果表示用)
+    get 'location_report_search' => 'location_reports#search'
+    get 'user_search' => 'users#search'
+    
     get 'top' => 'location_reports#top'
-    # 退会用
+
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end

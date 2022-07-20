@@ -1,12 +1,37 @@
-<%= @user.account_name%>
-<%= @user.email %>
-<%= @user.account_name %>
-<%= @user.introduction %>
-
-<% if @user.user_condition == false %>
-  <p>有効なプレイヤー</p>
-<% else %>
-  <p>凍結済み</p>
-<% end %>
-<%= @user.admin_comment %>
-<%= @user.user_rank %>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-3">
+      <% if @user.image.present? %>
+        <%= image_tag @user.image, size: "200x200", class: "rounded-circle"%>
+      <% else %>
+        <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
+      <% end %>
+    </div>
+    <div class="col-9">
+      <h1><%= @user.account_name%>についての情報</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-5">
+      <p>投稿数:<%= @user.location_reports.count%>件</p>
+      <% if @user.user_rank == 1 %>
+        <p>会員ランク：🔰初心者🔰</p>
+      <% elsif @user.user_rank == 2 %>
+        <p>会員ランク：✈旅のセミプロ✈</p>
+      <% else %>
+        <p>会員ランク："👑旅のプロフェッショナル👑</p>
+      <% end %>
+      <% if @user.user_condition == false %>
+        <p>会員ステータス：有効</p>
+      <% else %>
+        <p>会員ステータス：凍結</p>
+      <% end %>
+      <% if @user.admin_comment.present?%>
+        <p>管理者コメント：<%= @user.admin_comment%></p>
+      <% else %>
+        <p>管理者コメント：管理者コメントはありません</p>
+      <% end %>
+      <%= link_to "編集画面へ", edit_admin_user_path(@user), class: "btn btn-primary"%>
+    </div>
+  </div>
+</div>

@@ -23,12 +23,17 @@ class LocationReport < ApplicationRecord
   # scope :admin_umpublished, -> {where(report_status: true)}
   # scope :admin_published, -> {where(report_status: false)}
 
-# 検索
-def self.search(keyword)
-  where(["title like? OR body like? OR area like? OR address like? OR event like?", "%#{keyword}%", "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%"])
-end
+  validates :title, presence: true
+  validates :area, presence: true
+  validates :body, presence: true
+  validates :address, presence: true
 
-# いいねがあるかチェック
+  # 検索
+  def self.search(keyword)
+    where(["title like? OR body like? OR area like? OR address like? OR event like?", "%#{keyword}%", "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%"])
+  end
+  
+  # いいねがあるかチェック
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end

@@ -25,6 +25,17 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :follower_id
   has_many :followers, through: :reverse_of_relationships, source: :following
 
+  validates :account_name, presence: true
+
+  # 検索
+  def self.search(keyword)
+    where(["account_name like? OR introduction like? OR user_rank like?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"])
+  end
+
+  def self.looks(word)
+    @user = User.where("account_name LIKE?", "%#{word}%")
+  end
+
   # ユーザにフォローされてるかどうかを調べるメソッド
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?

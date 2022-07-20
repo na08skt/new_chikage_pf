@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :edit, :update, :withdrawal, :followings, :followers]
   def index
-    @user = User.all
+    @users = User.page(params[:page]).per(10)
   end
 
   def show
@@ -26,6 +26,12 @@ class Public::UsersController < ApplicationController
     @user.update(user_status: true)
     reset_session
     redirect_to root_path
+  end
+
+  def search
+    @results = User.search(params[:keyword])
+    @word = params[:keyword]
+    render 'index'
   end
 
   # 特定のユーザーがフォローしている人全員

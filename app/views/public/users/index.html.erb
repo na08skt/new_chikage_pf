@@ -1,5 +1,43 @@
 <div class="container">
     <div class="row">
+        <div class="col">
+            <%= form_with url: public_user_search_path, method: :get, local: true do |f| %>
+                <%= f.text_field :keyword, placeholder: '会員に関してはこちらから'%>
+                <%= f.submit "検索" %>
+            <% end %>
+        </div>
+    </div>
+    <% if @results.present? %>
+    <div class="row">
+        <h1>お疲れ!!!</h1>
+            <% @results.each do |result|%>
+                <div class="col-12">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>アカウントネーム</th>
+                                <th>総投稿数</th>
+                                <th>いいね数orそうフォロワー数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @results.each do |result| %>
+                                <tr>
+                                    <th scope="row"><%= link_to result.account_name, public_user_path(result) %></th>
+                                    <!--location_reportの投稿数-->
+                                    <td>投稿数：<%= result.location_reports.count%></td>
+                                    <!--総いいね数orフォロワー数-->
+                                    <td>フォロワー数：<%= result.followings.count%></td>
+                                    <td></td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+    <div class="row">
         <div class="col-12">
             <table class="table">
                 <thead class="thead-light">
@@ -10,9 +48,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% @user.each do |user| %>
+                    <% @users.each do |user| %>
                         <tr>
-                            <th scope="row"><%= link_to user.account_name, public_user_path(user) %></th>
+                            <th><%= link_to user.account_name, public_user_path(user) %></th>
                             <!--location_reportの投稿数-->
                             <td></td>
                             <!--総いいね数orフォロワー数-->
@@ -23,6 +61,7 @@
             </table>
         </div>
     </div>
+    <% end %>
 </div>
 
 

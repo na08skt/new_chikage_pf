@@ -1,0 +1,25 @@
+<h2>Results index</h2>
+
+<table class="table table-hover table-inverse">
+  
+  <!--検索対象モデルがUserの時 -->
+  <% if @range == "User" %>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.account_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
+    <tbody>
+      <% @location_reports.each do |location_report| %>
+        <tr>
+          <td><%= location_report.title %></td>
+          <td><%= location_report.body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

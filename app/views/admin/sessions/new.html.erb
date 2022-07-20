@@ -1,19 +1,31 @@
-<h2>管理者Log in</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6 mt-5">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <main class="form-signin">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <form>
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+              <%= f.label :email ,for: "floatingInput"%>
+              <%= f.email_field :email, class: "form-control", id: "floatingInput" ,placeholder: "name@example.com"%><br />
+            </div>
+
+            <div class="form-floating">
+              <%= f.label :password, for: "floatingPassword"%>
+              <%= f.password_field :password ,type: "password" ,class: "form-control" ,id: "floatingPassword" ,placeholder: "Password"%><br />
+            </div>
+
+            <%= f.submit "Log in", class: "w-100 btn btn-lg btn-primary" %>
+
+          </form>
+        <% end %>
+      </main>
+    </div>
+
+    <div class="col-3"></div>
+
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "admin/shared/links" %>
+</div>

@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
   # before_action :-----の後、userかadminで制限の対象を変更できる
   before_action :authenticate_admin!
   def index
+    @users = User.all
   end
 
   def show
@@ -21,6 +22,6 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:user_rank, :admin_comment, :user_status)
+    params.require(:user).permit(:user_condition, :user_rank, :admin_comment, :user_status)
   end
 end

@@ -3,7 +3,6 @@
     <div class="col">
       <%= link_to edit_public_user_path(current_user) do %>
         <% if current_user.image.present? %>
-
           <%= image_tag current_user.image, size: "200x200", class: "rounded-circle" %>
         <% else %>
           <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
