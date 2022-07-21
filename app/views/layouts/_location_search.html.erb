@@ -1,0 +1,26 @@
+<% if objects.present?%>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th>タイトル</th>
+        <th>投稿者名</th>
+        <th>エリア</th>
+        <th>いいね数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% objects.each do |obj| %>
+        <tr>
+          <th><%= link_to obj.title, public_location_report_path(obj)%></th>
+          <th><%= link_to obj.user.account_name, public_user_path(obj) %></th>
+          <td><%= obj.area %></td>
+          <td><%= obj.favorites.count %></td>
+        </tr>
+      <% end %>
+
+      <%= paginate objects %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>検索結果はみつかりませんでした。</h3>
+<% end %>

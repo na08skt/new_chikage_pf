@@ -22,10 +22,14 @@ class Public::LocationReportsController < ApplicationController
 
   def index
     @location_reports = LocationReport.page(params[:page]).per(10)
+    @all_locations = LocationReport.all
+    gon.all_locations = LocationReport.all
   end
 
   def search
     @results = LocationReport.search(params[:keyword])
+    @results = @results.page(params[:page]).per(10)
+    gon.searches = LocationReport.page(params[:page]).per(10)
     @word = params[:keyword]
     render 'index'
   end

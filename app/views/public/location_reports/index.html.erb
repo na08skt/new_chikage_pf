@@ -1,47 +1,156 @@
-<div class="search-form">
-  <%= form_with url: public_location_report_search_path, method: :get, local: true do |f| %>
-    <%= f.text_field :keyword, placeholder: '投稿に関しての検索はこちらから'%>
-    <%= f.submit "検索" %>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <%= form_with url: public_location_report_search_path, method: :get, local: true do |f| %>
+        <%= f.text_field :keyword, placeholder: '投稿に関しての検索はこちらから'%>
+        <%= f.submit "キーワード検索" %>
+      <% end %>
+
+      <%= form_with url: public_location_report_search_path, method: :get, local: true do |f| %>
+        <%= f.select :keyword, [["北海道", "北海道"], ["東北", "東北"],["関東","関東"],["東海","東海"],
+        ["甲信越","甲信越"],["北陸","北陸"],["関西","関西"],["中国（山陰山陽）","中国（山陰山陽）"],
+        ["四国","四国"],["九州","九州"],["沖縄","沖縄"]], class: "form_control"%>
+        <%= f.submit "エリア検索" %>
+      <% end %>
+
+      <%= link_to "新規投稿", new_public_location_report_path %>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <% if @results.present? %>
+        <%= render "layouts/location_search", objects: @results%>
+        <!--検索した後のマップ-->
+
+          <div id='map'></div>
+
+          <script>
+
+          let map
+          let geocoder
+          let marker = []; // マーカーを複数表示させたいので、配列化
+          let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+          const searches = gon.searches; // コントローラーで定義したインスタンス変数を変数に代入
+
+
+          function initMap(){
+              // geocoderを初期化
+              geocoder = new google.maps.Geocoder()
+              // mapの初期位置設定
+              map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -35.6809591, lng: 139.7673068},
+              zoom: 14
+              });
+              // forは繰り返し処理
+              // 変数iを0と定義し、
+              // その後gonで定義したusers分繰り返し加える処理を行う
+              for (let i = 0; i < searches.length; i++) {
+                  // geocoderで addressの経緯緯度取得
+                  // users[i]は変数iのユーザーを取得している
+                  geocoder.geocode( { 'address': searches[i].address }, function(results, status) {
+                      // statusがOKであれば
+                  if (status == 'OK') {
+              　　　　// map.setCenterで地図が移動
+                      map.setCenter(results[0].geometry.location);
+                      marker[i] = new google.maps.Marker({
+                          map: map,
+                          position: results[0].geometry.location
+                      });
+                      // 変数iを変数idに代入
+                      let id = searches[i]['id']
+                      // infoWindowは吹き出し
+                      infoWindow[i] = new google.maps.InfoWindow({
+                      // contentで中身を指定
+                      // 今回は文字にリンクを貼り付けた形で表示
+                      content: `<a href='/public/location_reports/${id}'>${all_locations[i].title}</a>`
+                      });
+                      // markerがクリックされた時、
+                      marker[i].addListener("click", function(){
+                          // infoWindowを表示
+                          infoWindow[i].open(map, marker[i]);
+                      });
+                  } else {
+                      alert('Geocode was not successful for the following reason: ' + status);
+                  }
+                  });
+              }
+          }
+          function codeAddress(){
+              // 入力を取得
+              let inputAddress = document.getElementById('address').value;
+              // geocodingしたあとmapを移動
+          }
+          </script>
+
+      <% else %>
+        <%= render "layouts/location_search", objects: @location_reports%>
+        <!--通常状態-->
+        <div id='map'></div>
+
+        <script>
+
+        let map
+        let geocoder
+        let marker = []; // マーカーを複数表示させたいので、配列化
+        let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+        const all_locations = gon.all_locations; // コントローラーで定義したインスタンス変数を変数に代入
+
+
+        function initMap(){
+            // geocoderを初期化
+            geocoder = new google.maps.Geocoder()
+            // mapの初期位置設定
+            map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -35.6809591, lng: 139.7673068},
+            zoom: 14
+            });
+            // forは繰り返し処理
+            // 変数iを0と定義し、
+            // その後gonで定義したusers分繰り返し加える処理を行う
+            for (let i = 0; i < all_locations.length; i++) {
+                // geocoderで addressの経緯緯度取得
+                // users[i]は変数iのユーザーを取得している
+                geocoder.geocode( { 'address': all_locations[i].address }, function(results, status) {
+                    // statusがOKであれば
+                if (status == 'OK') {
+            　　　　// map.setCenterで地図が移動
+                    map.setCenter(results[0].geometry.location);
+                    marker[i] = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                    // 変数iを変数idに代入
+                    let id = all_locations[i]['id']
+                    // infoWindowは吹き出し
+                    infoWindow[i] = new google.maps.InfoWindow({
+                    // contentで中身を指定
+                    // 今回は文字にリンクを貼り付けた形で表示
+                    content: `<a href='/public/location_reports/${id}'>${all_locations[i].title}</a>`
+                    });
+                    // markerがクリックされた時、
+                    marker[i].addListener("click", function(){
+                        // infoWindowを表示
+                        infoWindow[i].open(map, marker[i]);
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+                });
+            }
+        }
+
+        function codeAddress(){
+            // 入力を取得
+            let inputAddress = document.getElementById('address').value;
+            // geocodingしたあとmapを移動
+        }
+        </script>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<%= link_to "新規投稿", new_public_location_report_path %>
-
-<% if @results.present? %>
-  
-  <% @results.each do |result| %>
-    <%= result.title %>
-  <% end %>
-<% else %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>title</th>
-      <th>area</th>
-      <th>date</th>
-      <th>like</th>
-      <th>comment</th>
-      <th>experiences</th>
-    </tr>
-  </thead>
-
-  <% @location_reports.each do |location_report| %>
-      <tbody>
-        <tr>
-          <% if location_report.publication_status == false && location_report.report_status == false %>
-            <th scope="row">
-              <%= link_to "#{location_report.title}", public_location_report_path(location_report) %>
-            </th>
-            <td><%= location_report.area%></td>
-            <td><%= location_report.date%></td>
-            <td><%= location_report.favorites.count %></td>
-            <td><%= location_report.comments.count%></td>
-            <td><%= location_report.experiences.count %></td>
-          <% end %>
-        </tr>
-      </tbody>
-  <% end %>
-
-  <%= paginate @location_reports %>
-</table>
-<% end %>
+<!--google map-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">
+    </script>

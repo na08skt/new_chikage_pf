@@ -1,5 +1,4 @@
 class Admin::UsersController < ApplicationController
-  # before_action :-----の後、userかadminで制限の対象を変更できる
   before_action :authenticate_admin!
   def index
     @users = User.all
@@ -17,6 +16,12 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     redirect_to admin_user_path(@user)
+  end
+  
+  def search
+    @results = User.search(params[:keyword])
+    @word = params[:keyword]
+    render 'index'
   end
 
   private

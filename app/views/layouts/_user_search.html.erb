@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>アカウントネーム</th>
+            <th>総投稿数</th>
+            <th>いいね数orそうフォロワー数</th>
+          </tr>
+        </thead>
+      <tbody>
+        <% obj.each do |obj| %>
+          <tr>
+            <th scope="row"><%= link_to obj.account_name, public_user_path(obj) %></th>
+            <!--location_reportの投稿数-->
+            <td>投稿数：<%= obj.location_reports.count%></td>
+            <!--総いいね数orフォロワー数-->
+            <td>フォロワー数：<%= obj.followings.count%></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

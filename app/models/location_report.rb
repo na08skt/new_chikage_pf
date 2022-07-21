@@ -32,7 +32,7 @@ class LocationReport < ApplicationRecord
   def self.search(keyword)
     where(["title like? OR body like? OR area like? OR address like? OR event like?", "%#{keyword}%", "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%",  "%#{keyword}%"])
   end
-  
+
   # いいねがあるかチェック
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
