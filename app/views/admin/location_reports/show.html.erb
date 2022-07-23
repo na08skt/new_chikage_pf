@@ -1,4 +1,4 @@
-<div class="top-bg">
+<div class="bg-navy location-show">
   <div class="container">
     <div class="row">
       <div class="col-6">
@@ -29,81 +29,99 @@
         </h3>
         <!--コメントの削除機能-->
         <% if @comments.present? %>
-          <h5>コメント</h5>
             <table>
               <thead class="thead-light">
                 <tr>
-                  <th>アカウントネーム</th>
-                  <th>コメント</th>
+                  <th class="white-font">アカウントネーム</th>
+                  <th class="white-font">コメント</th>
                   <th></th>
                 </tr>
               </thead>
             <% @comments.each do |comment| %>
               <tr>
-                <td><%= comment.user.account_name %></td>
-                <td><%= comment.body%></td>
-                <td><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "btn btn-primary ml-3" %></td>
+                <td class="white-font mb-3"><%= comment.user.account_name %></td>
+                <td class="white-font mb-3"><%= comment.body%></td>
+                <td class="white-font mb-3"><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "ml-3 mb-3 btn btn-outline-danger" %></td>
               </tr>
             <% end %>
             </table>
+            <%= paginate @comments, class: "comment-paginate" %>
         <% else%>
           <p class="yellow-font">この記事にはまだコメントがついていないみたい。</p>
         <% end %>
-
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="container mt-5">
-  <div class="row ml-1">
-    <div class-"col">
-      <h2>投稿タイトル：<%= @location_report.title%></h2>
-        <% if @location_report.image.present? %>
-          <%= image_tag @location_report.image, size: "500x300" %>
-        <% else %>
-          <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
-        <% end %>
-      <h4>投稿者名：<%= @location_report.user.account_name %></h4>
+<!--通常状態-->
+                <div id='map' class="top-map"></div>
 
-      <%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
-        <%= f.label :report_status, "管理者公開非公開設定：" %>
-        <%= f.select :report_status, [["公開",false], ["非公開",true]], class: "custom-select"%>
-        <%= f.submit "変更する" %>
-      <% end %>
+                <script>
+
+                let map
+                let geocoder
+                let marker = []; // マーカーを複数表示させたいので、配列化
+                let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+                const location_report = gon.location_report; // コントローラーで定義したインスタンス変数を変数に代入
+
+
+                function initMap(){
+                    // geocoderを初期化
+                    geocoder = new google.maps.Geocoder()
+                    // mapの初期位置設定
+                    map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -35.6809591, lng: 139.7673068},
+                    zoom: 14
+                    });
+                    // forは繰り返し処理
+                    // 変数iを0と定義し、
+                    // その後gonで定義したusers分繰り返し加える処理を行う
+                    for (let i = 0; i < location_report.length; i++) {
+                        // geocoderで addressの経緯緯度取得
+                        // users[i]は変数iのユーザーを取得している
+                        geocoder.geocode( { 'address': location_report[i].address }, function(results, status) {
+                            // statusがOKであれば
+                        if (status == 'OK') {
+                    　　　　// map.setCenterで地図が移動
+                            map.setCenter(results[0].geometry.location);
+                            marker[i] = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                            // 変数iを変数idに代入
+                            let id = location_report[i]['id']
+                            // infoWindowは吹き出し
+                            infoWindow[i] = new google.maps.InfoWindow({
+                            // contentで中身を指定
+                            // 今回は文字にリンクを貼り付けた形で表示
+                            content: `<a href='/public/location_reports/${id}'>${location_report[i].title}</a>`
+                            });
+                            // markerがクリックされた時、
+                            marker[i].addListener("click", function(){
+                                // infoWindowを表示
+                                infoWindow[i].open(map, marker[i]);
+                            });
+                        } else {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
+                        });
+                    }
+                }
+
+                function codeAddress(){
+                    // 入力を取得
+                    let inputAddress = document.getElementById('address').value;
+                    // geocodingしたあとmapを移動
+                }
+                </script>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col">
-      <!--コメントの削除機能-->
-      <% if @comments.present? %>
-        <h5>コメント</h5>
-          <table>
-            <thead class="thead-light">
-              <tr>
-                <th>アカウントネーム</th>
-                <th>コメント</th>
-                <th></th>
-              </tr>
-            </thead>
-          <% @comments.each do |comment| %>
-            <tr>
-              <td><%= comment.user.account_name %></td>
-              <td><%= comment.body%></td>
-              <td><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "btn btn-primary ml-3" %></td>
-            </tr>
-          <% end %>
-          </table>
-      <% else%>
-        <p>この記事にはまだコメントがついていないみたい。</p>
-      <% end %>
-    </div>
-  </div>
 </div>
 
+<!--google map-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">
+    </script>

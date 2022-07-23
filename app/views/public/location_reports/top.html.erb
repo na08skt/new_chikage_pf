@@ -12,8 +12,8 @@
                     chikageには<%= @users.count %>人のユーザと<%= @location_reports.count %>の投稿があります。<br>
                     雑誌などでは紹介されないようなマイナーな場所や有名な場所の楽しみ方のシェアができます。<br>
                 </p>
-                
-                
+
+
 
             </div>
             <div class="col-4">
@@ -28,7 +28,7 @@
             <div class="col">
 
               <!--通常状態-->
-                <div id='map'></div>
+                <div id='map' class="top-map"></div>
 
                 <script>
 
@@ -75,9 +75,7 @@
                                 // infoWindowを表示
                                 infoWindow[i].open(map, marker[i]);
                             });
-                        } else {
-                            alert('Geocode was not successful for the following reason: ' + status);
-                        }
+                        } 
                         });
                     }
                 }

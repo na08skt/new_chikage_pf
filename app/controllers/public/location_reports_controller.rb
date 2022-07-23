@@ -31,7 +31,7 @@ class Public::LocationReportsController < ApplicationController
   def search
     @results = LocationReport.search(params[:keyword])
     @results = @results.page(params[:page]).per(10)
-    gon.searches = LocationReport.page(params[:page]).per(10)
+    gon.searches = @results.page(params[:page]).per(10)
     @word = params[:keyword]
     render 'index'
   end
@@ -42,7 +42,8 @@ class Public::LocationReportsController < ApplicationController
     @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
     @comments = Comment.where(location_report_id: @location_report.id)
-    gon.location_report = @location_report
+    @comments = @comments.page(params[:page]).per(6)
+    gon.public_show = @location_report
   end
 
   def edit

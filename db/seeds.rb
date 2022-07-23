@@ -55,6 +55,12 @@ LocationReport.create!(
     report_status: false
     )
 
+Comment.create!(
+    user_id: 1,
+    location_report_id: 1,
+    body: "自分もこの間初めて行きました！！"
+    )
+
 LocationReport.create!(
     user_id: 2,
     title: "東京駅に行ってきました！！",
@@ -66,6 +72,8 @@ LocationReport.create!(
     publication_status: false,
     report_status: false
     )
+
+
 
 LocationReport.create!(
     user_id: 2,

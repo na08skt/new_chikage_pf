@@ -24,12 +24,11 @@
           <%= render "layouts/admin_location_search", objects: @results%>
           <!--検索した後のマップ-->
 
-            <div id='map'></div>
+            <div id='map' class="top-map"></div>
 
             <script>
-
-            let map
-            let geocoder
+            let map;
+            let geocoder;
             let marker = []; // マーカーを複数表示させたいので、配列化
             let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
             const searches = gon.searches; // コントローラーで定義したインスタンス変数を変数に代入
@@ -71,8 +70,6 @@
                             // infoWindowを表示
                             infoWindow[i].open(map, marker[i]);
                         });
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
                     }
                     });
                 }
@@ -82,22 +79,21 @@
                 let inputAddress = document.getElementById('address').value;
                 // geocodingしたあとmapを移動
             }
+            window.initMap = initMap
             </script>
 
         <% else %>
 
           <%= render "layouts/admin_location_search", objects: @location_reports%>
           <!--通常状態-->
-          <div id='map'></div>
+          <div id='map' class="top-map"></div>
 
           <script>
-
-          let map
-          let geocoder
+          let map;
+          let geocoder;
           let marker = []; // マーカーを複数表示させたいので、配列化
           let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
-          const all_locations = gon.all_locations; // コントローラーで定義したインスタンス変数を変数に代入
-
+          const all_locations = gon.locations; // コントローラーで定義したインスタンス変数を変数に代入
 
           function initMap(){
               // geocoderを初期化
@@ -135,8 +131,6 @@
                           // infoWindowを表示
                           infoWindow[i].open(map, marker[i]);
                       });
-                  } else {
-                      alert('Geocode was not successful for the following reason: ' + status);
                   }
                   });
               }
@@ -147,16 +141,13 @@
               let inputAddress = document.getElementById('address').value;
               // geocodingしたあとmapを移動
           }
+          window.initMap = initMap
           </script>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
 <!--google map-->
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">

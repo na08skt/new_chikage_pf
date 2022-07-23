@@ -32,7 +32,7 @@
           <%= render "layouts/location_search", objects: @results%>
           <!--検索した後のマップ-->
 
-            <div id='map'></div>
+            <div id='map' class="top-map"></div>
 
             <script>
 
@@ -72,15 +72,13 @@
                         infoWindow[i] = new google.maps.InfoWindow({
                         // contentで中身を指定
                         // 今回は文字にリンクを貼り付けた形で表示
-                        content: `<a href='/public/location_reports/${id}'>${all_locations[i].title}</a>`
+                        content: `<a href='/public/location_reports/${id}'>${searches[i].title}</a>`
                         });
                         // markerがクリックされた時、
                         marker[i].addListener("click", function(){
                             // infoWindowを表示
                             infoWindow[i].open(map, marker[i]);
                         });
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
                     }
                     });
                 }
@@ -96,7 +94,7 @@
 
           <%= render "layouts/location_search", objects: @location_reports%>
           <!--通常状態-->
-          <div id='map'></div>
+          <div id='map' class="top-map"></div>
 
           <script>
 
@@ -143,8 +141,6 @@
                           // infoWindowを表示
                           infoWindow[i].open(map, marker[i]);
                       });
-                  } else {
-                      alert('Geocode was not successful for the following reason: ' + status);
                   }
                   });
               }

@@ -25,7 +25,8 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :follower_id
   has_many :followers, through: :reverse_of_relationships, source: :following
 
-  validates :account_name, presence: true
+  validates :account_name, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 
   # 検索
   def self.search(keyword)

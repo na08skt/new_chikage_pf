@@ -1,166 +1,246 @@
-<% if @location_report.report_status == true%>
-  <h1>こちらのページは管理者によって制限されてしまいました。</h1>
-  <h3>制限されたページの情報</h3>
-  <p>ページ名：<%= @location_report.title%></p>
-  <p>住所：<%= @location_report.address%></p>
-  <%= link_to "編集する", edit_public_location_report_path(@location_report) ,class: "btn btn-primary"%>
-  <%= link_to "削除する", public_location_report_path(@location_report), method: :delete, class: "btn btn-danger"%>
-<% else %>
-  <%= @location_report.title %>
-  <%= @location_report.body %>
-  <%= @location_report.area %>
-  <%= @location_report.address %>
-  <%= @location_report.date %>
-  <% if @location_report.present? %>
-      <%= @location_report.event %>
-  <% end %>
-
-
-
-  <!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
-  <% if current_user.id == @location_report.user_id %>
-    <%= link_to "編集ページへ", edit_public_location_report_path(@location_report) %>
-    <%= link_to "消去する", public_location_report_path(@location_report), method: :delete %>
-  <% end %>
+<div class="bg-navy public-location-show">
+  <% if @location_report.report_status == true%>
+    <h1>こちらのページは管理者によって制限されてしまいました。</h1>
+    <h3>制限されたページの情報</h3>
+    <p>ページ名：<%= @location_report.title%></p>
+    <p>住所：<%= @location_report.address%></p>
+    <%= link_to "編集する", edit_public_location_report_path(@location_report) ,class: "btn btn-primary"%>
+    <%= link_to "削除する", public_location_report_path(@location_report), method: :delete, class: "btn btn-danger"%>
+  <% else %>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="top_title">
+            ReportTitle:&nbsp;&nbsp;<%= @location_report.title%>
+          </h3>
+          <h3 class="yellow-font report-secound">
+            User:&nbsp;&nbsp;<%= @location_report.user.account_name%>
+          </h3>
+          <h5 class="show-body">
+            <%= @location_report.body%>
+          </h5>
+          <% if @location_report.image.present?%>
+            <%= image_tag @location_report.image, size: "500x300" %>
+          <% else %>
+            <%= image_tag "noimage.jpg" , size: "500x300",class: "no-image ml-5" %>
+          <% end %>
+          <br>
 
   <!--いいね機能-->
-  <% if @location_report.favorited_by?(current_user) %>
-    <p>
-      <%= link_to public_location_report_favorites_path(@location_report), method: :delete do %>
-        ♥<%= @location_report.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% else %>
-    <p>
-      <%= link_to public_location_report_favorites_path(@location_report), method: :post do %>
-        ♡<%= @location_report.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
-  
-  <!-- いいねしてくれた人たち -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FavoriteModal">
-    いいねしてくれたユーザ
-  </button>
-  <div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <% if @favorites.count == 0 %>
-            <p>まだ誰もみてくれてないみたい！</p>
-          <% else %>
-            <% @favorites.each do |favorite| %>
-              <%= link_to "#{favorite.user.account_name}", public_user_path(favorite.user) %>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!--いったよ機能-->
-  <% if @location_report.experienced_by?(current_user) %>
-    <p>
-      <%= link_to public_location_report_experiences_path(@location_report), method: :delete do %>
-        ♠︎<%= @location_report.experiences.count %>いったよ
-      <% end %>
-    </p>
-  <% else %>
-    <p>
-      <%= link_to public_location_report_experiences_path(@location_report), method: :post do %>
-        ♤︎<%= @location_report.experiences.count %> まだいってない
-      <% end %>
-    </p>
-  <% end %>
-  <!-- いったことのあるユーザ -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExperiencesModal">
-    いったことのあるユーザ
-  </button>
-  <div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <% if @experiences.count == 0 %>
-            <p>まだ、そんなに混んでいないのかも</p>
-          <% else %>
-            <% @experiences.each do |experiences| %>
-              <%= link_to "#{experiences.user.account_name}", public_user_path(experiences.user) %>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <% @comments.each do |comment| %>
-    <%= link_to "#{comment.user.account_name}", public_user_path(comment.user_id) %>
-    <%= comment.body%>
-  
-    <% if current_user == comment.user %>
-        <%= link_to "編集する", edit_public_location_report_comment_path(@location_report, comment.id)%>
-        <!--時間があればコメントの編集ページも作る-->
-        <%#= link_to "編集する" _path %>
+  <div class="mt-5">
+    <% if @location_report.favorited_by?(current_user) %>
+      <p>
+        <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :delete do %>
+          ♥<%= @location_report.favorites.count %> いいね
+        <% end %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :post do %>
+          ♡<%= @location_report.favorites.count%> いいね
+        <% end %>
+      </p>
     <% end %>
-  <% end %>
-  
-  <%= form_with model: [@location_report, @comment], url: public_location_report_comments_path(@location_report.id), method: :post do |f| %>
-    <%= f.label :body %>
-    <%= f.text_area :body, placeholder: "コメントを記入してください" %>
-    <%= f.submit "コメントを投稿する"%>
-  <% end %>
-  
-      <script>
-      let map;
+    </div>
+    <!-- いいねしてくれた人たち -->
+    <button type="button" class=" btn btn-outline-danger" data-toggle="modal" data-target="#FavoriteModal">
+      いいねしてくれたユーザ
+    </button>
+    <div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <% if @favorites.count == 0 %>
+              <p>まだ誰もみてくれてないみたい！</p>
+            <% else %>
+              <% @favorites.each do |favorite| %>
+                <%= link_to "#{favorite.user.account_name}", public_user_path(favorite.user) %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      function initMap() {
-        // geocoderを初期化
-        geocoder = new google.maps.Geocoder()
+    <div class="mt-5">
+      <!--いったよ機能-->
+      <% if @location_report.experienced_by?(current_user) %>
+        <p>
+          <%= link_to public_location_report_experiences_path(@location_report), class: "experienced-color", method: :delete do %>
+            ♠︎<%= @location_report.experiences.count %>いったよ
+          <% end %>
+        </p>
+      <% else %>
+        <p>
+          <%= link_to public_location_report_experiences_path(@location_report), class: "experienced-color",method: :post do %>
+            ♤︎<%= @location_report.experiences.count %> まだいってない
+          <% end %>
+        </p>
+      <% end %>
+      <!-- いったことのあるユーザ -->
+      <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#ExperiencesModal">
+        いったことのあるユーザ
+      </button>
+      <div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <% if @experiences.count == 0 %>
+                <p>まだ、そんなに混んでいないのかも</p>
+              <% else %>
+                <% @experiences.each do |experiences| %>
+                  <%= link_to "#{experiences.user.account_name}", public_user_path(experiences.user) %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        map = new google.maps.Map(document.getElementById('map'), {
-          // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
-          center: {
-            lat: gon.location_report.latitude,
-            lng: gon.location_report.longitude
-          },
-          // マップの倍率はお好みで
-          zoom: 17,
-        });
+     <!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
+          <div class="show-btns mt-5">
+            <% if current_user.id == @location_report.user_id %>
+              <%= link_to "編集ページへ", edit_public_location_report_path(@location_report), class: "btn btn-outline-info mr-3 btn-edit" %>
+              <%= link_to "消去する", public_location_report_path(@location_report), class: "btn btn-outline-danger btn-edit", method: :delete %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-6">
+          <h3 class="comment-title yellow-font ml-3">
+            Comments
+          </h3>
 
-        marker = new google.maps.Marker({
-          // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
-          position: {
-            lat: gon.location_report.latitude,
-            lng: gon.location_report.longitude
-          },
-          map: map
-        });
-      }
-    </script>
-    
+          <!--コメントの新規投稿-->
+          <% if current_user.id == 1%>
+            <!--guest ははじく-->
+            <div class="ml-3">
+              <p class="yellow-font">現在のユーザはゲストアカウントのため、機能が制限さています</p>
+              <%= link_to "Sign_up", new_user_registration_path, class:"guest-reject-btn btn btn-outline-info"%>
+            </div>
+          <% else %>
+            <%= form_with model: [@location_report, @comment], url: public_location_report_comments_path(@location_report.id), method: :post do |f| %>
+              <%= f.text_area :body, placeholder: "コメントを記入してください", class: "comment-form form-control"%>
+              <%= f.submit "コメントを投稿する", class: "mt-3 comment-btn btn-outline-info btn"%>
+            <% end %>
+          <% end %>
+
+          <!--コメントの一覧・削除機能-->
+          <% if @comments.present? %>
+              <table class="mt-3">
+                <thead>
+                  <tr>
+                    <th class="white-font">アカウントネーム</th>
+                    <th class="white-font">コメント</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              <% @comments.each do |comment| %>
+                <tr class="mb-5">
+                  <td class="white-font mb-3"><%= comment.user.account_name %></td>
+                  <td class="white-font mb-3"><%= comment.body%></td>
+                  <% if comment.user == current_user %>
+                    <td><%= link_to "削除", public_location_report_comment_path(@location_report, comment), method: :delete, class: "ml-3 mb-3 btn btn-outline-danger" %></td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+                </tr>
+              <% end %>
+              </table>
+
+              <%= paginate @comments, class: "comment-paginate" %>
+
+
+          <% else%>
+            <p class="yellow-font">この記事にはまだコメントがついていないみたい。</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <div id="map" class="show-map"></div>
+</div>
+  <script>
+    let map
+    let geocoder
+                let marker = []; // マーカーを複数表示させたいので、配列化
+                let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+                const public_show = gon.public_show; // コントローラーで定義したインスタンス変数を変数に代入
+
+
+                function initMap(){
+                    // geocoderを初期化
+                    geocoder = new google.maps.Geocoder()
+                    // mapの初期位置設定
+                    map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -35.6809591, lng: 139.7673068},
+                    zoom: 14
+                    });
+                    // forは繰り返し処理
+                    // 変数iを0と定義し、
+                    // その後gonで定義したusers分繰り返し加える処理を行う
+                    for (let i = 0; i < public_show.length; i++) {
+                        // geocoderで addressの経緯緯度取得
+                        // users[i]は変数iのユーザーを取得している
+                        geocoder.geocode( { 'address': public_show[i].address }, function(results, status) {
+                            // statusがOKであれば
+                        if (status == 'OK') {
+                    　　　　// map.setCenterで地図が移動
+                            map.setCenter(results[0].geometry.location);
+                            marker[i] = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                            // 変数iを変数idに代入
+                            let id = public_show[i]['id']
+                            // infoWindowは吹き出し
+                            infoWindow[i] = new google.maps.InfoWindow({
+                            // contentで中身を指定
+                            // 今回は文字にリンクを貼り付けた形で表示
+                            content: `<a href='/public/location_reports/${id}'>${location_report[i].title}</a>`
+                            });
+                            // markerがクリックされた時、
+                            marker[i].addListener("click", function(){
+                                // infoWindowを表示
+                                infoWindow[i].open(map, marker[i]);
+                            });
+                        }
+                        });
+                    }
+                }
+
+                function codeAddress(){
+                    // 入力を取得
+                    let inputAddress = document.getElementById('address').value;
+                    // geocodingしたあとmapを移動
+                }
+                </script>
+
+
+
   <div id="map"></div>
 
 <% end %>
-
+<!--google map-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">
+    </script>
 
 

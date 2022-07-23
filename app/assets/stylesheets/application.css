@@ -51,16 +51,19 @@
   color: #d6d068;
 }
 
+.bg-navy {
+  background-color: #2d4750;
+}
+
+.white-font {
+  color: white;
+}
+
 /*flash message*/
 .message_space {
   position: fixed;
   z-index: 30;
   margin: 15px 0 0 45px;
-}
-
-#map {
-  height: 500px;
-  width: 100%;
 }
 
 /*admin_header*/
@@ -121,6 +124,11 @@ header {
 }
 
 /*public||admin/top*/
+.top-map {
+  width: 100%;
+  height: 500px;
+}
+
 .top_title {
   font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
   color: #d6d068;
@@ -175,6 +183,10 @@ header {
 }
 
 /*admin/location_reports/show*/
+.location-show {
+  height: 90vh;
+}
+
 .show-body {
   color: #d6d068;
   font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
@@ -193,6 +205,48 @@ header {
 
 .comment-title {
   margin-top: 85px;
+}
+
+/*public/location/show*/
+.public-location-show {
+  height: 100%;
+}
+
+.show-btns {
+  margin-left: 80px;
+}
+
+.btn-edit {
+  width: 130px;
+}
+
+.comment-form {
+  width: 90%;
+}
+
+.comment-btn {
+  width: 100%;
+}
+
+.guest-reject-btn {
+  width: 90%;
+}
+
+.comment-paginate {
+  margin-left: 100px;
+}
+
+.favorited-color {
+  color: red;
+}
+
+.experienced-color {
+  color: #ffc107;
+}
+
+.show-map {
+  height: 500px;
+  width: 100%;
 }
 
 /*public/users/show*/
