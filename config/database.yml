@@ -31,3 +31,9 @@ production:
   host: <%= ENV['DB_HOST'] %>
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
+  # 自分で追加分
+  admin_pw: <%= ENV['ADMIN_PASSWORD']%>
+  guest_pw: <%= ENV['PUBLIC_GUEST_PASSWORD'] %>
+  
+  
+  
