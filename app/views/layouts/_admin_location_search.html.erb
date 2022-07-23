@@ -1,0 +1,45 @@
+ <% if objects.present?%>
+    <table class="table mt-5">
+      <thead class="table-hover">
+        <tr>
+          <th class="table-color">title</th>
+          <th class="table-color">user</th>
+          <th class="table-color">area</th>
+          <th class="table-color">date</th>
+          <th class="table-color">like</th>
+          <th class="table-color">comment</th>
+          <th class="table-color">experiences</th>
+          <th class="table-color">管理者公開設定</th>
+          <th class="table-color">投稿者公開設定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% objects.each do |obj| %>
+          <tr>
+            <th><%= link_to obj.title, admin_location_report_path(obj), class: "btn btn-outline-light w-100"%></th>
+            <th><%= link_to obj.user.account_name, admin_user_path(obj), class: "btn btn-outline-light" %></th>
+            <td class="table-color"><%= obj.area %></td>
+            <td class="table-color"><%= obj.date %></td>
+            <td class="table-color"><%= obj.favorites.count %></td>
+            <td class="table-color"><%= obj.comments.count %>
+            <td class="table-color"><%= obj.experiences.count %>
+            <% if obj.report_status == false %>
+              <td class="table-color">公開</td>
+            <% else %>
+              <td class="table-color">非公開</td>
+            <% end %>
+
+            <% if obj.publication_status == false %>
+              <td class="table-color">公開</td>
+            <% else %>
+              <td class="table-color">非公開</td>
+            <% end %>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+    <%= paginate objects, class: "index-locations pagination"%>
+  <% else %>
+    <h3 class="index-locations">検索結果はみつかりませんでした。</h3>
+  <% end %>

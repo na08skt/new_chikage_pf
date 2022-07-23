@@ -1,3 +1,7 @@
+
+* {
+  box-sizing: border-box;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -13,25 +17,249 @@
  *= require_tree .
  *= require_self
  */
- body {
-   background-color: yellow;
- }
 
-/*.page-cover{*/
-/*  background-color: purple;*/
+/*.sign-form {*/
+/*  width: 100%;*/
 /*}*/
 
-.page-top {
-  background-color: red;
-  margin: 50px;
+
+
+
+
+
+
+.public-top {
+  height: 350px;
+  width: 350px;
 }
 
-.page-title {
-  line-height: 180px;
-  height: 180px;
+.no-image {
+  height: 100px;
+  width: 100px;
 }
 
-#map {
+
+/*全体へ適用*/
+.body {
+  font-family: 'Cutive Mono', monospace;
+  text-decoration: none;
+}
+
+/*カラーパレット*/
+.yellow-font {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  color: #d6d068;
+}
+
+.bg-navy {
+  background-color: #2d4750;
+}
+
+.white-font {
+  color: white;
+}
+
+/*flash message*/
+.message_space {
+  position: fixed;
+  z-index: 30;
+  margin: 15px 0 0 45px;
+}
+
+/*admin_header*/
+header {
+  line-height: 30px;
+  background-color: #124462;
+}
+
+.header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  margin: 0 180px 0 auto;
+  color: #d6d068;
+}
+
+.header-item {
+  font-family: 'Cinzel', serif;
+  font-size: 25px;
+}
+
+.header-end {
+  font-family: 'Cinzel', serif;
+  color: #d6d068;
+}
+
+.logout-title {
+  margin-right: 130px;
+}
+
+/*sign-xx*/
+.sign-xx {
+  padding: 220px 200px 0 200px;
+  height: 100vh;
+}
+
+.reverse-side {
+  background-color: #124462;
+}
+
+
+.logout-font{
+  margin: 180px 0 0 50px;
+  font-family: 'Cinzel', 'Oswald', serif;
+  font-size: 80px;
+  color: #d6d068;
+  display: inline-block;
+}
+
+/*public/signin*/
+.logout_reports_btn {
+  width: 400px;
+  margin: 180px 0 0px 160px;
+}
+
+.logout_sign_up_btn {
+  width: 400px;
+  margin: 0 0 0 160px;
+}
+
+/*public||admin/top*/
+.top-map {
+  width: 100%;
+  height: 500px;
+}
+
+.top_title {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  color: #d6d068;
+  margin: 90px 0 30px 80px;
+}
+
+.top_information {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  color: #d6d068;
+  margin: 20px 0 10px 140px;
+}
+
+.top-create-btn {
+  margin: 320px 0 0 0;
+  width: 250px;
+}
+
+.top-bg{
+  background-color: #2d4750;
+  height: 140vh;
+}
+
+.public_top_map {
+  width: 50%;
+}
+
+/*public/location_reports/index*/
+.index-bg {
+  background-color: #099f9a;
+  height: 100%;
+  padding-bottom: 100px;
+  opacity: 0.8;
+}
+
+.search-form {
+  margin: 30px 100px;
+  width: 40%;
+}
+
+.index-select-area {
+  width: 40%;
+  margin-left: 100px;
+}
+
+.index-locations {
+  color: white;
+  text-decoration: none;
+}
+
+.table-color {
+  color: white;
+}
+
+/*admin/location_reports/show*/
+.location-show {
+  height: 90vh;
+}
+
+.show-body {
+  color: #d6d068;
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  margin-left: 80px;
+  height: 100px;
+}
+
+.report-secound {
+  margin-left: 80px;
+  font-size: 20px;
+}
+
+.status-setting {
+  margin-left: 80px;
+}
+
+.comment-title {
+  margin-top: 85px;
+}
+
+/*public/location/show*/
+.public-location-show {
+  height: 100%;
+}
+
+.show-btns {
+  margin-left: 80px;
+}
+
+.btn-edit {
+  width: 130px;
+}
+
+.comment-form {
+  width: 90%;
+}
+
+.comment-btn {
+  width: 100%;
+}
+
+.guest-reject-btn {
+  width: 90%;
+}
+
+.comment-paginate {
+  margin-left: 100px;
+}
+
+.favorited-color {
+  color: red;
+}
+
+.experienced-color {
+  color: #ffc107;
+}
+
+.show-map {
   height: 500px;
   width: 100%;
 }
+
+/*public/users/show*/
+.top-paginate {
+  margin-top: 100px;
+}
+
+.card {
+  width: 350px;
+  height: 350px;
+}
+
+.card-group {
+  margin: 50px 50px 0px 50px;
+}
+

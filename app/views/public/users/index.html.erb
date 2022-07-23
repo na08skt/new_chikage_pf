@@ -1,28 +1,17 @@
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th>アカウントネーム</th>
-                        <th>総投稿数</th>
-                        <th>いいね数orそうフォロワー数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% @user.each do |user| %>
-                        <tr>
-                            <th scope="row"><%= link_to user.account_name, public_user_path(user) %></th>
-                            <!--location_reportの投稿数-->
-                            <td></td>
-                            <!--総いいね数orフォロワー数-->
-                            <td></td>
-                        </tr>
-                    <% end %>
-                </tbody>
-            </table>
+        <div class="col">
+            <%= form_with url: public_user_search_path, method: :get, local: true do |f| %>
+                <%= f.text_field :keyword, placeholder: '会員に関してはこちらから'%>
+                <%= f.submit "検索" %>
+            <% end %>
         </div>
     </div>
+    <% if @results.present? %>
+        <%= render "layouts/user_search", obj: @results %>
+    <% else %>
+        <%= render "layouts/user_search", obj: @users%>
+    <% end %>
 </div>
 
 

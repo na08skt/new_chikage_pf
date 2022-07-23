@@ -6,39 +6,51 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!--bootstrap icon用-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!--フォントの読み込み-->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300&family=Klee+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Ibarra+Real+Nova&display=swap" rel="stylesheet">
+
     <%= include_gon %>
+    <script src="https://kit.fontawesome.com/122102e289.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
 
-  <body>
-    <!--ヘッダー=>管理者　ログイン会員　非ログイン会員の三通りのヘッダー-->
+  <body class="body">
+
+    <!--adminがログインしている場合-->
     <% if admin_signed_in? %>
       <%= render 'layouts/admin' %>
+      <%= render 'layouts/flash'%>
+    <!--会員がログインしている場合-->
     <% elsif user_signed_in? %>
       <%= render 'layouts/public_login' %>
-    <% else %>
+      <%= render 'layouts/flash'%>
+    <!--admin、会員がログインしていない場合のログインページ-->
+    <% elsif current_page?("/users/sign_in") || current_page?("/users/sign_up") || current_page?("/admins/sign_in") %>
+      <%= render 'layouts/flash'%>
+    <% else%>
       <%= render 'layouts/public_logout'%>
+      <%= render 'layouts/flash'%>
     <% end %>
 
 
-      <!--flash メッセージ -->
-      <div class="message_space">
-        <div class="flash_message">
-          <% flash.each do |key, value| %>
-          <%= content_tag(:div, value, class: "#{key} alert alert-success") %>
-          <% end %>
-        </div>
-      </div>
+      <% if user_signed_in? == true && current_user.user_condition == true %>
+        <p>現在ログイン中のアカウントは凍結中です</p>
+      <% else %>
+        <%= yield %>
+      <% end %>
 
-    <% if user_signed_in? == true && current_user.user_condition == true %>
-      <p>現在ログイン中のアカウントは凍結中です</p>
-    <% else %>
-      <%= yield %>
-    <% end %>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+
   </body>
 </html>

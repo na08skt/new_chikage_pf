@@ -16,7 +16,7 @@
 
   <div class="form-group">
     <%= f.label :event %>
-    <%= f.text_area :event, class: 'form-control' %>
+    <%= f.text_area :event, class: 'form-control', placeholder: 'もしあれば記入してください。'%>
   </div>
 
   <div class="form-group">
@@ -29,6 +29,12 @@
   <div class="form-group">
     <%= f.label :address %>
     <%= f.text_field :address, class: "form_control address", placeholder: "〇〇県△△市XXXX" %>
+    <p>*入力された住所によって、表示されない場合がありますので、なるべく正確な住所のご入力にご協力お願いします、</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form_control_file"%>
   </div>
 
     <%= f.submit "投稿する"%>

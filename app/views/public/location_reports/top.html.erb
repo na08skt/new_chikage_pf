@@ -1,35 +1,97 @@
-<div class="container-fluid">
-  <div class="row mt-5 mb-5">
-    <div class="col-2"></div>
-      <div class="col10">
-        <h1>千　景　-　chikage　-　</h1>
-      </div>
-  </div>
 
-  <div class="row mt-5 mb-5">
-    <div class="col-3"></div>
-    <div class="col-3 ">
-      <%= link_to "Location_reports", public_location_reports_path %>
-    </div>
-    <div class="col-1"></div>
-    <div class="col-3">
-      <%= link_to "Chikage_Users", public_users_path %>
-    </div>
-    <div class="col-2"></div>
-  </div>
+<div class="top-bg">
+    <div class="container-fluid">
+        <div class="row public_top mb-5">
+            <div class="col-8">
 
-  <div class="row mt-5">
-    <div class="col-3"></div>
-    <div class="col-3">
-      <h3>会員様情報</h3>
-      <!--画像を表示させる-->
+                <h3 class="top_title">#CHIKAGE</h3>
+                <div class="top_information">can compare with location anothers</div>
+
+                <h3 class="top_title">#infomation</h3>
+                <p class="top_information">
+                    chikageには<%= @users.count %>人のユーザと<%= @location_reports.count %>の投稿があります。<br>
+                    雑誌などでは紹介されないようなマイナーな場所や有名な場所の楽しみ方のシェアができます。<br>
+                </p>
+
+
+
+            </div>
+            <div class="col-4">
+                <%= link_to new_public_location_report_path, class: "top-create-btn btn btn-outline-warning " do %>
+                    <p>create_article<i class="bi bi-pin-map-fill"></i></p>
+                <% end %>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+
+              <!--通常状態-->
+                <div id='map' class="top-map"></div>
+
+                <script>
+
+                let map
+                let geocoder
+                let marker = []; // マーカーを複数表示させたいので、配列化
+                let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+                const all_locations = gon.all_locations; // コントローラーで定義したインスタンス変数を変数に代入
+
+
+                function initMap(){
+                    // geocoderを初期化
+                    geocoder = new google.maps.Geocoder()
+                    // mapの初期位置設定
+                    map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -35.6809591, lng: 139.7673068},
+                    zoom: 14
+                    });
+                    // forは繰り返し処理
+                    // 変数iを0と定義し、
+                    // その後gonで定義したusers分繰り返し加える処理を行う
+                    for (let i = 0; i < all_locations.length; i++) {
+                        // geocoderで addressの経緯緯度取得
+                        // users[i]は変数iのユーザーを取得している
+                        geocoder.geocode( { 'address': all_locations[i].address }, function(results, status) {
+                            // statusがOKであれば
+                        if (status == 'OK') {
+                    　　　　// map.setCenterで地図が移動
+                            map.setCenter(results[0].geometry.location);
+                            marker[i] = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                            // 変数iを変数idに代入
+                            let id = all_locations[i]['id']
+                            // infoWindowは吹き出し
+                            infoWindow[i] = new google.maps.InfoWindow({
+                            // contentで中身を指定
+                            // 今回は文字にリンクを貼り付けた形で表示
+                            content: `<a href='/public/location_reports/${id}'>${all_locations[i].title}</a>`
+                            });
+                            // markerがクリックされた時、
+                            marker[i].addListener("click", function(){
+                                // infoWindowを表示
+                                infoWindow[i].open(map, marker[i]);
+                            });
+                        } 
+                        });
+                    }
+                }
+
+                function codeAddress(){
+                    // 入力を取得
+                    let inputAddress = document.getElementById('address').value;
+                    // geocodingしたあとmapを移動
+                }
+                </script>
+            </div>
+        </div>
     </div>
-    <div class="col-5">
-      <h5>会員名：<%= link_to "#{current_user.account_name}", public_user_path(current_user)%></h5>
-      <p>投稿数：<%= link_to "#{current_user.location_reports.count}", public_location_reports_path(current_user) %></p>
-      <p>フォロー数：<%= link_to "#{current_user.followings.count}", followings_public_user_path(current_user) %> </p>
-      <p>フォワー数：<%= link_to "#{current_user.followers.count}", followers_public_user_path(current_user) %> </p>
-      <%= link_to "マイページへ", public_user_path(current_user) , class: "btn btn-primary"%>
-    </div>
-  </div>
 </div>
+
+<!--google map-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">
+    </script>

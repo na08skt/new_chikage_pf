@@ -1,12 +1,12 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:show, :edit, :update, :withdrawal, :followings, :followers]
   def index
-    @user = User.all
+    @users = User.page(params[:page]).per(10)
   end
 
   def show
     @user = User.find(params[:id])
-    @location_reports = @user.location_reports.all
+    @location_reports = @user.location_reports.page(params[:page]).per(3)
   end
 
   def edit
@@ -28,6 +28,19 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    @results = User.search(params[:keyword])
+    @word = params[:keyword]
+    render 'index'
+  end
+
+  def favorites
+    @user = User.find(params[:id])
+    favorites= Favorite.where(user_id: @user.id).pluck(:location_report_id)
+    @favorite_reports = LocationReport.find(favorites)
+
+  end
+
   # 特定のユーザーがフォローしている人全員
   def followings
     user = User.find(params[:id])
@@ -38,9 +51,6 @@ class Public::UsersController < ApplicationController
   def followers
     user = User.find(params[:id])
     @users = user.followers
-  end
-
-  def destroy
   end
 
   private

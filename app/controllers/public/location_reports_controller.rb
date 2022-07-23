@@ -1,42 +1,49 @@
 class Public::LocationReportsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:edit, :new, :show, :destroy, :update, :create]
 
   def new
     @location_report = LocationReport.new
   end
 
   def top
+    gon.all_locations = LocationReport.all
+    @users = User.page(params[:page]).all
+    @location_reports = LocationReport.all
   end
 
   def create
     @location_report = LocationReport.new(location_report_params)
     @location_report.user_id = current_user.id
-    @location_report.save
-      redirect_to public_location_report_path(@location_report)
+  if @location_report.save
+    flash[:notice] = '投稿できました、'
+    redirect_to public_location_report_path(@location_report)
+  else flash[:alert] = '未記入の項目があります。'
+    render :new
+  end
   end
 
   def index
-    @location_reports = LocationReport.published
     @location_reports = LocationReport.page(params[:page]).per(10)
+    @all_locations = LocationReport.all
+    gon.all_locations = LocationReport.all
   end
 
-  # search （検索）
   def search
-  @searchs = LocationReport.search(params[:keyword])
-  @keyword = params[:keyword]
-  # エラー↓レンダーすると元々あったインスタンスのデータが飛んでいる
-  # render index
-
+    @results = LocationReport.search(params[:keyword])
+    @results = @results.page(params[:page]).per(10)
+    gon.searches = @results.page(params[:page]).per(10)
+    @word = params[:keyword]
+    render 'index'
   end
 
   def show
-    @location_report = LocationReport.published
     @location_report = LocationReport.find(params[:id])
     @favorites = Favorite.where(location_report_id: @location_report.id)
     @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
-    @comments = Comment.all
-    gon.location_report = @location_report
+    @comments = Comment.where(location_report_id: @location_report.id)
+    @comments = @comments.page(params[:page]).per(6)
+    gon.public_show = @location_report
   end
 
   def edit
@@ -58,7 +65,7 @@ class Public::LocationReportsController < ApplicationController
   private
 
   def location_report_params
-    params.require(:location_report).permit(:user_id, :comment_id, :title,
+    params.require(:location_report).permit(:user_id, :comment_id, :title, :image,
     :area, :address, :latitude, :longitude, :date, :event, :body, :publication_status)
   end
 

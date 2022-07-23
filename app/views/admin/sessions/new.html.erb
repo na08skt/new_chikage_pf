@@ -1,19 +1,33 @@
-<h2>管理者Log in</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-signin sign-xx">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <form>
+            <h1 class="h5 mb-4 sign-xx-form">welcome back Admin</h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            <div class="form-floating">
+              <%= f.label :email, "email",for: "floatingInput"%>
+              <%= f.email_field :email, class: "form-control", id: "floatingInput" ,placeholder: "name@example.com"%><br />
+            </div>
+
+            <div class="form-floating">
+              <%= f.label :password, "password",for: "floatingPassword"%>
+              <%= f.password_field :password ,class: "form-control" ,id: "floatingPassword" ,placeholder: "Password"%><br />
+            </div>
+
+            <%= f.submit "Log in", class: " w-100 btn btn-lg btn-outline-dark" %>
+
+          </form>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-6 reverse-side ">
+      <p class="logout-font">Chikage</p>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
 
-<%= render "admin/shared/links" %>
