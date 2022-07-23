@@ -1,3 +1,66 @@
+<div class="top-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h3 class="top_title">
+          ReportTitle:&nbsp;&nbsp;<%= @location_report.title%>
+        </h3>
+        <h3 class="yellow-font report-secound">
+          User:&nbsp;&nbsp;<%= @location_report.user.account_name%>
+        </h3>
+        <h5 class="show-body">
+          <%= @location_report.body%>
+        </h5>
+        <% if @location_report.image.present?%>
+          <%= image_tag @location_report.image, size: "500x300" %>
+        <% else %>
+          <%= image_tag "noimage.jpg" , size: "500x300",class: "no-image ml-5" %>
+        <% end %>
+
+        <%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
+          <%= f.label :report_status, "管理者公開非公開設定：", class: "mt-4 status-setting yellow-font"%>
+          <%= f.select :report_status, [["公開",false], ["非公開",true]], class: "custom-select "%>
+          <%= f.submit "変更する", class: "btn btn-outline-danger ml-5 " %>
+        <% end %>
+      </div>
+      <div class="col-6">
+        <h3 class="comment-title yellow-font ml-3">
+          Comments
+        </h3>
+        <!--コメントの削除機能-->
+        <% if @comments.present? %>
+          <h5>コメント</h5>
+            <table>
+              <thead class="thead-light">
+                <tr>
+                  <th>アカウントネーム</th>
+                  <th>コメント</th>
+                  <th></th>
+                </tr>
+              </thead>
+            <% @comments.each do |comment| %>
+              <tr>
+                <td><%= comment.user.account_name %></td>
+                <td><%= comment.body%></td>
+                <td><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "btn btn-primary ml-3" %></td>
+              </tr>
+            <% end %>
+            </table>
+        <% else%>
+          <p class="yellow-font">この記事にはまだコメントがついていないみたい。</p>
+        <% end %>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="container mt-5">
   <div class="row ml-1">
     <div class-"col">

@@ -1,0 +1,6 @@
+<!--flash メッセージ -->
+  <div class="message_space">
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, class: "#{key} alert alert-success") %>
+      <% end %>
+  </div>

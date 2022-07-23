@@ -23,7 +23,7 @@ class LocationReport < ApplicationRecord
   # scope :admin_umpublished, -> {where(report_status: true)}
   # scope :admin_published, -> {where(report_status: false)}
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum:1, muximum: 30 }
   validates :area, presence: true
   validates :body, presence: true
   validates :address, presence: true

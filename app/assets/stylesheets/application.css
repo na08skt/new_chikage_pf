@@ -1,3 +1,7 @@
+
+* {
+  box-sizing: border-box;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -13,20 +17,15 @@
  *= require_tree .
  *= require_self
  */
-.sign-form {
-  width: 100%;
-}
-/*.page-cover{*/
-/*  background-color: purple;*/
+
+/*.sign-form {*/
+/*  width: 100%;*/
 /*}*/
 
 
 
 
-#map {
-  height: 500px;
-  width: 100%;
-}
+
 
 
 .public-top {
@@ -42,10 +41,161 @@
 
 /*全体へ適用*/
 .body {
-  margin-bottom: 100px;
+  font-family: 'Cutive Mono', monospace;
+  text-decoration: none;
 }
 
-/*public/location_reports/top*/
+/*カラーパレット*/
+.yellow-font {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  color: #d6d068;
+}
+
+/*flash message*/
+.message_space {
+  position: fixed;
+  z-index: 30;
+  margin: 15px 0 0 45px;
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+/*admin_header*/
+header {
+  line-height: 30px;
+  background-color: #124462;
+}
+
+.header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  margin: 0 180px 0 auto;
+  color: #d6d068;
+}
+
+.header-item {
+  font-family: 'Cinzel', serif;
+  font-size: 25px;
+}
+
+.header-end {
+  font-family: 'Cinzel', serif;
+  color: #d6d068;
+}
+
+.logout-title {
+  margin-right: 130px;
+}
+
+/*sign-xx*/
+.sign-xx {
+  padding: 220px 200px 0 200px;
+  height: 100vh;
+}
+
+.reverse-side {
+  background-color: #124462;
+}
+
+
+.logout-font{
+  margin: 180px 0 0 50px;
+  font-family: 'Cinzel', 'Oswald', serif;
+  font-size: 80px;
+  color: #d6d068;
+  display: inline-block;
+}
+
+/*public/signin*/
+.logout_reports_btn {
+  width: 400px;
+  margin: 180px 0 0px 160px;
+}
+
+.logout_sign_up_btn {
+  width: 400px;
+  margin: 0 0 0 160px;
+}
+
+/*public||admin/top*/
+.top_title {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  color: #d6d068;
+  margin: 90px 0 30px 80px;
+}
+
+.top_information {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  color: #d6d068;
+  margin: 20px 0 10px 140px;
+}
+
+.top-create-btn {
+  margin: 320px 0 0 0;
+  width: 250px;
+}
+
+.top-bg{
+  background-color: #2d4750;
+  height: 140vh;
+}
+
+.public_top_map {
+  width: 50%;
+}
+
+/*public/location_reports/index*/
+.index-bg {
+  background-color: #099f9a;
+  height: 100%;
+  padding-bottom: 100px;
+  opacity: 0.8;
+}
+
+.search-form {
+  margin: 30px 100px;
+  width: 40%;
+}
+
+.index-select-area {
+  width: 40%;
+  margin-left: 100px;
+}
+
+.index-locations {
+  color: white;
+  text-decoration: none;
+}
+
+.table-color {
+  color: white;
+}
+
+/*admin/location_reports/show*/
+.show-body {
+  color: #d6d068;
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+  margin-left: 80px;
+  height: 100px;
+}
+
+.report-secound {
+  margin-left: 80px;
+  font-size: 20px;
+}
+
+.status-setting {
+  margin-left: 80px;
+}
+
+.comment-title {
+  margin-top: 85px;
+}
+
+/*public/users/show*/
 .top-paginate {
   margin-top: 100px;
 }
@@ -59,8 +209,3 @@
   margin: 50px 50px 0px 50px;
 }
 
-/*public/location_report.index*/
-.map {
-  width: 100%;
-  height: 500px;
-}

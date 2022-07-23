@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
   }
 
-  root to: "public/location_reports#index"
+  root to: "public/location_reports#top"
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update]
@@ -16,12 +16,15 @@ Rails.application.routes.draw do
       resources :comments, only: [:edit, :destroy]
     end
     get 'top' => 'location_reports#top'
-
+    get 'location_report_search' => 'location_reports#search'
   end
 
   namespace :public do
     resources :users, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
+      member do
+        get :favorites
+      end
       # on: :member routingにIDを含めることができる
     get :followings, on: :member
     get :followers, on: :member
@@ -36,7 +39,7 @@ Rails.application.routes.draw do
     # 検索機能(検索結果表示用)
     get 'location_report_search' => 'location_reports#search'
     get 'user_search' => 'users#search'
-    
+
     get 'top' => 'location_reports#top'
 
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'

@@ -6,7 +6,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @location_reports = @user.location_reports.all
+    @location_reports = @user.location_reports.page(params[:page]).per(3)
   end
 
   def edit
@@ -32,6 +32,13 @@ class Public::UsersController < ApplicationController
     @results = User.search(params[:keyword])
     @word = params[:keyword]
     render 'index'
+  end
+
+  def favorites
+    @user = User.find(params[:id])
+    favorites= Favorite.where(user_id: @user.id).pluck(:location_report_id)
+    @favorite_reports = LocationReport.find(favorites)
+
   end
 
   # 特定のユーザーがフォローしている人全員

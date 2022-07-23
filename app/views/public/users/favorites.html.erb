@@ -1,0 +1,13 @@
+<h1>あなたがいいねした投稿</h1>
+<table>
+  <tr>
+    <th>タイトル</th>
+    <th></th>
+  </tr>
+<% @favorite_reports.each do |favorite_report|%>
+  <tr>
+    <td><%= favorite_report.title %></td>
+    <td><%= link_to "投稿を見に行く", public_location_report_path(favorite_report), class: "btn btn-primary"%></td>
+  </tr>
+<% end %>
+</table>

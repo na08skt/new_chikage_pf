@@ -42,8 +42,7 @@ User.create!(
     password: 'chikage',
     introduction: '現在使用中のユーザは”chikage_test3”です'
   )
-  
-  
+
 # 投稿データ
 LocationReport.create!(
     user_id: 1,

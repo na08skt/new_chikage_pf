@@ -6,7 +6,9 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def top
-    @location_reports = current_user.location_reports.page(params[:page]).per(3)
+    gon.all_locations = LocationReport.all
+    @users = User.page(params[:page]).all
+    @location_reports = LocationReport.all
   end
 
   def create
