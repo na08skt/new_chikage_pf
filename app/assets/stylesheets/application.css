@@ -91,6 +91,10 @@
   width: 50%;
 }
 
+.edit-delete-btn {
+  margin-top: 40px;
+}
+
 .message-size {
   font-size: 40px;
 }
@@ -233,7 +237,7 @@ header {
   margin-left: 80px;
 }
 
-.comment-title {
+.address-title {
   margin-top: 85px;
 }
 
@@ -331,7 +335,7 @@ header {
 }
 
 .favorites-report-btn {
-  margin-top: 110px;
+  margin-top: 70px;
 }
 
 .follower-btn {

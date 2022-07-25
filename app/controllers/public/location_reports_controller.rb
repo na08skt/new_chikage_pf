@@ -37,8 +37,8 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def show
-    @guest = User.find(1)
     @location_report = LocationReport.find(params[:id])
+    @who = @location_report.user
     @favorites = Favorite.where(location_report_id: @location_report.id)
     @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
@@ -54,7 +54,7 @@ class Public::LocationReportsController < ApplicationController
   def update
     @location_report = LocationReport.find(params[:id])
     @location_report.update(location_report_params)
-    redirect_to public_location_report_path(@location_report) || public_location_reports
+    redirect_to public_location_report_path(@location_report) || public_location_reports_path
   end
 
   def destroy

@@ -4,7 +4,7 @@
       <i class="mt-5 bi bi-exclamation-triangle", style="font-size: 10rem; color: white;"></i>
     </div>
   </div>
-      <% if location_report.report_status == true%>
+    <% if location_report.report_status == true%>
       <div class="row">
         <div class="col d-flex justify-content-center">
           <h1 class="table-color">こちらのページは管理者によって制限されてしまいました。</h1>
@@ -21,9 +21,7 @@
           <%= link_to "EDIT", edit_public_location_report_path(location_report), class: "btn btn-outline-info btn-half-width ml-2" %>
         </div>
       </div>
-
-
-      <% else %>
+    <% else %>
         <div class="row">
           <div class="col d-flex justify-content-center">
             <h1 class="table-color">こちらのページは投稿者によって制限されてしまいました。</h1>
