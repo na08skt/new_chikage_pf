@@ -1,11 +1,12 @@
 <div class="bg-navy public-location-show">
-  <% if @location_report.report_status == true && current_user== @location_report.user%>
+  <!--管理者が公開設定を非公開＆＆ログイン中のユーザが投稿主-->
+  <% if @location_report.report_status == true && current_user == @location_report.user %>
     <%= render "layouts/status.check", location_report: @location_report %>
-  <% end %>
-  <% if @location_report.publication_status == true && current_user != @location_report.user  %>
+  <!--投稿者が公開設定を非公開＆＆ログイン中のユーザは投稿主ではない時-->
+  <% elsif @location_report.publication_status== true && current_user != @location_report.user  %>
     <%= render "layouts/status.check",  location_report: @location_report %>
-  <% end %>
-  <%if @location_report.report_status == false && @location_report.publication_status == false %>
+  <!--投稿者も管理者も制限をかけていない時-->
+  <% else %>
     <div class="container">
       <div class="row">
         <div class="col-6">
@@ -21,24 +22,20 @@
           <% if @location_report.image.present?%>
             <%= image_tag @location_report.image, size: "500x300" %>
           <% else %>
-            <%= image_tag "noimage.jpg" , size: "500x300",class: "no-image ml-5" %>
+            <div class="d-flex justify-content-center">
+              <i style="font-size: 10rem;" class="bi bi-cloud-upload-fill table-color"></i>
+            </div>
           <% end %>
           <br>
 
-          <!--guestアカウントではない場合表示-->
-          <% if @location_report.user_id =! 1%>
-            <!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
-            <div class="show-btns mt-5">
-              <% if current_user.id == @location_report.user_id %>
-                <%= link_to "Go_Edit", edit_public_location_report_path(@location_report), class: "user-show-btns btn btn-outline-info mb-3 btn-edit" %><br>
-                <%= link_to "Delete", public_location_report_path(@location_report), class: "user-show-btns btn btn-outline-danger btn-edit", method: :delete %>
-              <% end %>
-            </div>
-          <% end %>
-
         </div>
         <div class="col-6">
-          <h3 class="comment-title yellow-font ml-3">
+          <h3 class="address-title yellow-font ml-3">
+            Address
+          </h3>
+          <p class= "yellow-font" ><%= @location_report.address%></p>
+
+          <h3 class="yellow-font mt-4 ml-3">
             Comments
           </h3>
 
@@ -94,7 +91,6 @@
       <div class="row mb-3">
         <div class="favorite-experience col-5">
           <!--いいね機能-->
-          <div class="mt-5">
             <% if @location_report.favorited_by?(current_user) %>
               <p>
                 <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :delete do %>
@@ -108,7 +104,7 @@
                 <% end %>
               </p>
             <% end %>
-            </div>
+
             <!-- いいねしてくれた人たち -->
             <button type="button" class="user-show-btns btn btn-outline-danger" data-toggle="modal" data-target="#FavoriteModal">
               いいねしてくれたユーザ
@@ -138,6 +134,11 @@
               </div>
             </div>
           </div>
+          <% if current_user == @location_report.user%>
+            <div class="col-5 ml-5 ">
+              <%= link_to "EDIT", edit_public_location_report_path(@location_report), class: "btn-width btn btn-outline-info edit-delete-btn" %>
+            </div>
+          <% end %>
 
         </div>
         <div class="row">
@@ -184,22 +185,23 @@
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                   </div>
+                  <% if current_user == @location_report.user%>
+                    <div class="col-5 ml-5 ">
+                      <%= link_to "EDIT", edit_public_location_report_path(@location_report), class: "btn-width btn btn-outline-info edit-delete-btn" %>
+                      <%= link_to "DELETE", public_location_report_path(@location_report), method: :delete, class: "btn btn-outline-danger edit-delete-btn btn-width" %>
+                    </div>
+                  <% end %>
                 </div>
               </div>
-        </div>
-
+            </div>
+          <% if current_user == @location_report.user %>
+            <div class="col-5 ml-5 ">
+              <%= link_to "DELETE", public_location_report_path(@location_report), method: :delete, class: "btn-width btn btn-outline-danger edit-delete-btn" %>
+            </div>
+          <% end %>
       </div>
-      <div class="row mt-3 mb-5">
-        <div class="col-3">
-          <%= link_to "EDIT", edit_public_location_report_path(@location_report), class: "btn btn-outline-info btn-width" %>
-        </div>
-        <div class="col-3">
-          <%= link_to "DELETE", public_location_report_path(@location_report), method: :delete, class: "btn btn-outline-danger btn-width btn-width" %>
-        </div>
-      </div>
-
     </div>
-  <div id="map" class="show-map"></div>
+  <div id="map" class="show-map mt-4"></div>
   <% end %>
 </div>
 <script>
