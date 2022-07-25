@@ -11,12 +11,13 @@ Rails.application.routes.draw do
   root to: "public/location_reports#top"
 
   namespace :admin do
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:destroy, :index, :show, :edit, :update]
     resources :location_reports, only: [:index, :show, :update] do
       resources :comments, only: [:edit, :destroy]
     end
     get 'top' => 'location_reports#top'
     get 'location_report_search' => 'location_reports#search'
+    get 'user_search' => 'users#search'
   end
 
   namespace :public do
@@ -42,7 +43,7 @@ Rails.application.routes.draw do
 
     get 'top' => 'location_reports#top'
 
-    get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+    # get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end
 

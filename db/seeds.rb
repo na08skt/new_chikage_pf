@@ -43,6 +43,57 @@ User.create!(
     introduction: '現在使用中のユーザは”chikage_test3”です'
   )
 
+  User.create!(
+    account_name: 'chikage_test4',
+    email: 'chikage@chan.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test4”です'
+  )
+
+  User.create!(
+    account_name: 'chikage_test5',
+    email: 'chikage@kun.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test5”です'
+  )
+
+  User.create!(
+    account_name: 'chikage_test6',
+    email: 'chikage@lucky.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test6”です'
+  )
+
+  User.create!(
+    account_name: 'chikage_test7',
+    email: 'chikage@hoge.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test7”です'
+  )
+
+  User.create!(
+    account_name: 'chikage_test8',
+    email: 'chikage@hatena.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test8”です'
+  )
+
+
+  User.create!(
+    account_name: 'chikage_test9',
+    email: 'chikage@harry.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test9”です'
+  )
+
+
+  User.create!(
+    account_name: 'chikage_test10',
+    email: 'chikage@smith.com',
+    password: 'chikage',
+    introduction: '現在使用中のユーザは”chikage_test10”です'
+  )
+
 # 投稿データ
 LocationReport.create!(
     user_id: 1,
@@ -154,7 +205,7 @@ LocationReport.create!(
     address: "東京都大田区西六郷１丁目３０−４",
     date: 2022-07-22,
     body: "だいたいこのあたりでやってる花火大会。また行きたい！！（2022は中止だそうです）",
-    event: "大田区平和都市宣言記念事業「花火の祭典」",
+    event: "花火の祭典",
     publication_status: false,
     report_status: false
     )
@@ -209,11 +260,11 @@ LocationReport.create!(
 
 LocationReport.create!(
     user_id: 2,
-    title: "納車記念で一泊！今年は売って一泊？",
+    title: "納車記念で一泊！",
     area: "関東",
     address: "神奈川県横浜市中区山下町280ｰ2",
     date: 2022-07-22,
-    body: "いいホテルでした！！もっと楽しめたけど全ていい雰囲気のホテルでした。ちょっとみなとみらいからは離れてるかな",
+    body: "いいホテルでした！楽しめたけど全ていい雰囲気のホテルでした。みなとみらいからは離れてるかな",
     event: "納車記念",
     publication_status: false,
     report_status: false
@@ -221,7 +272,7 @@ LocationReport.create!(
 
 LocationReport.create!(
     user_id: 1,
-    title: "絶対に何かしらのイベントやってるところ",
+    title: "何かしらのイベントやってる",
     area: "関東",
     address: "神奈川県横浜市中区新港１丁目１",
     date: 2022-07-22,
@@ -237,7 +288,7 @@ LocationReport.create!(
     area: "関東",
     address: "神奈川県横浜市西区みなとみらい２丁目２−１ ランドマークプラザ 2階 横浜・",
     date: 2022-07-22,
-    body: "全然いけてないな！！この間行った時は大葉つぐみさんのラフ画があって買えばよかったと後悔したww",
+    body: "この間行った時は大葉つぐみさんのラフ画があって買えばよかったと後悔したww",
     # event: "",
     publication_status: false,
     report_status: false

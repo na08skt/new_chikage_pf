@@ -1,17 +1,28 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <%= form_with url: public_user_search_path, method: :get, local: true do |f| %>
-                <%= f.text_field :keyword, placeholder: '会員に関してはこちらから'%>
-                <%= f.submit "検索" %>
-            <% end %>
+<div class="bg-navy user-index-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <%= form_with url: public_user_search_path, method: :get, local: true do |f| %>
+                    <%= f.text_field :keyword, placeholder: '会員に関してはこちらから', class: "form_control search-form" %>
+                    <%= f.submit "検索", class: "btn btn-outline-light"%>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <% if @results.present? %>
+                    <%= render "layouts/user_search", objs: @results %>
+                <% else %>
+                    <%= render "layouts/user_search", objs: @users%>
+                <% end %>
+
+            </div>
         </div>
     </div>
-    <% if @results.present? %>
-        <%= render "layouts/user_search", obj: @results %>
-    <% else %>
-        <%= render "layouts/user_search", obj: @users%>
-    <% end %>
 </div>
+
+
 
 

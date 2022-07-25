@@ -1,36 +1,41 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>chikage_users</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <table class="table">
-        <thead class="thead-light">
+<% if current_admin.id =! 1 %>
+  <%= render "layouts/caution"%>
+<% else %>
+<div class="light-blue-bg admin-user-index">
+  <div class="container">
+    <!--<div class="row">-->
+    <!--  <div class="col">-->
+    <!--    <%#= form_with url: admin_user_search_path, method: :get, local: true do |f| %>-->
+    <!--      <%#= f.text_field :keyword, placeholder: '会員に関してはこちらから', class: "form_control search-form" %>-->
+    <!--      <%#= f.submit "検索", class: "btn btn-outline-light"%>-->
+    <!--    <%# end %>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <div class="row">
+      <div class="col">
+      <table class="table mt-5">
+        <thead class="table-hover">
           <tr>
-            <th><p>アカウントネーム</p></th>
-            <th><p>メールアドレス</p></th>
-            <th><p>コンディション</p></th>
-            <th></th>
+            <th class="table-color">Account_Name</th>
+            <th class="table-color">Email</th>
+            <th class="table-color">Condition</th>
           </tr>
         </thead>
-          <% @users.each do |user| %>
+        <% @users.each do |user| %>
             <tbody>
               <tr>
-                <th><%= link_to "#{user.account_name}", admin_user_path(user) %></th>
-                <td><%= user.email %></td>
-                <td>
-                  <% if user.user_condition == false%>
-                    <p>有効</p>
-                  <% else %>
-                    <p>凍結</p>
-                  <% end %>
-                </td>
+                <th><%= link_to "#{user.account_name}", admin_user_path(user), class: "btn btn-outline-light w-100" %></th>
+                <td class= "table-color"><%= user.email%></td>
+                <% if user.user_condition == false%>
+                    <td class="table-color">有効</td>
+                <% else %>
+                    <td class="table-color">凍結</td>
+                <% end %>
               </tr>
             </tbody>
           <% end %>
-        </table>
+      </div>
     </div>
   </div>
 </div>
+<% end %>

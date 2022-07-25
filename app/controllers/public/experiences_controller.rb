@@ -1,5 +1,5 @@
 class Public::ExperiencesController < ApplicationController
-
+before_action :authenticate_user!
   def create
     location_report = LocationReport.find(params[:location_report_id])
     experience = current_user.experiences.new(location_report_id: location_report.id)

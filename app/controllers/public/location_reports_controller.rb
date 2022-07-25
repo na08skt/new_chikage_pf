@@ -15,9 +15,9 @@ class Public::LocationReportsController < ApplicationController
     @location_report = LocationReport.new(location_report_params)
     @location_report.user_id = current_user.id
   if @location_report.save
-    flash[:notice] = '投稿できました、'
+    flash[:notice] = '投稿できました'
     redirect_to public_location_report_path(@location_report)
-  else flash[:alert] = '未記入の項目があります。'
+  else flash[:alert] = '未記入の項目、または文字数制限でエラーが起きています。'
     render :new
   end
   end
@@ -37,13 +37,14 @@ class Public::LocationReportsController < ApplicationController
   end
 
   def show
+    @guest = User.find(1)
     @location_report = LocationReport.find(params[:id])
     @favorites = Favorite.where(location_report_id: @location_report.id)
     @experiences = Experience.where(location_report_id: @location_report.id)
     @comment = Comment.new
     @comments = Comment.where(location_report_id: @location_report.id)
     @comments = @comments.page(params[:page]).per(6)
-    gon.public_show = @location_report
+    gon.multi = [@location_report]
   end
 
   def edit
@@ -58,8 +59,13 @@ class Public::LocationReportsController < ApplicationController
 
   def destroy
     @location_report = LocationReport.find(params[:id])
-    @location_report.destroy
-    redirect_to public_location_reports_path
+    if @location_report.destroy
+      flash[:notice] = "正常に削除ができました"
+      redirect_to public_location_reports_path
+    else
+      flash[:alert] = "削除ができませんでした"
+      redirect_to public_location_report_path || public_location_reports_path
+    end
   end
 
   private

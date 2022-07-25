@@ -1,5 +1,5 @@
 class Public::CommentsController < ApplicationController
-  before_action :authenticate_user!, only: [ :destroy, :update, :create]
+  before_action :authenticate_user!
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def edit
@@ -19,7 +19,7 @@ class Public::CommentsController < ApplicationController
     # commentのlocation_report_idカラムに代入するための記述
     comment.location_report_id = location_report.id
     if comment.save
-    flash[:notice] = 'コメントを残せました。'
+    flash[:notice] = 'コメントを残せました'
     redirect_to request.referrer || public_location_reports_path
     else flash[:alert] = "入力に問題がありました。未記入や50文字以上は投稿できません"
       redirect_to request.referrer || public_location_reports_path
@@ -27,8 +27,15 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.find(params[:id]).destroy
-    redirect_to session[:previous_url] || public_location_reports_path
+    @location_report = LocationReport.find(params[:id])
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      flash[:notice] = "正常に削除することができました"
+    redirect_to session[:previous_url] || request.referrer || public_location_reports_path
+    else
+      flash[:alert] = "正常に動作しませんでした"
+      redirect_to public_location_report_path(@comment) || public_location_reports_path
+    end
   end
 
   private
