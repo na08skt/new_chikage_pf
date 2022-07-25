@@ -22,30 +22,38 @@
 /*  width: 100%;*/
 /*}*/
 
-
-
-
-
-
-
-.public-top {
-  height: 350px;
-  width: 350px;
-}
-
-.no-image {
-  height: 100px;
-  width: 100px;
-}
-
-
 /*全体へ適用*/
 .body {
   font-family: 'Cutive Mono', monospace;
   text-decoration: none;
 }
 
+/*マーク*/
+.caution {
+  margin-left: 380px;
+}
+
+.face {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 50px;
+}
+
+/*フォントセレクター*/
+.ja-font {
+  font-family: "Sawarabi Mincho";
+}
+
+.en-font-title {
+  font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
+}
+
 /*カラーパレット*/
+.light-blue-bg {
+ background-color: #099f9a;
+ opacity: 0.8;
+}
+
 .yellow-font {
   font-family: 'Ibarra Real Nova' ,'Cinzel', 'Oswald', serif;
   color: #d6d068;
@@ -59,12 +67,35 @@
   color: white;
 }
 
+.favorited-color {
+  color: red;
+}
+
+.experienced-color {
+  color: #ffc107;
+}
+
 /*flash message*/
 .message_space {
   position: fixed;
   z-index: 30;
   margin: 15px 0 0 45px;
 }
+
+/*btn*/
+.btn-width {
+  width: 100%;
+}
+
+.btn-half-width {
+  width: 50%;
+}
+
+.message-size {
+  font-size: 40px;
+}
+
+
 
 /*admin_header*/
 header {
@@ -147,8 +178,7 @@ header {
 }
 
 .top-bg{
-  background-color: #2d4750;
-  height: 140vh;
+  height: 120vh;
 }
 
 .public_top_map {
@@ -184,7 +214,7 @@ header {
 
 /*admin/location_reports/show*/
 .location-show {
-  height: 90vh;
+  height: 100vh;
 }
 
 .show-body {
@@ -208,6 +238,10 @@ header {
 }
 
 /*public/location/show*/
+.location-show-btn {
+  width: 100px;
+}
+
 .public-location-show {
   height: 100%;
 }
@@ -236,14 +270,6 @@ header {
   margin-left: 100px;
 }
 
-.favorited-color {
-  color: red;
-}
-
-.experienced-color {
-  color: #ffc107;
-}
-
 .show-map {
   height: 500px;
   width: 100%;
@@ -263,3 +289,125 @@ header {
   margin: 50px 50px 0px 50px;
 }
 
+/*public/location/new*/
+.location-new-title {
+  margin: 40px 30px 0 100px;
+}
+
+.location-new-small {
+  font-size: 30px;
+}
+
+.location-new-caution {
+  font-size: 14px;
+}
+
+.location-new-btn {
+  width: 100%;
+}
+
+.location-new-height {
+  height: 900px;
+}
+
+/*public/location/edit*/
+.location-edit-height {
+  height: 900px;
+}
+
+/*public/user/show*/
+.user-show-height {
+  height: 100vh;
+}
+
+.user-show-image{
+  height: 100px;
+  width: 100px;
+  margin: 50px 0 0 100px;
+}
+
+.user-show-title {
+  margin: 80px 0 0 0;
+}
+
+.favorites-report-btn {
+  margin-top: 110px;
+}
+
+.follower-btn {
+  margin-top: 115px;
+}
+
+.show-btn-combo {
+  margin-top: 80px;
+}
+
+.user-show-btns{
+  width: 100%;
+}
+
+
+.no-contents {
+  margin: 50px auto;
+}
+
+.card-show-title {
+  width: 100%;
+}
+
+.show-intro {
+  width: 100%;
+  margin-left: 50px;
+  margin: 0 20px 40px 50px ;
+}
+
+.favorite-experience {
+  margin-left: 80px;
+}
+
+ /*user/index*/
+ .user-index-bg {
+  height: 900px;
+  padding-bottom: 100px;
+}
+
+/*user/edit*/
+.edit-user-height {
+  height: 100vh;
+}
+
+.caution-edit {
+  margin: 100px;
+}
+
+/*favorites*/
+.favorites-height {
+  height: 100vh;
+}
+
+/*admin/user/index*/
+.admin-user-index {
+  height: 100vh;
+}
+
+/*admin-user-show*/
+.admin-user-show {
+  height: 90vh;
+}
+
+.comment-height {
+  height: 30px;
+}
+
+.follow-height {
+  height: 100vh;
+  padding-bottom: 100px;
+}
+
+.follow-btn {
+  width: 200px;
+}
+
+.status-check-height {
+  height: 100vh;
+}

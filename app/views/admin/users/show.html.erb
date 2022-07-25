@@ -1,37 +1,49 @@
-<div class="container">
-  <div class="row mt-5">
-    <div class="col-3">
-      <% if @user.image.present? %>
-        <%= image_tag @user.image, size: "200x200", class: "rounded-circle"%>
-      <% else %>
-        <%= image_tag "noimage.jpg" , size: "100x100",class: "no-image ml-5" %>
-      <% end %>
+<div class="bg-navy admin-user-show">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-3">
+        <% if @user.image.present? %>
+          <%= image_tag @user.image, size: "200x200", class: "rounded-circle user-show-image"%>
+        <% else %>
+          <%= image_tag "noimage.jpg" , size: "100x100",class: "rounded-circle user-show-image" %>
+        <% end %>
+      </div>
+
+      <div class="col-3 user-show-title yellow-font">
+        <h1><%= @user.account_name %></h1>
+        <% if @user.user_rank == 1 %>
+              <p class="ja-font white-font">🔰#初心者🔰</p>
+          <% elsif @user.user_rank == 2 %>
+              <p class="ja-font white-font">✈#旅のセミプロ✈</p>
+          <% else @user.user_rank == 3 %>
+              <p class="ja-font white-font">👑#旅のプロフェッショナル👑</p>
+          <% end %>
+      </div>
     </div>
-    <div class="col-9">
-      <h1><%= @user.account_name%>についての情報</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col mt-5">
-      <p>投稿数:<%= @user.location_reports.count%>件</p>
-      <% if @user.user_rank == 1 %>
-        <p>会員ランク：🔰初心者🔰</p>
-      <% elsif @user.user_rank == 2 %>
-        <p>会員ランク：✈旅のセミプロ✈</p>
-      <% else %>
-        <p>会員ランク："👑旅のプロフェッショナル👑</p>
-      <% end %>
-      <% if @user.user_condition == false %>
-        <p>会員ステータス：有効</p>
-      <% else %>
-        <p>会員ステータス：凍結</p>
-      <% end %>
-      <% if @user.admin_comment.present?%>
-        <p>管理者コメント：<%= @user.admin_comment%></p>
-      <% else %>
-        <p>管理者コメント：管理者コメントはありません</p>
-      <% end %>
-      <%= link_to "編集画面へ", edit_admin_user_path(@user), class: "btn btn-primary"%>
+    <div class="row">
+      <div class="col-5">
+        <p class="table-color">投稿数&nbsp;：&nbsp;<%= @user.location_reports.count%></p>
+        <% if @user.user_condition == false%>
+          <p class="table-color">会員ステータス&nbsp;：&nbsp;<span class="text-info">有効</span></p>
+        <% else %>
+          <p class="table-color">会員ステータス&nbsp;：&nbsp;<span class="text-danger">凍結</span></p></p>
+        <% end %>
+        <p class="table-color">管理者コメント</p>
+        <% if @user.admin_comment.present? %>
+          <p class="user-show-btns table-color comment-height"><%= @user.admin_comment %></p>
+          <% link_to "delete", admin_user_path(@user), method: :delete, class: "btn btn-outline-warning"%>
+        <% else %>
+          <p class="table-color">管理者からのコメントはありません</p>
+        <% end %>
+
+
+        <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+          <%= f.select :user_condition, [["有効",false], ["凍結",true]], class: "custom-select user-show-btns" %>
+          <%= f.select :user_rank, [["🔰初心者🔰", 1],["✈旅のセミプロ✈︎", 2],["👑旅のプロフェッショナル👑", 3 ]], class: "custom-select" %><br>
+          <%= f.text_area :admin_comment, palaceholder: "管理者コメントを入力できます。",placeholder: "管理者からコメントを送ることができます。", class: "user-show-btns form-control-lg mt-3"  %><br>
+          <%= f.submit "提出する", class: "btn btn-outline-info mt-3 user-show-btns" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

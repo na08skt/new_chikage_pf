@@ -23,10 +23,12 @@ class LocationReport < ApplicationRecord
   # scope :admin_umpublished, -> {where(report_status: true)}
   # scope :admin_published, -> {where(report_status: false)}
 
-  validates :title, presence: true, length: { minimum:1, muximum: 30 }
+  validates :title, presence: true, length: { maximum: 15 }
+  validates :body, presence: true, length: { maximum: 50 }
   validates :area, presence: true
-  validates :body, presence: true
+  validates :event, length: { maximum: 10}
   validates :address, presence: true
+
 
   # 検索
   def self.search(keyword)

@@ -27,6 +27,9 @@ class User < ApplicationRecord
 
   validates :account_name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
+  # validates :introduction, length: { maximum: 30 }
+  # validates :admin_comment, length: { maximum: 50 }
+
 
   # 検索
   def self.search(keyword)

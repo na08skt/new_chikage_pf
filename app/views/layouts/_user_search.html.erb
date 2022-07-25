@@ -1,25 +1,51 @@
-<div class="row">
-    <div class="col-12">
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th>アカウントネーム</th>
-            <th>総投稿数</th>
-            <th>いいね数orそうフォロワー数</th>
-          </tr>
-        </thead>
-      <tbody>
-        <% obj.each do |obj| %>
-          <tr>
-            <th scope="row"><%= link_to obj.account_name, public_user_path(obj) %></th>
-            <!--location_reportの投稿数-->
-            <td>投稿数：<%= obj.location_reports.count%></td>
-            <!--総いいね数orフォロワー数-->
-            <td>フォロワー数：<%= obj.followings.count%></td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<% if objs.present?%>
+  <table class="table">
+    <thead class="table-hover">
+      <tr>
+        <th class="table-color">アカウントネーム</th>
+        <th class="table-color">総投稿数</th>
+        <th class="table-color">フォロワー</th>
+        <th></th>
+      </tr>
+    </thead>
+        <tbody>
+          <% objs.each do |obj| %>
+            <tr>
+              <th scope="row"><%= link_to obj.account_name, public_user_path(obj), class: "btn btn-outline-light w-100"%></th>
+              <td class="table-color">投稿数：<%= obj.location_reports.count%></td>
+              <td class="table-color">フォロワー：<%= obj.followings.count%></td>
+              <% if current_user == obj %>
+                <!--空白：自分のことをフォロさせないために-->
+              <% elsif obj.is_followed_by?(current_user) %>
+                <td><%= link_to "フォロー解除する", public_user_relationships_path(obj), class: "btn btn-outline-danger", method: :delete %></td>
+              <% else  %>
+                <td><%= link_to "フォロー", public_user_relationships_path(obj), class: "btn btn-outline-light", method: :post %></td>
+              <% end %>
+
+            </tr>
+          <% end %>
+        </tbody>
+
+      </table>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <%= paginate objs %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="bg-navy follow-height">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="face table-color">
+            <i style="font-size: 15rem; color: white;" class="mt-5 bi bi-emoji-dizzy"></i><br>
+            <p>ユーザーがいないようです</p>
+            <%= link_to "mypage", public_user_path(current_user), class: "btn btn-outline-light follow-btn"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,12 +1,11 @@
 <div class="bg-navy public-location-show">
-  <% if @location_report.report_status == true%>
-    <h1>こちらのページは管理者によって制限されてしまいました。</h1>
-    <h3>制限されたページの情報</h3>
-    <p>ページ名：<%= @location_report.title%></p>
-    <p>住所：<%= @location_report.address%></p>
-    <%= link_to "編集する", edit_public_location_report_path(@location_report) ,class: "btn btn-primary"%>
-    <%= link_to "削除する", public_location_report_path(@location_report), method: :delete, class: "btn btn-danger"%>
-  <% else %>
+  <% if @location_report.report_status == true && current_user== @location_report.user%>
+    <%= render "layouts/status.check", location_report: @location_report %>
+  <% end %>
+  <% if @location_report.publication_status == true && current_user != @location_report.user  %>
+    <%= render "layouts/status.check",  location_report: @location_report %>
+  <% end %>
+  <%if @location_report.report_status == false && @location_report.publication_status == false %>
     <div class="container">
       <div class="row">
         <div class="col-6">
@@ -26,103 +25,17 @@
           <% end %>
           <br>
 
-  <!--いいね機能-->
-  <div class="mt-5">
-    <% if @location_report.favorited_by?(current_user) %>
-      <p>
-        <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :delete do %>
-          ♥<%= @location_report.favorites.count %> いいね
-        <% end %>
-      </p>
-    <% else %>
-      <p>
-        <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :post do %>
-          ♡<%= @location_report.favorites.count%> いいね
-        <% end %>
-      </p>
-    <% end %>
-    </div>
-    <!-- いいねしてくれた人たち -->
-    <button type="button" class=" btn btn-outline-danger" data-toggle="modal" data-target="#FavoriteModal">
-      いいねしてくれたユーザ
-    </button>
-    <div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <% if @favorites.count == 0 %>
-              <p>まだ誰もみてくれてないみたい！</p>
-            <% else %>
-              <% @favorites.each do |favorite| %>
-                <%= link_to "#{favorite.user.account_name}", public_user_path(favorite.user) %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-5">
-      <!--いったよ機能-->
-      <% if @location_report.experienced_by?(current_user) %>
-        <p>
-          <%= link_to public_location_report_experiences_path(@location_report), class: "experienced-color", method: :delete do %>
-            ♠︎<%= @location_report.experiences.count %>いったよ
-          <% end %>
-        </p>
-      <% else %>
-        <p>
-          <%= link_to public_location_report_experiences_path(@location_report), class: "experienced-color",method: :post do %>
-            ♤︎<%= @location_report.experiences.count %> まだいってない
-          <% end %>
-        </p>
-      <% end %>
-      <!-- いったことのあるユーザ -->
-      <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#ExperiencesModal">
-        いったことのあるユーザ
-      </button>
-      <div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <% if @experiences.count == 0 %>
-                <p>まだ、そんなに混んでいないのかも</p>
-              <% else %>
-                <% @experiences.each do |experiences| %>
-                  <%= link_to "#{experiences.user.account_name}", public_user_path(experiences.user) %>
-                <% end %>
+          <!--guestアカウントではない場合表示-->
+          <% if @location_report.user_id =! 1%>
+            <!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
+            <div class="show-btns mt-5">
+              <% if current_user.id == @location_report.user_id %>
+                <%= link_to "Go_Edit", edit_public_location_report_path(@location_report), class: "user-show-btns btn btn-outline-info mb-3 btn-edit" %><br>
+                <%= link_to "Delete", public_location_report_path(@location_report), class: "user-show-btns btn btn-outline-danger btn-edit", method: :delete %>
               <% end %>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          <% end %>
 
-     <!--投稿者と一致した場合のみ、編集ページへのリンクを表示-->
-          <div class="show-btns mt-5">
-            <% if current_user.id == @location_report.user_id %>
-              <%= link_to "編集ページへ", edit_public_location_report_path(@location_report), class: "btn btn-outline-info mr-3 btn-edit" %>
-              <%= link_to "消去する", public_location_report_path(@location_report), class: "btn btn-outline-danger btn-edit", method: :delete %>
-            <% end %>
-          </div>
         </div>
         <div class="col-6">
           <h3 class="comment-title yellow-font ml-3">
@@ -130,7 +43,7 @@
           </h3>
 
           <!--コメントの新規投稿-->
-          <% if current_user.id == 1%>
+          <% if current_user.id == 1 %>
             <!--guest ははじく-->
             <div class="ml-3">
               <p class="yellow-font">現在のユーザはゲストアカウントのため、機能が制限さています</p>
@@ -164,25 +77,137 @@
                   <% end %>
                 </tr>
               <% end %>
+
               </table>
 
-              <%= paginate @comments, class: "comment-paginate" %>
+              <div class="d-flex justify-content-center">
+                <%= paginate @comments %>
+              </div>
 
 
           <% else%>
-            <p class="yellow-font">この記事にはまだコメントがついていないみたい。</p>
+            <p class="yellow-font mt-3">この記事にはまだコメントがついていないみたい。</p>
           <% end %>
         </div>
       </div>
+
+      <div class="row mb-3">
+        <div class="favorite-experience col-5">
+          <!--いいね機能-->
+          <div class="mt-5">
+            <% if @location_report.favorited_by?(current_user) %>
+              <p>
+                <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :delete do %>
+                  ♥<%= @location_report.favorites.count %> いいね<br>
+                <% end %>
+              </p>
+            <% else %>
+              <p>
+                <%= link_to public_location_report_favorites_path(@location_report), class: "favorited-color", method: :post do %>
+                  ♡<%= @location_report.favorites.count%> いいね<br>
+                <% end %>
+              </p>
+            <% end %>
+            </div>
+            <!-- いいねしてくれた人たち -->
+            <button type="button" class="user-show-btns btn btn-outline-danger" data-toggle="modal" data-target="#FavoriteModal">
+              いいねしてくれたユーザ
+            </button>
+            <div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <% if @favorites.count == 0 %>
+                      <p>まだ誰もみてくれてないみたい！</p>
+                    <% else %>
+                      <% @favorites.each do |favorite| %>
+                        <%= link_to "#{favorite.user.account_name}", public_user_path(favorite.user) %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+
+          <div class="favorite-experience col-5 mb-3">
+              <!--いったよ機能-->
+              <% if @location_report.experienced_by?(current_user) %>
+                <p>
+                  <%= link_to public_location_report_experiences_path(@location_report), class: "experienced-color", method: :delete do %>
+                    ♠︎<%= @location_report.experiences.count %>いったよ
+                  <% end %>
+                </p>
+              <% else %>
+                <p>
+                  <%= link_to public_location_report_experiences_path(@location_report), class: "experienced-color",method: :post do %>
+                    ♤︎<%= @location_report.experiences.count %> まだいってない
+                  <% end %>
+                </p>
+              <% end %>
+
+              <!-- いったことのあるユーザ -->
+              <button type="button" class="user-show-btns btn btn-outline-warning" data-toggle="modal" data-target="#ExperiencesModal">
+                いったことのあるユーザ
+              </button>
+              <div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <% if @experiences.count == 0 %>
+                        <p>まだ、そんなに混んでいないのかも</p>
+                      <% else %>
+                        <% @experiences.each do |experiences| %>
+                          <%= link_to "#{experiences.user.account_name}", public_user_path(experiences.user) %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+      </div>
+      <div class="row mt-3 mb-5">
+        <div class="col-3">
+          <%= link_to "EDIT", edit_public_location_report_path(@location_report), class: "btn btn-outline-info btn-width" %>
+        </div>
+        <div class="col-3">
+          <%= link_to "DELETE", public_location_report_path(@location_report), method: :delete, class: "btn btn-outline-danger btn-width btn-width" %>
+        </div>
+      </div>
+
     </div>
   <div id="map" class="show-map"></div>
+  <% end %>
 </div>
-  <script>
+<script>
     let map
     let geocoder
-                let marker = []; // マーカーを複数表示させたいので、配列化
+      let marker = []; // マーカーを複数表示させたいので、配列化
                 let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
-                const public_show = gon.public_show; // コントローラーで定義したインスタンス変数を変数に代入
+                const multi = gon.multi; // コントローラーで定義したインスタンス変数を変数に代入
 
 
                 function initMap(){
@@ -190,16 +215,16 @@
                     geocoder = new google.maps.Geocoder()
                     // mapの初期位置設定
                     map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: -35.6809591, lng: 139.7673068},
+                    center: {lat: 35.6809591, lng: 139.7673068},
                     zoom: 14
                     });
                     // forは繰り返し処理
                     // 変数iを0と定義し、
                     // その後gonで定義したusers分繰り返し加える処理を行う
-                    for (let i = 0; i < public_show.length; i++) {
+                    for (let i = 0; i < multi.length; i++) {
                         // geocoderで addressの経緯緯度取得
                         // users[i]は変数iのユーザーを取得している
-                        geocoder.geocode( { 'address': public_show[i].address }, function(results, status) {
+                        geocoder.geocode( { 'address': multi[i].address }, function(results, status) {
                             // statusがOKであれば
                         if (status == 'OK') {
                     　　　　// map.setCenterで地図が移動
@@ -209,12 +234,12 @@
                                 position: results[0].geometry.location
                             });
                             // 変数iを変数idに代入
-                            let id = public_show[i]['id']
+                            let id = multi[i]['id']
                             // infoWindowは吹き出し
                             infoWindow[i] = new google.maps.InfoWindow({
                             // contentで中身を指定
                             // 今回は文字にリンクを貼り付けた形で表示
-                            content: `<a href='/public/location_reports/${id}'>${location_report[i].title}</a>`
+                            content: `<a href='/public/location_reports/${id}'>${multi[i].title}</a>`
                             });
                             // markerがクリックされた時、
                             marker[i].addListener("click", function(){
@@ -233,11 +258,6 @@
                 }
                 </script>
 
-
-
-  <div id="map"></div>
-
-<% end %>
 <!--google map-->
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['MAPS_API_KEY'] %>&callback=initMap">

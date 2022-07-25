@@ -1,13 +1,17 @@
-<h1>あなたがいいねした投稿</h1>
-<table>
-  <tr>
-    <th>タイトル</th>
-    <th></th>
-  </tr>
-<% @favorite_reports.each do |favorite_report|%>
-  <tr>
-    <td><%= favorite_report.title %></td>
-    <td><%= link_to "投稿を見に行く", public_location_report_path(favorite_report), class: "btn btn-primary"%></td>
-  </tr>
+<% if current_user.id == 1%>
+  <%= render "layouts/caution" %>
+<% else%>
+  <div class='favorites-height bg-navy'>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="mt-5 yellow-font ">
+            Your favorited Reports
+          </h1>
+          <%= render "layouts/location_search", objects: @favorite_reports %>
+        </div>
+      </div>
+    </div>
+
+  </div>
 <% end %>
-</table>

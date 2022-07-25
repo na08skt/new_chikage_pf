@@ -1,7 +1,6 @@
-
-<div class="top-bg">
+<div class="top-bg bg-navy">
     <div class="container-fluid">
-        <div class="row public_top mb-5">
+        <div class="row mb-5">
             <div class="col-8">
 
                 <h3 class="top_title">#CHIKAGE</h3>
@@ -9,7 +8,7 @@
 
                 <h3 class="top_title">#infomation</h3>
                 <p class="top_information">
-                    chikageには<%= @users.count %>人のユーザと<%= @location_reports.count %>の投稿があります。<br>
+                    chikageには現在、<%= @users.count %>人のユーザと<%= @location_reports.count %>件の投稿があります。<br>
                     雑誌などでは紹介されないようなマイナーな場所や有名な場所の楽しみ方のシェアができます。<br>
                 </p>
 
@@ -75,7 +74,7 @@
                                 // infoWindowを表示
                                 infoWindow[i].open(map, marker[i]);
                             });
-                        } 
+                        }
                         });
                     }
                 }

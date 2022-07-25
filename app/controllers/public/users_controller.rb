@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :edit, :update, :withdrawal, :followings, :followers]
+  before_action :authenticate_user!, only: [:index, :show, :edit, :update, :withdrawal, :followings, :followers, :favorites, :search]
   def index
     @users = User.page(params[:page]).per(10)
   end
@@ -30,6 +30,7 @@ class Public::UsersController < ApplicationController
 
   def search
     @results = User.search(params[:keyword])
+    @results = @results.page(params[:page]).per(10)
     @word = params[:keyword]
     render 'index'
   end
@@ -38,19 +39,20 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     favorites= Favorite.where(user_id: @user.id).pluck(:location_report_id)
     @favorite_reports = LocationReport.find(favorites)
-
   end
 
   # 特定のユーザーがフォローしている人全員
   def followings
     user = User.find(params[:id])
     @users = user.followings
+    @users = @users.page(params[:page]).per(10)
   end
 
   #　特定のユーザのフォロワー
   def followers
     user = User.find(params[:id])
     @users = user.followers
+    @users = @users.page(params[:page]).per(10)
   end
 
   private
