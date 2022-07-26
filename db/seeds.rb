@@ -334,7 +334,7 @@ LocationReport.create!(
     title: "横浜駅",
     area: "関東",
     address: "神奈川県横浜市西区高島２丁目",
-    date: 2022-07-22,
+    date: "2022-07-22",
     body: "ちっさい頃から何度も通ってた横浜駅。もう完成したのかな？",
     # event: "",
     publication_status: false,
