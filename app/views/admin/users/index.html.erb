@@ -1,41 +1,22 @@
 <% if current_admin.id =! 1 %>
   <%= render "layouts/caution"%>
 <% else %>
-<div class="light-blue-bg admin-user-index">
-  <div class="container">
-    <!--<div class="row">-->
-    <!--  <div class="col">-->
-    <!--    <%#= form_with url: admin_user_search_path, method: :get, local: true do |f| %>-->
-    <!--      <%#= f.text_field :keyword, placeholder: '会員に関してはこちらから', class: "form_control search-form" %>-->
-    <!--      <%#= f.submit "検索", class: "btn btn-outline-light"%>-->
-    <!--    <%# end %>-->
-    <!--  </div>-->
-    <!--</div>-->
-    <div class="row">
-      <div class="col">
-      <table class="table mt-5">
-        <thead class="table-hover">
-          <tr>
-            <th class="table-color">Account_Name</th>
-            <th class="table-color">Email</th>
-            <th class="table-color">Condition</th>
-          </tr>
-        </thead>
-        <% @users.each do |user| %>
-            <tbody>
-              <tr>
-                <th><%= link_to "#{user.account_name}", admin_user_path(user), class: "btn btn-outline-light w-100" %></th>
-                <td class= "table-color"><%= user.email%></td>
-                <% if user.user_condition == false%>
-                    <td class="table-color">有効</td>
-                <% else %>
-                    <td class="table-color">凍結</td>
-                <% end %>
-              </tr>
-            </tbody>
-          <% end %>
-      </div>
+<div class="bg-navy user-index-bg">
+    <div class="container">
+        <!--<div class="row">-->
+        <!--    <div class="col-8">-->
+        <!--        <%#= form_with url: admin_user_search_path, method: :get, local: true do |f| %>-->
+        <!--            <%#= f.text_field :keyword, placeholder: '会員に関してはこちらから', class: "form_control search-form" %>-->
+        <!--            <%#= f.submit "検索", class: "btn btn-outline-light"%>-->
+        <!--        <%# end %>-->
+        <!--    </div>-->
+        <!--</div>-->
+
+        <%# if @results.present? %>
+            <%#= render "layouts/admin_user_search", objects: @results %>
+        <%# else %>
+            <%= render "layouts/admin_user_search", objects: @users%>
+        <%# end %>
     </div>
-  </div>
 </div>
 <% end %>

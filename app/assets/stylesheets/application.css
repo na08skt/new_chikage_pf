@@ -182,7 +182,8 @@ header {
 }
 
 .top-bg{
-  height: 120vh;
+  height: 140vh;
+  padding: 15px;
 }
 
 .public_top_map {
@@ -321,7 +322,8 @@ header {
 
 /*public/user/show*/
 .user-show-height {
-  height: 100vh;
+  height: 120vh;
+  padding-bottom: 30px;
 }
 
 .user-show-image{
@@ -386,7 +388,8 @@ header {
 
 /*favorites*/
 .favorites-height {
-  height: 100vh;
+  height: 100%;
+  padding-bottom: 400px;
 }
 
 /*admin/user/index*/
@@ -414,4 +417,13 @@ header {
 
 .status-check-height {
   height: 100vh;
+}
+
+.over-wrap-bg {
+  height: 100vh;
+}
+
+.no-face-icon {
+  margin-left: 180px;
+  margin-top: 70px;
 }

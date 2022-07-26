@@ -9,8 +9,14 @@ class Public::CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    @comment.update(comment_params)
-    redirect_to session[:previous_url]
+    if @comment.update(comment_params)
+      flash[:notice] = "コメントを残すことができました"
+      redirect_to session[:previous_url]
+    else
+      flash[:notice] = "コメントを残すことができませんでした"
+      redirect_to session[:previous_url]
+    end
+      
   end
 
   def create
@@ -21,7 +27,7 @@ class Public::CommentsController < ApplicationController
     if comment.save
     flash[:notice] = 'コメントを残せました'
     redirect_to request.referrer || public_location_reports_path
-    else flash[:alert] = "入力に問題がありました。未記入や50文字以上は投稿できません"
+    else flash[:alert] = "入力に問題がありました。未記入や30文字以上は投稿できません"
       redirect_to request.referrer || public_location_reports_path
     end
   end

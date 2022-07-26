@@ -1,10 +1,11 @@
 <div class="bg-navy public-location-show">
   <!--管理者が公開設定を非公開＆＆ログイン中のユーザが投稿主-->
-  <% if @location_report.report_status == true && current_user == @location_report.user %>
-    <%= render "layouts/status.check", location_report: @location_report %>
-  <!--投稿者が公開設定を非公開＆＆ログイン中のユーザは投稿主ではない時-->
-  <% elsif @location_report.publication_status== true && current_user != @location_report.user  %>
-    <%= render "layouts/status.check",  location_report: @location_report %>
+  <% if @location_report.report_status == true && current_user == @location_report.user ||
+  @location_report.report_status == true && current_user != @location_report.user ||
+  @location_report.publication_status== true && current_user == @location_report.user ||
+  @location_report.publication_status== true && current_user != @location_report.user
+  %>
+    <%= render "layouts/status.check", location_report: @location_report %>ion_report: @location_report %>
   <!--投稿者も管理者も制限をかけていない時-->
   <% else %>
     <div class="container">
@@ -16,11 +17,18 @@
           <h3 class="yellow-font report-secound">
             User:&nbsp;&nbsp;<%= @location_report.user.account_name%>
           </h3>
+
+          <% if @location_report.event.present?%>
+            <h3 class="yellow-font report-secound">
+              Event:<%= @location_report.event%>
+            </h3>
+          <% end %>
+
           <h5 class="show-body">
             <%= @location_report.body%>
           </h5>
           <% if @location_report.image.present?%>
-            <%= image_tag @location_report.image, size: "500x300" %>
+            <%= image_tag @location_report.image, size: "500x300", class: "mb-3" %>
           <% else %>
             <div class="d-flex justify-content-center">
               <i style="font-size: 10rem;" class="bi bi-cloud-upload-fill table-color"></i>
@@ -40,7 +48,7 @@
           </h3>
 
           <!--コメントの新規投稿-->
-          <% if current_user.id == 1 %>
+          <% if current_user.id == 1  %>
             <!--guest ははじく-->
             <div class="ml-3">
               <p class="yellow-font">現在のユーザはゲストアカウントのため、機能が制限さています</p>
@@ -194,7 +202,7 @@
                 </div>
               </div>
             </div>
-          <% if current_user == @location_report.user %>
+          <% if current_user == @location_report.user && current_user.id != 1%>
             <div class="col-5 ml-5 ">
               <%= link_to "DELETE", public_location_report_path(@location_report), method: :delete, class: "btn-width btn btn-outline-danger edit-delete-btn" %>
             </div>

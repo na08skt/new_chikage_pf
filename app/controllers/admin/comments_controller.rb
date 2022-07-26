@@ -4,8 +4,11 @@ class Admin::CommentsController < ApplicationController
 
   def destroy
     Comment.find(params[:id]).destroy
-    flash[:notice] = "管理者権限で削除できました。"
-    redirect_to admin_location_reports_path
+    if flash[:notice] = "管理者権限で削除できました。"
+      redirect_to request.referrer || admin_location_reports_path
+    else flash[:alert] = "削除できませんでした"
+      redirect_to request.referrer || admin_location_reports_path
+    end
   end
 
   private

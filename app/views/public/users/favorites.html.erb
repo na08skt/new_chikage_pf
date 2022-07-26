@@ -1,6 +1,6 @@
 <% if current_user.id == 1%>
   <%= render "layouts/caution" %>
-<% else%>
+<% elsif @favorite_reports.present? %>
   <div class='favorites-height bg-navy'>
     <div class="container">
       <div class="row">
@@ -8,7 +8,50 @@
           <h1 class="mt-5 yellow-font ">
             Your favorited Reports
           </h1>
-          <%= render "layouts/location_search", objects: @favorite_reports %>
+
+          <table class="table mt-5">
+
+            <thead class="table-hover">
+              <tr>
+                <th class="table-color">Title</th>
+                <th class="table-color">Account_name</th>
+                <th class="table-color">Area</th>
+                <th class="table-color">favorites</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @favorite_reports.each do |favorite| %>
+                <tr>
+                  <th><%= link_to favorite.title, public_location_report_path(favorite), class: "btn btn-outline-light w-100"%></th>
+                  <th><%= link_to favorite.user.account_name, public_user_path(favorite), class: "btn btn-outline-light w-100" %></th>
+                  <td class="table-color"><%= favorite.area %></td>
+                  <td class="table-color"><%= favorite.favorites.count%></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <div class="row mb-5">
+            <div class="col d-flex justify-content-center">
+              <%#= paginate @favorite_reports %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+<% else %>
+  <div class='favorites-height bg-navy'>
+    <div class="container">
+      <div class="row">
+        <div class="col caution-edit">
+          <i class="caution bi bi-exclamation-triangle", style="font-size: 10rem; color: white;"></i>
+          <h3 class="white-font mb-5">
+            いいねした投稿はないようです。
+          </h3>
+          <%= link_to "投稿一覧へいく", public_location_reports_path, class: "user-show-btns mt-5 mb-5 btn btn-outline-info" %><br>
         </div>
       </div>
     </div>

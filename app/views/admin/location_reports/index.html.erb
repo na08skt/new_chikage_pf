@@ -1,5 +1,5 @@
 <div class="index-bg">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col">
         <%= form_with url: admin_location_report_search_path, method: :get, local: true do |f| %>
@@ -22,9 +22,8 @@
       <div class="col">
         <% if @results.present? %>
           <%= render "layouts/admin_location_search", objects: @results%>
-          <!--検索した後のマップ-->
 
-            <div id='map' class="top-map"></div>
+          <!--検索した後のマップ-->
 
             <script>
             let map;
@@ -85,8 +84,8 @@
         <% else %>
 
           <%= render "layouts/admin_location_search", objects: @location_reports%>
+
           <!--通常状態-->
-          <div id='map' class="top-map"></div>
 
           <script>
           let map;

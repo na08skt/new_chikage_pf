@@ -1,5 +1,5 @@
 <div class="index-bg">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-8">
         <%= form_with url: public_location_report_search_path, method: :get, local: true do |f| %>
@@ -30,8 +30,9 @@
       <div class="col">
         <% if @results.present? %>
           <%= render "layouts/location_search", objects: @results%>
+        
           <!--検索した後のマップ-->
-            
+
             <div id='map' class="top-map"></div>
 
             <script>
@@ -79,7 +80,7 @@
                             // infoWindowを表示
                             infoWindow[i].open(map, marker[i]);
                         });
-                    } 
+                    }
                     });
                 }
             }
@@ -93,6 +94,8 @@
         <% else %>
 
           <%= render "layouts/location_search", objects: @location_reports%>
+
+     
           <!--通常状態-->
           <div id='map' class="top-map"></div>
 

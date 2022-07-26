@@ -4,7 +4,7 @@
       <i class="mt-5 bi bi-exclamation-triangle", style="font-size: 10rem; color: white;"></i>
     </div>
   </div>
-    <% if location_report.report_status == true%>
+    <% if location_report.report_status == true && current_user == location_report.user%>
       <div class="row">
         <div class="col d-flex justify-content-center">
           <h1 class="table-color">こちらのページは管理者によって制限されてしまいました。</h1>
@@ -17,7 +17,24 @@
       </div>
       <div class="row">
         <div class="col d-flex justify-content-center">
-          <%= link_to "DELETE", public_location_report_path(location_report), class: "btn btn-outline-danger btn-half-width mr-2" %>
+          <%= link_to "DELETE", public_location_report_path(location_report), method: :delete ,class: "btn btn-outline-danger btn-half-width mr-2" %>
+          <%= link_to "EDIT", edit_public_location_report_path(location_report), class: "btn btn-outline-info btn-half-width ml-2" %>
+        </div>
+      </div>
+    <% elsif location_report.publication_status == true && current_user == location_report.user %>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h1 class="table-color">こちらのページはあなたが制限をかけています。</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <p class="table-color message-size">Title：<%= @location_report.title%></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <%= link_to "DELETE", public_location_report_path(location_report), method: :delete ,class: "btn btn-outline-danger btn-half-width mr-2" %>
           <%= link_to "EDIT", edit_public_location_report_path(location_report), class: "btn btn-outline-info btn-half-width ml-2" %>
         </div>
       </div>

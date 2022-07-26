@@ -6,7 +6,9 @@
           <% if current_user.image.present? %>
             <%= image_tag current_user.image, class: "rounded-circle user-show-image" %>
           <% else %>
-            <%= image_tag "noimage.jpg" ,class: "rounded-circle user-show-image" %>
+            <div class="no-face-icon">
+              <i style="font-size: 5rem; color: white;" class="bi bi-emoji-smile"></i>
+            </div>
           <% end %>
         <% end %>
       </div>
@@ -22,14 +24,6 @@
           <% end %>
       </div>
       <div class="col-3">
-        <!--ログイン中ユーザと不一致の場合はフォローボタンの表示-->
-        <%# if current_user =! @user %>
-          <%# if @user.is_followed_by?(current_user) %>
-            <%#= link_to "unfollowing", public_user_relationships_path(@user), class: "btn btn-outline-danger", method: :delete %>
-          <%# else %>
-            <%#= link_to "following", public_user_relationships_path(@user), class: "btn btn-outline-primary", method: :post %>
-          <%# end %>
-        <%# end %>
         <p class= "follower-btn yellow-font">
           follwers：<%= link_to @user.followers.count, followers_public_user_path(@user)%>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

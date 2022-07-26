@@ -15,9 +15,12 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    flash[:notice] = "上書きが完了しました。"
+    if @user.update(user_params)
+    flash[:notice] = "上書きが完了しました"
     redirect_to public_user_path(@user)
+    else flash[:alert] = "編集内容でエラーが発生しています。文字数などを見直してください"
+      redirect_to edit_public_user_path(@user) || public_user_path
+    end
   end
 
   def withdrawal

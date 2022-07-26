@@ -53,8 +53,13 @@ class Public::LocationReportsController < ApplicationController
 
   def update
     @location_report = LocationReport.find(params[:id])
-    @location_report.update(location_report_params)
-    redirect_to public_location_report_path(@location_report) || public_location_reports_path
+    if @location_report.update(location_report_params)
+      flash[:notice] = "正常に編集を完了することができました"
+      redirect_to public_location_report_path(@location_report) || public_location_reports_path
+    else
+      flash[:alert] = "編集されたデータに関してエラーが発生しています。文字数などを確認してください"
+      redirect_to edit_public_location_report_path(@location_report) || public_location_reports_path
+    end
   end
 
   def destroy

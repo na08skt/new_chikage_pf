@@ -39,7 +39,25 @@
 
       </tbody>
     </table>
-    <%= paginate objects, class: "index-locations pagination"%>
+
+    <div class="row mb-5">
+      <div class="col d-flex justify-content-center">
+        <%= paginate objects %>
+      </div>
+    </div>
+
+    <div id='map' class="top-map"></div>
+
   <% else %>
-    <h3 class="index-locations">検索結果はみつかりませんでした。</h3>
+  <div class="container mt-3 mb-4">
+        <div class="row">
+          <div class="col">
+            <div class="face table-color">
+              <i style="font-size: 15rem; color: white;" class="mt-5 bi bi-emoji-dizzy"></i><br>
+              <p>検索結果は見つかりませんでした</p>
+              <%= link_to "reports", admin_location_reports_path, class: "btn btn-outline-light follow-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
   <% end %>
