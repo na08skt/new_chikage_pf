@@ -23,7 +23,7 @@ User.create!(
     account_name: 'chikage_admin',
     email: 'chikage@admin.com',
     password: ENV['PUBLIC_GUEST_PASSWORD'],
-    introduction: '現在使用中のユーザは”chikage_test１”です'
+    introduction: '会員側管理者ユーザです'
   )
 
 User.create!(
