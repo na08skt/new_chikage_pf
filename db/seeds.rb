@@ -16,83 +16,174 @@ User.create!(
     account_name: 'chikage_guest',
     email: 'chikage@guest.com',
     password: ENV['PUBLIC_GUEST_PASSWORD'],
-    introduction: 'このアカウントはゲストログイン専用の
-    アカウントのため機能が制限されています。機能をご利用
-    したい場合は、お手数ですがご自身でアカウントを作成し
-    てください。'
+    introduction: 'ゲストログイン専用のアカウントのため機能が制限されています'
   )
 
 User.create!(
-    account_name: 'chikage_test1',
-    email: 'chikage@test1.com',
-    password: 'chikage',
+    account_name: 'chikage_admin',
+    email: 'chikage@admin.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
     introduction: '現在使用中のユーザは”chikage_test１”です'
   )
 
 User.create!(
-    account_name: 'chikage_test2',
-    email: 'chikage@test2.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test2”です'
+    account_name: 'IamDevelopper',
+    email: 'chikage@test1.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '94'
   )
 
 User.create!(
-    account_name: 'chikage_test3',
+    account_name: 'JasmineTea',
+    email: 'chikage@test2.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'さっぱり'
+  )
+
+  User.create!(
+    account_name: 'KINGofSukiya',
     email: 'chikage@test3.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test3”です'
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'キングしか勝たん'
   )
 
   User.create!(
-    account_name: 'chikage_test4',
-    email: 'chikage@chan.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test4”です'
+    account_name: 'HERO',
+    email: 'chikage@test4.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '休暇中のヒーローです'
   )
 
   User.create!(
-    account_name: 'chikage_test5',
-    email: 'chikage@kun.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test5”です'
+    account_name: 'daigoro',
+    email: 'chikage@test5.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'クマの'
   )
 
   User.create!(
-    account_name: 'chikage_test6',
-    email: 'chikage@lucky.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test6”です'
+    account_name: 'solt',
+    email: 'chikage@test6.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'しょっぱい'
   )
 
   User.create!(
-    account_name: 'chikage_test7',
-    email: 'chikage@hoge.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test7”です'
-  )
-
-  User.create!(
-    account_name: 'chikage_test8',
-    email: 'chikage@hatena.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test8”です'
+    account_name: 'suger',
+    email: 'chikage@test7.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '甘いけど辛い'
   )
 
 
   User.create!(
-    account_name: 'chikage_test9',
-    email: 'chikage@harry.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test9”です'
+    account_name: 'bippa',
+    email: 'chikage@test8.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '秘伝要員引退宣言'
   )
 
 
   User.create!(
-    account_name: 'chikage_test10',
-    email: 'chikage@smith.com',
-    password: 'chikage',
-    introduction: '現在使用中のユーザは”chikage_test10”です'
+    account_name: 'bee',
+    email: 'chikage@test9.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'ビー'
   )
+
+
+  User.create!(
+    account_name: 'Severus',
+    email: 'chikage@test10.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'この授業では杖を振ったり馬鹿げた呪文を唱えたりはしない'
+  )
+
+
+
+  User.create!(
+    account_name: 'tomato',
+    email: 'chikage@test11.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '生は苦手'
+  )
+
+
+
+  User.create!(
+    account_name: 'summer',
+    email: 'chikage@test12.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '今年は暑くない！？！？'
+  )
+
+
+
+  User.create!(
+    account_name: 'chikagechikage',
+    email: 'chikage@test13.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '千景は数え切れないほどの景色からとりました'
+  )
+
+
+
+  User.create!(
+    account_name: '3monthes',
+    email: 'chikage@test14.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'あっという間の3ヶ月'
+  )
+
+
+
+  User.create!(
+    account_name: 'olive',
+    email: 'chikage@test15.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '小さいやつほど高い'
+  )
+
+
+  User.create!(
+    account_name: 'asita_yaro',
+    email: 'chikage@test16.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: ''
+  )
+
+
+  User.create!(
+    account_name: 'hot_or_ice',
+    email: 'chikage@test17.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'どっち？？'
+  )
+
+
+  User.create!(
+    account_name: 'hotdog',
+    email: 'chikage@test18.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: 'コストコ180'
+  )
+
+
+  User.create!(
+    account_name: 'gaimon',
+    email: 'chikage@test19.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '宝箱から出れません'
+  )
+
+
+  User.create!(
+    account_name: 'NAOYA',
+    email: 'chikage@test20.com',
+    password: ENV['PUBLIC_GUEST_PASSWORD'],
+    introduction: '名前を考えるのは苦手です'
+  )
+
 
 # 投稿データ
 LocationReport.create!(
@@ -101,15 +192,9 @@ LocationReport.create!(
     area: "関東",
     address: "東京都大田区羽田空港３丁目３−２",
     date: "2022-07-22",
-    body: "初めて行きました",
+    body: "夜中の空港の空がだいぶ飛行機渋滞していました",
     publication_status: false,
     report_status: false
-    )
-
-Comment.create!(
-    user_id: 1,
-    location_report_id: 1,
-    body: "自分もこの間初めて行きました！！"
     )
 
 LocationReport.create!(
@@ -118,33 +203,31 @@ LocationReport.create!(
     area: "関東",
     address: "東京都千代田区丸の内１丁目",
     date: "2022-07-10",
-    body: "修学旅行の集合が東京駅でした",
-    event: "京都修学旅行",
+    body: "確か丸の内から出たところにある本屋さんに久しぶりに行きました",
+    # event: "",
     publication_status: false,
     report_status: false
     )
 
-
-
 LocationReport.create!(
-    user_id: 2,
+    user_id: 5,
     title: "銀だこ",
     area: "関東",
     address: "東京都中央区八重洲１丁目５−１０ 井門八重洲ビル 1Ｆ 八重洲北口店",
     date: "2022-07-10",
-    body: "集合前に銀だこに行ってきました！！",
-    event: "京都修学旅行",
+    body: "意外と銀だこって高いから一つ一つを大切に食べてしまう",
+    # event: "",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 3,
+    user_id: 9,
     title: "スターバックスリザーブ",
     area: "関東",
     address: "東京都中央区銀座３丁目７−３ 銀座オーミビル 1F",
     date: "2019-11-10",
-    body: "目黒には入れなかったけど、東京駅は入れました。今度は友達といってみたい",
+    body: "目黒には入れなかったけど、東京駅の方のリザーブには入れました。",
     # event: "",
     publication_status: false,
     report_status: false
@@ -156,8 +239,8 @@ LocationReport.create!(
     area: "関東",
     address: "東京都中央区日本橋本町２丁目１−１ 武田グローバル本社ビル 1F",
     date: "2018-12-15",
-    body: "また誘われてしまった。ちょっと甘さ控えめのに今度からしよ",
-    # event: "",
+    body: "ちょっと甘さ控えめのに今度からしよ",
+    event: "学校帰り",
     publication_status: false,
     report_status: false
     )
@@ -168,8 +251,8 @@ LocationReport.create!(
     area: "関東",
     address: "東京都中央区銀座８丁目７−７ ジュノー銀座誠和ビル 7F",
     date: "2022-07-22",
-    body: "本当にいろいろあったバイト先！お皿割ってすみませんでした。",
-    # event: "",
+    body: "お皿割ってすみませんでした。",
+    event: "初めてのお皿割り",
     publication_status: false,
     report_status: false
     )
@@ -180,26 +263,26 @@ LocationReport.create!(
     area: "関東",
     address: "東京都中央区日本橋本石町１丁目１−９ B1",
     date: "2022-07-22",
-    body: "本当によくしてもらってるお店！今度は奢られないでちゃんと料理食べるぞ！",
-    # event: "",
+    body: "今度は奢られないでちゃんと料理食べるぞ！",
+    event: "お疲れさま会",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 2,
-    title: "もっと勉強すればよかった",
+    user_id: 8,
+    title: "オフィス街のど真ん中",
     area: "関東",
     address: "東京都千代田区内神田２丁目１３−１３",
     date: "2022-07-22",
-    body: "もっと勉強すればよかった。本当に後悔。",
+    body: "都会のど真ん中にある専門学校",
     # event: "",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 2,
+    user_id: 16,
     title: "最近は行けてない花火",
     area: "関東",
     address: "東京都大田区西六郷１丁目３０−４",
@@ -211,7 +294,7 @@ LocationReport.create!(
     )
 
 LocationReport.create!(
-    user_id: 3,
+    user_id: 15,
     title: "東京スカイツリー",
     area: "関東",
     address: "東京都墨田区押上１丁目１−２",
@@ -223,31 +306,31 @@ LocationReport.create!(
     )
 
 LocationReport.create!(
-    user_id: 3,
+    user_id: 13,
     title: "東京タワー",
     area: "関東",
     address: "東京都港区芝公園４丁目２−８",
     date: "2022-07-22",
     body: "夜に遠目で見るぐらいがちょうどいい！！後下から見上げるのもEVAっぽくていい",
-    # event: "",
+    event: "シンエヴァ",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 3,
+    user_id: 8,
     title: "成田空港",
     area: "関東",
     address: "千葉県成田市古込１−１",
     date: "2022-07-22",
-    body: "以前の就活で飛行機が飛ばなかった時は本当に心臓がバクバクでした。",
-    # event: "",
+    body: "裏事情で飛行場の中に民家があるらしい",
+    event: "",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 1,
+    user_id: 14,
     title: "横浜駅",
     area: "関東",
     address: "神奈川県横浜市西区高島２丁目",
@@ -259,20 +342,20 @@ LocationReport.create!(
     )
 
 LocationReport.create!(
-    user_id: 2,
+    user_id: 14,
     title: "納車記念で一泊！",
     area: "関東",
     address: "神奈川県横浜市中区山下町280ｰ2",
     date: "2022-07-22",
-    body: "いいホテルでした！楽しめたけど全ていい雰囲気のホテルでした。みなとみらいからは離れてるかな",
+    body: "みなとみらいからは離れてるかな",
     event: "納車記念",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 1,
-    title: "何かしらのイベントやってる",
+    user_id: 19,
+    title: "ロドイモさんいなかった",
     area: "関東",
     address: "神奈川県横浜市中区新港１丁目１",
     date: "2022-07-22",
@@ -283,36 +366,36 @@ LocationReport.create!(
     )
 
 LocationReport.create!(
-    user_id: 2,
+    user_id: 16,
     title: "ジャンプショップ横浜！！",
     area: "関東",
     address: "神奈川県横浜市西区みなとみらい２丁目２−１ ランドマークプラザ 2階 横浜・",
     date: "2022-07-22",
-    body: "この間行った時は大葉つぐみさんのラフ画があって買えばよかったと後悔したww",
+    body: "この間行った時は小畑健さんのラフ画があって買えばよかったと後悔したww",
     # event: "",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 3,
+    user_id: 15,
     title: "鶴岡八幡宮",
     area: "関東",
     address: "神奈川県鎌倉市雪ノ下２丁目１−３１",
-    date: "2022-07-22",
+    date: "2022-03-22",
     body: "勝ち守の効果はあるのかな？？だいたい結婚式やってるよね",
-    # event: "",
+    event: "初詣",
     publication_status: false,
     report_status: false
     )
 
 LocationReport.create!(
-    user_id: 1,
+    user_id: 6,
     title: "リッツカールトン沖縄",
     area: "沖縄",
     address: "沖縄県名護市喜瀬１３４３−１",
     date: "2022-07-22",
-    body: "いつか行ってみたいリッツカールトン",
+    body: "絶対行く",
     # event: "",
     publication_status: false,
     report_status: false
