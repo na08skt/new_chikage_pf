@@ -3,8 +3,8 @@
     <div class="row mb-5">
       <div class="col-3">
         <%= link_to edit_public_user_path(current_user) do %>
-          <% if current_user.image.present? %>
-            <%= image_tag current_user.image, class: "rounded-circle user-show-image" %>
+          <% if @user.image.present? %>
+            <%= image_tag @user.image, class: "rounded-circle user-show-image" %>
           <% else %>
             <div class="no-face-icon">
               <i style="font-size: 5rem; color: white;" class="bi bi-emoji-smile"></i>

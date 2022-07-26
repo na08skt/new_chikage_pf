@@ -40,6 +40,10 @@ class User < ApplicationRecord
     @user = User.where("account_name LIKE?", "%#{word}%")
   end
 
+  def get_profile_image
+    image.variant(resize_to_limit: [width, height]).processed
+  end
+
   # ユーザにフォローされてるかどうかを調べるメソッド
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
