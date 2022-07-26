@@ -18,7 +18,7 @@ class Admin::LocationReportsController < ApplicationController
     @comments = Comment.where(location_report_id: @location_report.id)
     @comments = @comments.page(params[:page]).per(6)
     session[:previous_url] = request.referer
-    gon.location_report = @location_report
+    gon.location_report = [@location_report]
   end
 
   def update

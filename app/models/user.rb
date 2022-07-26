@@ -25,10 +25,10 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :follower_id
   has_many :followers, through: :reverse_of_relationships, source: :following
 
-  validates :account_name, presence: true, uniqueness: true
+  validates :account_name, presence: true, uniqueness: true, length: { maximum: 15 }
   validates :email, presence: true, uniqueness: true
-  # validates :introduction, length: { maximum: 30 }
-  # validates :admin_comment, length: { maximum: 50 }
+  validates :introduction, length: { maximum: 30 }
+  validates :admin_comment, length: { maximum: 50 }
 
 
   # 検索

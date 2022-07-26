@@ -21,7 +21,7 @@ class Public::CommentsController < ApplicationController
     if comment.save
     flash[:notice] = 'コメントを残せました'
     redirect_to request.referrer || public_location_reports_path
-    else flash[:alert] = "入力に問題がありました。未記入や50文字以上は投稿できません"
+    else flash[:alert] = "入力に問題がありました。未記入や30文字以上は投稿できません"
       redirect_to request.referrer || public_location_reports_path
     end
   end
