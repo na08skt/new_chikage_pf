@@ -6,7 +6,6 @@
           <%= f.text_field :keyword, placeholder: '投稿に関しての検索はこちらから', class: "form_control search-form" %>
           <%= f.submit "キーワード検索", class: "btn btn-outline-light" %>
         <% end %>
-
         <div class="index-select-area">
           <%= form_with url: public_location_report_search_path, method: :get, local: true do |f| %>
             <%= f.select :keyword, [["北海道", "北海道"], ["東北", "東北"],["関東","関東"],["東海","東海"],
@@ -29,8 +28,9 @@
     <div class="row">
       <div class="col">
         <% if @results.present? %>
+        <p>1</p>
           <%= render "layouts/location_search", objects: @results%>
-        
+
           <!--検索した後のマップ-->
 
             <div id='map' class="top-map"></div>
@@ -92,10 +92,9 @@
             </script>
 
         <% else %>
-
           <%= render "layouts/location_search", objects: @location_reports%>
 
-     
+
           <!--通常状態-->
           <div id='map' class="top-map"></div>
 

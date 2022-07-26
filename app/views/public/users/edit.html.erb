@@ -1,6 +1,6 @@
 <% if current_user.id == 1%>
   <%= render "layouts/caution" %>
-<% elsif current_user != @user%>
+<% elsif current_user != @location_report%>
 <div class="bg-navy">
   <div class="container status-check-height">
     <div class="row">
@@ -10,13 +10,13 @@
     </div>
     <div class="row">
       <div class="col d-flex justify-content-center">
-        <h1 class="table-color">他のユーザの情報を編集することはできません</h1>
+        <h1 class="table-color">他のユーザーの情報を編集することはできません</h1>
       </div>
     </div>
     <div class="row">
       <div class="col d-flex justify-content-center">
         <%= link_to "MYPAGE", public_user_path(current_user), class: "btn btn-outline-danger btn-half-width mr-2" %>
-        <%= link_to "EDIT", edit_public_user_path(current_user), class: "btn btn-outline-info btn-half-width ml-2" %>
+        <%= link_to "USERS", public_users_path, class: "btn btn-outline-info btn-half-width ml-2" %>
       </div>
     </div>
   </div>
