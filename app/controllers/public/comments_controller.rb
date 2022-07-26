@@ -9,8 +9,14 @@ class Public::CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    @comment.update(comment_params)
-    redirect_to session[:previous_url]
+    if @comment.update(comment_params)
+      flash[:notice] = "コメントを残すことができました"
+      redirect_to session[:previous_url]
+    else
+      flash[:notice] = "コメントを残すことができませんでした"
+      redirect_to session[:previous_url]
+    end
+      
   end
 
   def create

@@ -1,62 +1,143 @@
-<div class="bg-navy location-show">
+<div class="bg-navy public-location-show">
   <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <h3 class="top_title">
-          ReportTitle:&nbsp;&nbsp;<%= @location_report.title%>
-        </h3>
-        <h3 class="yellow-font report-secound">
-          User:&nbsp;&nbsp;<%= @location_report.user.account_name%>
-        </h3>
-        <h5 class="show-body">
-          <%= @location_report.body%>
-        </h5>
-        <% if @location_report.image.present?%>
-          <%= image_tag @location_report.image, size: "500x300" %>
-        <% else %>
-          <%= image_tag "noimage.jpg" , size: "500x300",class: "no-image ml-5" %>
-        <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="top_title">
+            ReportTitle:&nbsp;&nbsp;<%= @location_report.title%>
+          </h3>
+          <h3 class="yellow-font report-secound">
+            User:&nbsp;&nbsp;<%= @location_report.user.account_name%>
+          </h3>
+          <% if @location_report.event.present?%>
+            <h3 class="yellow-font report-secound">
+              Event:<%= @location_report.event%>
+            </h3>
+          <% end %>
+          <h5 class="show-body">
+            <%= @location_report.body%>
+          </h5>
+          <% if @location_report.image.present?%>
+            <%= image_tag @location_report.image, size: "500x300", class: "mb-3" %>
+          <% else %>
+            <div class="d-flex justify-content-center">
+              <i style="font-size: 10rem;" class="bi bi-cloud-upload-fill table-color"></i>
+            </div>
+          <% end %>
+          <br>
 
-        <%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
-          <%= f.label :report_status, "管理者公開非公開設定：", class: "mt-4 status-setting yellow-font"%>
-          <%= f.select :report_status, [["公開",false], ["非公開",true]], class: "custom-select "%>
-          <%= f.submit "変更する", class: "btn btn-outline-danger ml-5 " %>
-        <% end %>
-      </div>
-      <div class="col-6">
-        <h3 class="comment-title yellow-font ml-3">
-          Comments
-        </h3>
-        <!--コメントの削除機能-->
-        <% if @comments.present? %>
-            <table>
-              <thead class="thead-light">
-                <tr>
-                  <th class="white-font">アカウントネーム</th>
-                  <th class="white-font">コメント</th>
-                  <th></th>
+        </div>
+        <div class="col-6">
+          <h3 class="address-title yellow-font ml-3">
+            Address
+          </h3>
+          <p class= "yellow-font" ><%= @location_report.address%></p>
+
+          <%= form_with model: @location_report, url: admin_location_report_path(@location_report), method: :patch do |f| %>
+            <%= f.label :report_status, "管理者公開非公開設定：", class: "yellow-font"%>
+            <%= f.select :report_status, [["公開",false], ["非公開",true]], class: "custom-select "%>
+            <%= f.submit "change", class: "btn btn-outline-danger ml-5 " %>
+          <% end %>
+
+          <h3 class="yellow-font mt-4 ml-3">
+            Comments
+          </h3>
+
+          <!--コメントの一覧・削除機能-->
+          <% if @comments.present? %>
+              <table class="mt-3">
+                <thead>
+                  <tr>
+                    <th class="white-font">アカウントネーム</th>
+                    <th class="white-font">コメント</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              <% @comments.each do |comment| %>
+                <tr class="mb-5">
+                  <td class="white-font mb-3"><%= comment.user.account_name %></td>
+                  <td class="white-font mb-3"><%= comment.body%></td>
+                  <td class="white-font mb-3"><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "ml-3 mb-3 btn btn-outline-danger" %></td>
                 </tr>
-              </thead>
-            <% @comments.each do |comment| %>
-              <tr>
-                <td class="white-font mb-3"><%= comment.user.account_name %></td>
-                <td class="white-font mb-3"><%= comment.body%></td>
-                <td class="white-font mb-3"><%= link_to "削除", admin_location_report_comment_path(@location_report, comment), method: :delete, class: "ml-3 mb-3 btn btn-outline-danger" %></td>
-              </tr>
-            <% end %>
-            </table>
-            <%= paginate @comments, class: "comment-paginate" %>
-        <% else%>
-          <p class="yellow-font">この記事にはまだコメントがついていないみたい。</p>
-        <% end %>
+              <% end %>
+
+              </table>
+
+              <div class="d-flex justify-content-center">
+                <%= paginate @comments %>
+              </div>
+
+
+          <% else%>
+            <p class="yellow-font mt-3">この記事にはまだコメントがついていないみたい。</p>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
+      <div class="row mb-3">
+        <div class="favorite-experience col-5">
+            <!-- いいねしてくれた人たち -->
+            <button type="button" class="user-show-btns btn btn-outline-danger" data-toggle="modal" data-target="#FavoriteModal">
+              いいねしてくれたユーザ
+            </button>
+            <div class="modal" id="FavoriteModal" tabindex="-1" role="dialog" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="favoriteModalLabel">いいねしてくれたユーザ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <% if @favorites.count == 0 %>
+                      <p>まだ誰もみてくれてないみたい！</p>
+                    <% else %>
+                      <% @favorites.each do |favorite| %>
+                        <%= link_to "#{favorite.user.account_name}", admin_user_path(favorite.user) %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<!--通常状態-->
-                <div id='map' class="top-map"></div>
+        <div class="row">
+          <div class="favorite-experience col-5 mb-3">              <!-- いったことのあるユーザ -->
+              <button type="button" class="user-show-btns btn btn-outline-warning" data-toggle="modal" data-target="#ExperiencesModal">
+                いったことのあるユーザ
+              </button>
+              <div class="modal" id="ExperiencesModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="experienceModalLabel">いったことのあるユーザ</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <% if @experiences.count == 0 %>
+                        <p>まだ、そんなに混んでいないのかも</p>
+                      <% else %>
+                        <% @experiences.each do |experiences| %>
+                          <%= link_to "#{experiences.user.account_name}", admin_user_path(experiences.user) %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                <div id='map' class="show-map"></div>
 
                 <script>
 

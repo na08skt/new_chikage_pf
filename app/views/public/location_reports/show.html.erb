@@ -28,7 +28,7 @@
             <%= @location_report.body%>
           </h5>
           <% if @location_report.image.present?%>
-            <%= image_tag @location_report.image, size: "500x300" %>
+            <%= image_tag @location_report.image, size: "500x300", class: "mb-3" %>
           <% else %>
             <div class="d-flex justify-content-center">
               <i style="font-size: 10rem;" class="bi bi-cloud-upload-fill table-color"></i>
@@ -48,7 +48,7 @@
           </h3>
 
           <!--コメントの新規投稿-->
-          <% if current_user.id == 1 %>
+          <% if current_user.id == 1  %>
             <!--guest ははじく-->
             <div class="ml-3">
               <p class="yellow-font">現在のユーザはゲストアカウントのため、機能が制限さています</p>

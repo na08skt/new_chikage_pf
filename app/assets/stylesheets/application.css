@@ -388,7 +388,8 @@ header {
 
 /*favorites*/
 .favorites-height {
-  height: 100vh;
+  height: 100%;
+  padding-bottom: 400px;
 }
 
 /*admin/user/index*/
@@ -416,4 +417,13 @@ header {
 
 .status-check-height {
   height: 100vh;
+}
+
+.over-wrap-bg {
+  height: 100vh;
+}
+
+.no-face-icon {
+  margin-left: 180px;
+  margin-top: 70px;
 }

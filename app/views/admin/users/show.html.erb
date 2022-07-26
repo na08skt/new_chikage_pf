@@ -5,7 +5,9 @@
         <% if @user.image.present? %>
           <%= image_tag @user.image, size: "200x200", class: "rounded-circle user-show-image"%>
         <% else %>
-          <%= image_tag "noimage.jpg" , size: "100x100",class: "rounded-circle user-show-image" %>
+          <div class="no-face-icon">
+            <i style="font-size: 5rem; color: white;" class="bi bi-emoji-smile"></i>
+          </div>
         <% end %>
       </div>
 

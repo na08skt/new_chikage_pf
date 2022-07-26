@@ -17,17 +17,20 @@ class Admin::LocationReportsController < ApplicationController
     @location_report = LocationReport.find(params[:id])
     @comments = Comment.where(location_report_id: @location_report.id)
     @comments = @comments.page(params[:page]).per(6)
+    @favorites = Favorite.where(location_report_id: @location_report.id)
+    @experiences = Experience.where(location_report_id: @location_report.id)
     session[:previous_url] = request.referer
     gon.location_report = [@location_report]
   end
 
   def update
     @location_report = LocationReport.find(params[:id])
-    @location_report.update(location_report_params)
-    redirect_to session[:previous_url]
-  end
-
-  def destroy
+    if @location_report.update(location_report_params)
+      flash[:notice] = "変更できました"
+      redirect_to session[:previous_url] || admin_location_reports_path
+    else flash[:alert] = "変更できませんでした"
+      redirect_to admin_location_report_path(@location_report) || admin_location_reports_path
+    end
   end
 
   def search

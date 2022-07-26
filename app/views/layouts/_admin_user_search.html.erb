@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col d-flex justify-content-center">
+    <table class="table mt-5">
+      <thead class="table-hover">
+          <tr>
+            <th class="table-color">Account_Name</th>
+            <th class="table-color">Email</th>
+            <th class="table-color">Condition</th>
+          </tr>
+        </thead>
+      <% objects.each do |obj| %>
+        <tbody>
+          <tr>
+            <th><%= link_to "#{obj.account_name}", admin_user_path(obj), class: "btn btn-outline-light w-100" %></th>
+            <td class= "table-color"><%= obj.email%></td>
+          <% if obj.user_condition == false%>
+            <td class="table-color">有効</td>
+          <% else %>
+            <td class="table-color">凍結</td>
+          <% end %>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col d-flex justify-content-center">
+    <%= paginate objects %>
+  </div>
+</div>

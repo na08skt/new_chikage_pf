@@ -4,7 +4,7 @@
       <i class="mt-5 bi bi-exclamation-triangle", style="font-size: 10rem; color: white;"></i>
     </div>
   </div>
-    <% if location_report.report_status == true %>
+    <% if location_report.report_status == true && current_user == location_report.user%>
       <div class="row">
         <div class="col d-flex justify-content-center">
           <h1 class="table-color">こちらのページは管理者によって制限されてしまいました。</h1>
@@ -24,7 +24,7 @@
     <% elsif location_report.publication_status == true && current_user == location_report.user %>
       <div class="row">
         <div class="col d-flex justify-content-center">
-          <h1 class="table-color">こちらのページはあなたが制限をかけられています。</h1>
+          <h1 class="table-color">こちらのページはあなたが制限をかけています。</h1>
         </div>
       </div>
       <div class="row">
