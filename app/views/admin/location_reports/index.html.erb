@@ -25,6 +25,8 @@
 
           <!--検索した後のマップ-->
 
+            <div id='map' class="top-map"></div>
+
             <script>
             let map;
             let geocoder;
@@ -86,6 +88,7 @@
           <%= render "layouts/admin_location_search", objects: @location_reports%>
 
           <!--通常状態-->
+          <div id='map' class="top-map"></div>
 
           <script>
           let map;
@@ -123,7 +126,7 @@
                       infoWindow[i] = new google.maps.InfoWindow({
                       // contentで中身を指定
                       // 今回は文字にリンクを貼り付けた形で表示
-                      content: `<a href='/public/location_reports/${id}'>${all_locations[i].title}</a>`
+                      content: `<a href='/admin/location_reports/${id}'>${all_locations[i].title}</a>`
                       });
                       // markerがクリックされた時、
                       marker[i].addListener("click", function(){

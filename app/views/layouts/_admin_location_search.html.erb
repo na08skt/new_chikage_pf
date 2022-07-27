@@ -17,7 +17,7 @@
         <% objects.each do |obj| %>
           <tr>
             <th><%= link_to obj.title, admin_location_report_path(obj), class: "btn btn-outline-light w-100"%></th>
-            <th><%= link_to obj.user.account_name, admin_user_path(obj), class: "btn btn-outline-light" %></th>
+            <th><%= link_to obj.user.account_name, admin_user_path(obj.user), class: "btn btn-outline-light w-100" %></th>
             <td class="table-color"><%= obj.area %></td>
             <td class="table-color"><%= obj.date %></td>
             <td class="table-color"><%= obj.favorites.count %></td>
