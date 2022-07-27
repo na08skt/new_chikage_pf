@@ -11,8 +11,8 @@
       <tbody>
         <% objects.each do |obj| %>
           <tr>
-            <th><%= link_to obj.title, public_location_report_path(obj), class: "btn btn-outline-light w-100"%></th>
-            <th><%= link_to obj.user.account_name, public_user_path(obj), class: "btn btn-outline-light w-100" %></th>
+            <td><%= link_to obj.title, public_location_report_path(obj), class: "btn btn-outline-light w-100"%></td>
+            <td><%= link_to obj.user.account_name, public_user_path(obj.user_id), class: "btn btn-outline-light w-100" %></td>
             <td class="table-color"><%= obj.area %></td>
             <td class="table-color"><%= obj.favorites.count%></td>
           </tr>
