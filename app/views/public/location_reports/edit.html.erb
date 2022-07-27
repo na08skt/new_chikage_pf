@@ -60,6 +60,11 @@
             <%= f.text_field :address, class: "form_control", placeholder: "〇〇県△△市XXXX", class: "form-control" %>
           </div>
 
+          <div class="form-group">
+            <%= f.label :image, class: "white-font location-new-small" %>
+            <%= f.file_field :image, class: "form_control_file"%>
+          </div>
+
             <%= f.label :publication_status, "publication_status", class: "white-font location-new-small" %>
             <%= f.select :publication_status, [["公開", "false"],["非公開", "true"]], class: "custom-select" %>
 
