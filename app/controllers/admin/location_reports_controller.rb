@@ -1,6 +1,8 @@
 class Admin::LocationReportsController < ApplicationController
-  # before_action :-----の後、userかadminで制限の対象を変更できる
   before_action :authenticate_admin!
+  AREA_ARRAY = [["北海道", "北海道"], ["東北", "東北"],["関東","関東"],["東海","東海"],
+            ["甲信越","甲信越"],["北陸","北陸"],["関西","関西"],["中国（山陰山陽）","中国（山陰山陽）"],
+            ["四国","四国"],["九州","九州"],["沖縄","沖縄"]]
 
   def top
     @users = User.all
@@ -9,6 +11,7 @@ class Admin::LocationReportsController < ApplicationController
   end
 
   def index
+    @area = AREA_ARRAY
     @location_reports = LocationReport.page(params[:page]).per(10)
     gon.locations = @location_reports
   end
@@ -34,6 +37,7 @@ class Admin::LocationReportsController < ApplicationController
   end
 
   def search
+    @area = AREA_ARRAY
     @results = LocationReport.search(params[:keyword])
     @results = @results.page(params[:page]).per(10)
     gon.searches = @results.page(params[:page]).per(10)

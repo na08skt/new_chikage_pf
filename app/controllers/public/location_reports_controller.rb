@@ -1,5 +1,8 @@
 class Public::LocationReportsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :new, :show, :destroy, :update, :create]
+  AREA_ARRAY = [["北海道", "北海道"], ["東北", "東北"],["関東","関東"],["東海","東海"],
+            ["甲信越","甲信越"],["北陸","北陸"],["関西","関西"],["中国（山陰山陽）","中国（山陰山陽）"],
+            ["四国","四国"],["九州","九州"],["沖縄","沖縄"]]
 
   def new
     @location_report = LocationReport.new
@@ -25,6 +28,7 @@ class Public::LocationReportsController < ApplicationController
   def index
     @location_reports = LocationReport.page(params[:page]).per(10)
     @all_locations = LocationReport.all
+    @area = AREA_ARRAY
     gon.all_locations = LocationReport.all
   end
 
@@ -33,6 +37,7 @@ class Public::LocationReportsController < ApplicationController
     @results = @results.page(params[:page]).per(10)
     gon.searches = @results.page(params[:page]).per(10)
     @word = params[:keyword]
+    @area = AREA_ARRAY
     render 'index'
   end
 
