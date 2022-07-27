@@ -177,7 +177,7 @@
                             infoWindow[i] = new google.maps.InfoWindow({
                             // contentで中身を指定
                             // 今回は文字にリンクを貼り付けた形で表示
-                            content: `<a href='/public/location_reports/${id}'>${location_report[i].title}</a>`
+                            content: `<a href='/admin/location_reports/${id}'>${location_report[i].title}</a>`
                             });
                             // markerがクリックされた時、
                             marker[i].addListener("click", function(){

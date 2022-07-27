@@ -1,6 +1,6 @@
 <% if current_user.id == 1 %>
   <%= render "layouts/caution" %>
-<% elsif current_user == @user %>
+<% elsif current_user != @location_report.user %>
   <div class="bg-navy">
     <div class="container status-check-height">
       <div class="row">

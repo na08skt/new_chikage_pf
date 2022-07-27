@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root to: "public/location_reports#top"
 
   namespace :admin do
-    resources :users, only: [:destroy, :index, :show, :edit, :update]
+    resources :users, only: [:destroy, :index, :show, :update]
     resources :location_reports, only: [:index, :show, :update] do
       resources :comments, only: [:edit, :destroy]
     end
