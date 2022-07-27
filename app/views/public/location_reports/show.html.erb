@@ -2,7 +2,8 @@
   <!--管理者が公開設定を非公開＆＆ログイン中のユーザが投稿主-->
   <% if @location_report.report_status == true && current_user == @location_report.user ||
   @location_report.report_status == true && current_user != @location_report.user ||
-  @location_report.publication_status == true && current_user != @location_report.user
+  @location_report.publication_status == true && current_user != @location_report.user ||
+  @location_report.publication_status == true && current_user == @location_report.user
   %>
     <%= render "layouts/status.check", location_report: @location_report %>ion_report: @location_report %>
   <!--投稿者も管理者も制限をかけていない時-->
