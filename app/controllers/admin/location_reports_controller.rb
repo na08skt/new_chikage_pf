@@ -11,6 +11,7 @@ class Admin::LocationReportsController < ApplicationController
   end
 
   def index
+    @area = AREA_ARRAY
     @location_reports = LocationReport.page(params[:page]).per(10)
     gon.locations = @location_reports
   end

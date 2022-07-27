@@ -28,6 +28,7 @@ class Public::LocationReportsController < ApplicationController
   def index
     @location_reports = LocationReport.page(params[:page]).per(10)
     @all_locations = LocationReport.all
+    @area = AREA_ARRAY
     gon.all_locations = LocationReport.all
   end
 
