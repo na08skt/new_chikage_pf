@@ -14,7 +14,7 @@ DWC 3ヶ月目の課題のポートフォリオを制作しました。<br>
 
 
 ## URL<br>
-http://18.180.162.2/users/sign_in　　<br>
+http://18.180.162.2<br>
 (chikageのtop画面に遷移できます)　　<br>
 　　<br>
 ## 使い方について　　<br>
